@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BookOnlineListener</string>
+    <string name="online_books_list_activity_title">audioknigi.club</string>
+    <string name="content_description_book_image_books_list">book_image</string>
 </resources>
