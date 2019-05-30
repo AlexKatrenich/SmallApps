@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.QuickContactBadge;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.yuliia.bookonlinelistener.R;
@@ -51,6 +53,8 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
                 , bookReader
                 , bookListenTime;
 
+        private AudioBook data;
+
 
         public BooksViewHolder(@NonNull View view) {
             super(view);
@@ -61,10 +65,16 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
             bookReader = view.findViewById(R.id.tv_books_list_reader);
             bookListenTime = view.findViewById(R.id.tv_books_listen_time);
             mContext = view.getContext();
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "Click on book: " + data.getTitle(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
-
         protected void bind(AudioBook book){
+            if(book != null) data = book;
             if(book.getTitle() != null) bookTitle.setText(book.getTitle());
             if (book.getAuthor() != null) bookGenre.setText(book.getGenre());
             if (book.getListenTime() != null) bookListenTime.setText(book.getListenTime());
