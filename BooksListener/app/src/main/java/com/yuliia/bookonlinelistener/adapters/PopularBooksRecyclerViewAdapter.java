@@ -1,6 +1,7 @@
 package com.yuliia.bookonlinelistener.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.yuliia.bookonlinelistener.R;
 import com.yuliia.bookonlinelistener.entity.AudioBook;
+import com.yuliia.bookonlinelistener.ui.ListenAudioBookActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,12 +67,12 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
             bookReader = view.findViewById(R.id.tv_books_list_reader);
             bookListenTime = view.findViewById(R.id.tv_books_listen_time);
             mContext = view.getContext();
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "Click on book: " + data.getTitle(), Toast.LENGTH_LONG).show();
-                }
-            });
+            view.setOnClickListener(v -> startActivity(data));
+        }
+
+        private void startActivity(AudioBook data) {
+            Intent intent = new Intent(mContext, ListenAudioBookActivity.class);
+            mContext.startActivity(intent);
         }
 
         protected void bind(AudioBook book){

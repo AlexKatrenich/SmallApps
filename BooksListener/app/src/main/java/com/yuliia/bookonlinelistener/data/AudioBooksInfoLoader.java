@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.yuliia.bookonlinelistener.entity.AudioBook;
-import com.yuliia.bookonlinelistener.ui.MainActivity;
+import com.yuliia.bookonlinelistener.ui.BooksListActivity;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,8 +17,8 @@ import java.util.List;
 
 public class AudioBooksInfoLoader {
     public static final String TAG = "AudioBooksInfoLoader";
-    private MainActivity mActivity;
-    private String mainRefference = "https://audioknigi.club/";
+    private BooksListActivity mActivity;
+    private String mainReference = "https://audioknigi.club/";
     private boolean isLoading = false;
     private static AudioBooksInfoLoader instance;
     private List<AudioBook> data;
@@ -34,20 +34,23 @@ public class AudioBooksInfoLoader {
         return instance;
     }
 
-    public void bind(MainActivity activity){
+    public void bind(BooksListActivity activity){
         mActivity = activity;
+
         if (data == null){
-            if (!isLoading){
-                isLoading = true;
-                mActivity.showProgressBar(true);
-                mActivity.showProgressStatus(0);
-                new Loader().execute(mainRefference);
-            }
+            loadData();
         } else {
             mActivity.updateList(data);
         }
+    }
 
-
+    public void loadData(){
+        if (!isLoading){
+            isLoading = true;
+            mActivity.showProgressBar(true);
+            mActivity.showProgressStatus(0);
+            new Loader().execute(mainReference);
+        }
     }
 
     public void unbind(){

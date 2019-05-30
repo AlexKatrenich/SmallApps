@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.yuliia.bookonlinelistener.R;
@@ -16,17 +17,18 @@ import com.yuliia.bookonlinelistener.entity.AudioBook;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class BooksListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private PopularBooksRecyclerViewAdapter mAdapter;
     private Toolbar mToolbar;
     private AudioBooksInfoLoader mLoader;
     private ProgressBar mProgressBar;
+    private ImageButton btnRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_books_list);
         init(savedInstanceState);
     }
 
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar.setMax(100);
 
         mLoader = AudioBooksInfoLoader.getInstance();
+        btnRefresh = findViewById(R.id.btn_refresh_book_list);
+        btnRefresh.setOnClickListener(v -> mLoader.loadData());
     }
 
     @Override
