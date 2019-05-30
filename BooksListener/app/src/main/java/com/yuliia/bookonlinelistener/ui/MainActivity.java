@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.yuliia.bookonlinelistener.R;
 import com.yuliia.bookonlinelistener.adapters.PopularBooksRecyclerViewAdapter;
+import com.yuliia.bookonlinelistener.data.AudioBooksInfoLoader;
 import com.yuliia.bookonlinelistener.entity.AudioBook;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private PopularBooksRecyclerViewAdapter mAdapter;
     private Toolbar mToolbar;
+    private AudioBooksInfoLoader mLoader;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +43,24 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(false);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        mProgressBar = findViewById(R.id.pb_books_list_download);
+        mProgressBar.setMax(100);
 
-        ArrayList<AudioBook> list = new ArrayList<>();
-        list.add(new AudioBook(1, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(2, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(3, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(4, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(5, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(6, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(7, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(8, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(9, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(10, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(11, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(12, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(13, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(14, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        list.add(new AudioBook(15, "Воровка", "ФАНТАСТИКА, ФЭНТЕЗИ", "Марина Милованова","Надежда Колганова" ,"8 часов 18 минут"));
-        mAdapter.setBooksList(list);
+        mLoader = AudioBooksInfoLoader.getInstance();
+    }
 
+    @Override
+    protected void onStart() {
+        mLoader.bind(this);
+        super.onStart();
+    }
+
+
+
+    @Override
+    protected void onStop() {
+        mLoader.unbind();
+        super.onStop();
     }
 
     @Override
@@ -63,5 +68,27 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(null);
         mRecyclerView.setAdapter(null);
         super.onDestroy();
+    }
+
+    public void updateList(List<AudioBook> list) {
+        mAdapter.setBooksList(list);
+    }
+
+    public void showProgressStatus(int status){
+        if(status >= 100){
+            mProgressBar.setProgress(100);
+        } else if(status < 0){
+            mProgressBar.setProgress(0);
+        } else {
+            mProgressBar.setProgress(status);
+        }
+    }
+
+    public void showProgressBar(boolean b){
+        if (b){
+            mProgressBar.setVisibility(View.VISIBLE);
+        } else {
+            mProgressBar.setVisibility(View.GONE);
+        }
     }
 }

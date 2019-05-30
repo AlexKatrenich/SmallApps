@@ -30,6 +30,16 @@
 
     </android.support.design.widget.AppBarLayout>
 
+    <ProgressBar
+        android:id="@+id/pb_books_list_download"
+        android:layout_width="match_parent"
+        style="?android:attr/progressBarStyleHorizontal"
+
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_online_books_list"
         android:layout_width="match_parent"
@@ -37,7 +47,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        app:layout_constraintTop_toBottomOf="@+id/pb_books_list_download">
 
     </android.support.v7.widget.RecyclerView>
 

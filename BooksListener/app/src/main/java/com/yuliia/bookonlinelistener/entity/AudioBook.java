@@ -4,19 +4,16 @@ import java.io.StringReader;
 import java.util.Objects;
 
 public class AudioBook {
-    private int id;
     private String title;
     private String genre;
     private String author;
     private String reader;
     private String listenTime;
 
-    public AudioBook(int id) {
-        this.id = id;
+    public AudioBook() {
     }
 
-    public AudioBook(int id, String title, String genre, String author, String reader, String listenTime) {
-        this.id = id;
+    public AudioBook(String title, String genre, String author, String reader, String listenTime) {
         this.title = title;
         this.genre = genre;
         this.author = author;
@@ -33,14 +30,6 @@ public class AudioBook {
     }
 
     private String imageLink;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -79,20 +68,18 @@ public class AudioBook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AudioBook audioBook = (AudioBook) o;
-        return id == audioBook.id &&
-                Objects.equals(title, audioBook.title);
+        return Objects.equals(title, audioBook.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title);
+        return Objects.hash(title);
     }
 
     @Override
     public String toString() {
         return "AudioBook{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", genre='" + genre + '\'' +
                 ", author='" + author + '\'' +
                 ", listenTime='" + listenTime + '\'' +
@@ -106,4 +93,5 @@ public class AudioBook {
     public void setReader(String reader) {
         this.reader = reader;
     }
+
 }

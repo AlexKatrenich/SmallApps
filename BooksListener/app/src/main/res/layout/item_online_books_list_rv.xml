@@ -12,6 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <android.support.design.card.MaterialCardView
             android:layout_width="100dp"
             android:layout_height="150dp"
@@ -41,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-light"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 tools:text="Попова Надежда - Стезя смерти" />
 
@@ -70,15 +71,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     tools:text="Попова Надежда"
-                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
@@ -92,15 +91,13 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     tools:text="Коршунов Геннадий"
-                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="wrap_content"
@@ -114,7 +111,6 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     tools:text="23 часа 50 минут"
-                    android:textStyle="bold"
                     android:layout_gravity="center_vertical"
                     />
             </LinearLayout>
