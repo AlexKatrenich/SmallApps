@@ -21,6 +21,7 @@ public class AudioBooksInfoLoader {
     private String mainRefference = "https://audioknigi.club/";
     private boolean isLoading = false;
     private static AudioBooksInfoLoader instance;
+    private List<AudioBook> data;
 
     private AudioBooksInfoLoader(){
 
@@ -35,12 +36,17 @@ public class AudioBooksInfoLoader {
 
     public void bind(MainActivity activity){
         mActivity = activity;
-        if (!isLoading){
-            isLoading = true;
-            mActivity.showProgressBar(true);
-            mActivity.showProgressStatus(0);
-            new Loader().execute(mainRefference);
+        if (data == null){
+            if (!isLoading){
+                isLoading = true;
+                mActivity.showProgressBar(true);
+                mActivity.showProgressStatus(0);
+                new Loader().execute(mainRefference);
+            }
+        } else {
+            mActivity.updateList(data);
         }
+
 
     }
 
@@ -124,6 +130,7 @@ public class AudioBooksInfoLoader {
         protected void onPostExecute(List<AudioBook> audioBooks) {
             super.onPostExecute(audioBooks);
             isLoading = false;
+            data = audioBooks;
             updateUI(audioBooks);
             mActivity.showProgressStatus(100);
             mActivity.showProgressBar(false);
