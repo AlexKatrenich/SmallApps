@@ -18,7 +18,6 @@ import java.util.List;
 public class AudioBooksInfoLoader {
     public static final String TAG = "AudioBooksInfoLoader";
     private BooksListActivity mActivity;
-    private String mainReference = "https://audioknigi.club/";
     private boolean isLoading = false;
     private static AudioBooksInfoLoader instance;
     private List<AudioBook> data;
@@ -49,6 +48,7 @@ public class AudioBooksInfoLoader {
             isLoading = true;
             mActivity.showProgressBar(true);
             mActivity.showProgressStatus(0);
+            String mainReference = "https://audioknigi.club/";
             new Loader().execute(mainReference);
         }
     }
@@ -139,4 +139,5 @@ public class AudioBooksInfoLoader {
             mActivity.showProgressBar(false);
         }
     }
+
 }

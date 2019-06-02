@@ -1,9 +1,9 @@
 package com.yuliia.bookonlinelistener.entity;
 
-import java.io.StringReader;
+import java.io.Serializable;
 import java.util.Objects;
 
-public class AudioBook {
+public class AudioBook implements Serializable {
     private String title;
     private String genre;
     private String author;

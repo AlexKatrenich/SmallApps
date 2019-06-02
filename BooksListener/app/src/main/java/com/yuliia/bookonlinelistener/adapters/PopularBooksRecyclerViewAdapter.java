@@ -8,9 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.yuliia.bookonlinelistener.R;
@@ -72,6 +70,7 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         private void startActivity(AudioBook data) {
             Intent intent = new Intent(mContext, ListenAudioBookActivity.class);
+            intent.putExtra(ListenAudioBookActivity.TAG_AUDIO_BOOK_TITLE, data);
             mContext.startActivity(intent);
         }
 
@@ -92,4 +91,5 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
         }
 
     }
+
 }
