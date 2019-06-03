@@ -9,6 +9,7 @@ public class AudioBook implements Serializable {
     private String author;
     private String reader;
     private String listenTime;
+    private String bookReference;
 
     public AudioBook() {
     }
@@ -94,4 +95,11 @@ public class AudioBook implements Serializable {
         this.reader = reader;
     }
 
+    public String getBookReference() {
+        return bookReference;
+    }
+
+    public void setBookReference(String bookReference) {
+        this.bookReference = bookReference;
+    }
 }

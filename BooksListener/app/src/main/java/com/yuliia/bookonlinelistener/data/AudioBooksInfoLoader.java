@@ -88,6 +88,8 @@ public class AudioBooksInfoLoader {
                     // getting book title
                     Elements bookTitle = doc.select("h3[class=ls-topic-title]").select("a").eq(i);
                     String title = bookTitle.text();
+                    String bookReference = bookTitle.attr("href");
+
 
                     // getting book genre
                     Elements bookGenre = doc.select("div[class=topic-blog]").select("a").eq(i);
@@ -113,6 +115,7 @@ public class AudioBooksInfoLoader {
 
                     AudioBook book = new AudioBook(title, genre, author, reader, listenTime);
                     book.setImageLink(refference);
+                    book.setBookReference(bookReference);
                     books.add(book);
                     publishProgress();
                 }

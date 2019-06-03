@@ -8,6 +8,7 @@ import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.yuliia.bookonlinelistener.R;
@@ -27,6 +28,7 @@ public class ListenAudioBookActivity extends AppCompatActivity {
     private TextView bookTitle, bookListenTime, bookAuthor, bookReader;
     private TextView trackTitle, trackCurrentTime, trackTotalTime;
     private AppCompatImageButton btnPlayStop;
+    private SeekBar mSeekBar;
 
     private boolean play = false;
 
@@ -58,11 +60,15 @@ public class ListenAudioBookActivity extends AppCompatActivity {
             if (play){
                 play = false;
                 btnPlayStop.setImageResource(R.drawable.ic_play);
+                AudioBookActivityController.getInstance().pausePlay();
             } else {
                 play = true;
                 btnPlayStop.setImageResource(R.drawable.ic_pause);
+                AudioBookActivityController.getInstance().startPlay();
             }
         });
+
+        mSeekBar = findViewById(R.id.sb_audio_track_line);
 
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
         trackList = findViewById(R.id.rv_audio_track_list);
@@ -72,10 +78,17 @@ public class ListenAudioBookActivity extends AppCompatActivity {
         trackList.setLayoutManager(layoutManager);
 
         Intent intent = getIntent();
-        AudioBook audioBook = (AudioBook) intent.getSerializableExtra(TAG_AUDIO_BOOK_TITLE);
-        AudioBookActivityController.getInstance().setAudioBook(audioBook);
+        String bookRef = intent.getStringExtra(TAG_AUDIO_BOOK_TITLE);
+        if (bookRef != null) AudioBookActivityController.getInstance().setBookReference(bookRef);
     }
 
+    public void setMaxDurationSeekBar(int duration){
+        mSeekBar.setMax(duration);
+    }
+
+    public void setSeekBarProgress(int progress){
+        mSeekBar.setProgress(progress);
+    }
 
     public void setBookinfo(AudioBook audioBook) {
         if (audioBook == null) return;

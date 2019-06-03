@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.yuliia.bookonlinelistener.R;
@@ -70,7 +71,12 @@ public class PopularBooksRecyclerViewAdapter extends RecyclerView.Adapter<Popula
 
         private void startActivity(AudioBook data) {
             Intent intent = new Intent(mContext, ListenAudioBookActivity.class);
-            intent.putExtra(ListenAudioBookActivity.TAG_AUDIO_BOOK_TITLE, data);
+            String bookRef = data.getBookReference();
+            if(bookRef != null) {
+                intent.putExtra(ListenAudioBookActivity.TAG_AUDIO_BOOK_TITLE, bookRef);
+            } else {
+                Toast.makeText(mContext, "Something wrong in load data...", Toast.LENGTH_SHORT).show();
+            }
             mContext.startActivity(intent);
         }
 

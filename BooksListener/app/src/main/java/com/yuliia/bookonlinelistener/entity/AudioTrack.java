@@ -12,6 +12,9 @@ public class AudioTrack {
     public AudioTrack() {
     }
 
+    public AudioTrack(String title) {
+        this.title = title;
+    }
 
     public String getTitle() {
         return title;
@@ -64,7 +67,6 @@ public class AudioTrack {
         return "AudioTrack{" +
                 "title='" + title + '\'' +
                 ", isSelected=" + isSelected +
-                ", playTime='" + playTime + '\'' +
                 '}';
     }
 }
