@@ -79,7 +79,7 @@ public class ListenAudioBookActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String bookRef = intent.getStringExtra(TAG_AUDIO_BOOK_TITLE);
-        if (bookRef != null) AudioBookActivityController.getInstance().setBookReference(bookRef);
+        if (bookRef != null && savedInstanceState == null) AudioBookActivityController.getInstance().setBookReference(bookRef);
     }
 
     public void setMaxDurationSeekBar(int duration){

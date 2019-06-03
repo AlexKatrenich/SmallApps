@@ -42,7 +42,7 @@ public class AudioBookActivityController implements MediaPlayer.OnPreparedListen
     public void bind(ListenAudioBookActivity activity){
         mActivity = activity;
         mediaPlayer = new MediaPlayer();
-        if (mAudioBook != null && mAudioTracks != null) {
+        if (mAudioBook != null) {
             updateUI();
         } else {
             loadBook();
@@ -88,6 +88,7 @@ public class AudioBookActivityController implements MediaPlayer.OnPreparedListen
 
     public void setBookReference(String bookReference) {
         this.bookReference = bookReference;
+        loadBook();
     }
 
     @Override
@@ -167,7 +168,7 @@ public class AudioBookActivityController implements MediaPlayer.OnPreparedListen
         protected Void doInBackground(Void... voids) {
 
             while (mActivity != null){
-                int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
+                int mCurrentPosition = mediaPlayer.getCurrentPosition();
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
