@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yuliia.bookonlinelistener.R;
+import com.yuliia.bookonlinelistener.data.AudioBookActivityController;
 import com.yuliia.bookonlinelistener.entity.AudioTrack;
 
 import java.util.ArrayList;
@@ -38,6 +39,12 @@ public class AudioTracksRecyclerViewAdapter extends RecyclerView.Adapter<AudioTr
 
     public void setTracks(List<AudioTrack> tracks){
         mTracks = tracks;
+        boolean hasSelected = false;
+        for (AudioTrack t: mTracks) {
+            if(t.isSelected()) hasSelected = true;
+        }
+
+        if (!hasSelected && mTracks.size() > 0) mTracks.get(0).setSelected(true);
         notifyDataSetChanged();
     }
 
@@ -45,7 +52,6 @@ public class AudioTracksRecyclerViewAdapter extends RecyclerView.Adapter<AudioTr
         for (AudioTrack t : mTracks) {
             if (!t.equals(track)) t.setSelected(false);
         }
-
         notifyDataSetChanged();
     }
 
@@ -61,6 +67,7 @@ public class AudioTracksRecyclerViewAdapter extends RecyclerView.Adapter<AudioTr
                 data.setSelected(true);
                 trackCaption.setBackgroundColor(Color.YELLOW);
                 changeSelectedItem(data);
+                AudioBookActivityController.getInstance().setCurrentTrack(data);
             });
         }
 

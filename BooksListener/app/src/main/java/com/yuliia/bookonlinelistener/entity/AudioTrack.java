@@ -16,6 +16,11 @@ public class AudioTrack {
         this.title = title;
     }
 
+    public AudioTrack(String title, String loadRefference) {
+        this.title = title;
+        this.loadRefference = loadRefference;
+    }
+
     public String getTitle() {
         return title;
     }

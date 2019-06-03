@@ -15,7 +15,7 @@
         android:paddingEnd="10dp"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:textSize="18sp"
+        android:textSize="14sp"
         tools:text="200. Стезя Смерти"/>
 
     <View

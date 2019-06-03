@@ -30,8 +30,6 @@ public class ListenAudioBookActivity extends AppCompatActivity {
     private AppCompatImageButton btnPlayStop;
     private SeekBar mSeekBar;
 
-    private boolean play = false;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +55,16 @@ public class ListenAudioBookActivity extends AppCompatActivity {
 
         btnPlayStop = findViewById(R.id.btn_stop_play_audio_track);
         btnPlayStop.setOnClickListener(v -> {
-            if (play){
-                play = false;
-                btnPlayStop.setImageResource(R.drawable.ic_play);
-                AudioBookActivityController.getInstance().pausePlay();
-            } else {
-                play = true;
+            AudioBookActivityController.PlayerStatus status = AudioBookActivityController.getInstance().getPlayerStatus();
+            if (status == AudioBookActivityController.PlayerStatus.DESTROYED){
                 btnPlayStop.setImageResource(R.drawable.ic_pause);
                 AudioBookActivityController.getInstance().startPlay();
+            } else if (status == AudioBookActivityController.PlayerStatus.PAUSED) {
+                btnPlayStop.setImageResource(R.drawable.ic_pause);
+                AudioBookActivityController.getInstance().startPlay();
+            } else {
+                btnPlayStop.setImageResource(R.drawable.ic_play);
+                AudioBookActivityController.getInstance().pausePlay();
             }
         });
 
@@ -115,5 +115,13 @@ public class ListenAudioBookActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         AudioBookActivityController.getInstance().unbind();
+    }
+
+    public void setSelectedTrack(AudioTrack track) {
+        if (track != null) trackTitle.setText(track.getTitle());
+    }
+
+    public void changePlayIcon(boolean b) {
+        btnPlayStop.setImageResource(b == true ? R.drawable.ic_play : R.drawable.ic_pause);
     }
 }
