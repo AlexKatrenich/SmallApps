@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.MainScreenActivity">
+
+    <android.support.design.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_margin="30dp"
+        app:cardCornerRadius="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="2dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/main_image_logo_content_description"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_img_klara"
+            app:srcCompat="@drawable/main_img_klara" />
+    </android.support.design.card.MaterialCardView>
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btn_range_main_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MainActivityButtonsStyle"
+        android:text="@string/btn_range_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btn_patties_main_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MainActivityButtonsStyle"
+        android:text="@string/btn_patties_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_range_main_activity" />
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btn_vacancy_main_activity"
+        style="@style/MainActivityButtonsStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_vacancy_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_patties_main_activity" />
+
+</android.support.constraint.ConstraintLayout>

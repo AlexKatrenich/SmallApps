@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Klara</string>
+    <string name="main_image_logo_content_description">Main image logo</string>
+    <string name="btn_range_text">Асортимент</string>
+    <string name="btn_patties_text">Наші пиріжкові</string>
+    <string name="btn_vacancy_text">Вакансії</string>
+
 </resources>
