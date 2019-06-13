@@ -4,5 +4,7 @@
     <string name="btn_range_text">Асортимент</string>
     <string name="btn_patties_text">Наші пиріжкові</string>
     <string name="btn_vacancy_text">Вакансії</string>
+    <string name="main_phone_number">0 800 30 28 77</string>
+    <string name="main_email_value">info@klara.ua</string>
 
 </resources>
