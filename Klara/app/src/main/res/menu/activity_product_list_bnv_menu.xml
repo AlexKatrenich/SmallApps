@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/bnv_menu_all_item"
+        android:icon="@drawable/ic_all_products"
+        android:title=""/>
+
+    <item
+        android:id="@+id/bnv_menu_patty_item"
+        android:icon="@drawable/ic_patty"
+        android:title=""/>
+    <item
+        android:id="@+id/bnv_menu_cake_item"
+        android:icon="@drawable/ic_cake"
+        android:title=""/>
+    <item
+        android:id="@+id/bnv_menu_drinks_item"
+        android:icon="@drawable/ic_coffee"
+        android:title=""/>
+
+    <item
+        android:id="@+id/bnv_menu_salad_item"
+        android:icon="@drawable/ic_salad"
+        android:title=""/>
+
+</menu>
