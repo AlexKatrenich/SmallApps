@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="position"
+            type="Integer" />
+        
+        <variable
+            name="viewmodel"
+            type="com.katrenich.alex.klara.assortmentScreen.viewmodel.ProductListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{() -> viewmodel.onItemClick(position)}"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_product_item_caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="textStart"
+                android:text="@{viewmodel.getProductAt(position).name}"
+                tools:text="Пиріжок з рибою" />
+
+            <TextView
+                android:id="@+id/tv_product_item_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewmodel.getProductAt(position).weight)}"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                tools:text="90 г" />
+
+            <TextView
+                android:id="@+id/tv_product_item_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(viewmodel.getProductAt(position).price)}"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                tools:text="14 грн" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccent"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+    </LinearLayout>
+
+</layout>
