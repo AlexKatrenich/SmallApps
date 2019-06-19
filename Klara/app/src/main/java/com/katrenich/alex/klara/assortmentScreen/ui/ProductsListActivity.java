@@ -1,32 +1,31 @@
 package com.katrenich.alex.klara.assortmentScreen.ui;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.viewmodel.ProductListViewModel;
 import com.katrenich.alex.klara.databinding.ActivityProductsListBinding;
-import com.katrenich.alex.klara.model.Product;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProductsListActivity extends AppCompatActivity {
     private static final String TAG = "ProductsListActivity";
-    @BindView(R.id.tb_activity_product_list)
-    protected Toolbar mToolbar;
     @BindView(R.id.rv_product_list_activity)
     protected RecyclerView rvProductList;
 
     private ProductListViewModel mViewModel;
+    protected Toolbar mToolbar;
+
+    protected BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,13 +43,39 @@ public class ProductsListActivity extends AppCompatActivity {
         }
         binding.setModel(mViewModel);
         setupListUpdate();
-
+        mToolbar = findViewById(R.id.tb_product_list_activity);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
-        Log.i(TAG, "init done");
+        mBottomNavigationView = findViewById(R.id.bnv_product_list_activity);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            switch (menuItem.getItemId()){
+
+                case R.id.bnv_menu_all_item: {
+                    mViewModel.showAllProducts();
+                    return true;
+                }
+                case R.id.bnv_menu_cake_item: {
+                    mViewModel.showCakeProducts();
+                    return true;
+                }
+                case R.id.bnv_menu_drinks_item: {
+                    mViewModel.showDrinkProducts();
+                    return true;
+                }
+                case R.id.bnv_menu_patty_item: {
+                    mViewModel.showPattyProducts();
+                    return true;
+                }
+                case R.id.bnv_menu_salad_item: {
+                    mViewModel.showSaladProducts();
+                    return true;
+                }
+            }
+            return false;
+        });
     }
 
     private void setupListUpdate() {

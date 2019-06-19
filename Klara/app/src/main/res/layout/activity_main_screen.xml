@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".mainScreen.ui.MainScreenActivity">
 
     <data>
 
@@ -9,120 +11,152 @@
             type="com.katrenich.alex.klara.mainScreen.viewmodel.ClickHandler" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mainScreen.ui.MainScreenActivity">
+        android:layout_width="match_parent">
 
-        <android.support.design.card.MaterialCardView
-            android:id="@+id/materialCardView"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/abl_main_activity"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:layout_margin="30dp"
-            app:cardCornerRadius="3dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="@color/colorAccent"
-            app:strokeWidth="2dp">
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
 
-            <ImageView
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/ctl_main_activity"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/main_image_logo_content_description"
-                android:scaleType="centerCrop"
-                android:src="@drawable/main_img_klara"
-                app:srcCompat="@drawable/main_img_klara" />
+                android:layout_height="wrap_content"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleGravity="top"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:fitsSystemWindows="true"
+                app:title="@string/main_activity_toolbar_caption"
+                app:titleEnabled="false">
 
-        </android.support.design.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:contentDescription="@string/main_image_logo_content_description"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/main_img_klara"
+                    app:srcCompat="@drawable/main_img_klara"
+                    app:layout_collapseMode="pin"/>
 
-        <android.support.design.button.MaterialButton
-            android:id="@+id/btn_range_main_activity"
-            style="@style/MainActivityButtonsStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{handler::onRangeButtonClicked}"
-            android:text="@string/btn_range_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/tb_activity_main"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"/>
 
-        <android.support.design.button.MaterialButton
-            android:id="@+id/btn_patties_main_activity"
-            style="@style/MainActivityButtonsStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{handler::onPattiesButtonClicked}"
-            android:text="@string/btn_patties_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_range_main_activity" />
+            </android.support.design.widget.CollapsingToolbarLayout>
 
-        <android.support.design.button.MaterialButton
-            android:id="@+id/btn_vacancy_main_activity"
-            style="@style/MainActivityButtonsStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="@{handler::onVacancyButtonClicked}"
-            android:text="@string/btn_vacancy_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_patties_main_activity" />
+        </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/main_activity_views_top_margin"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_vacancy_main_activity">
+            android:layout_height="match_parent"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:text="@string/main_phone_number"
-                android:onClick="@{handler::onPhoneNumberClicked}"/>
-        </LinearLayout>
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/btn_range_main_activity"
+                    style="@style/MainActivityButtonsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{handler::onRangeButtonClicked}"
+                    android:text="@string/btn_range_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteY="322dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/main_activity_views_top_margin"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/btn_patties_main_activity"
+                    style="@style/MainActivityButtonsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{handler::onPattiesButtonClicked}"
+                    android:text="@string/btn_patties_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_range_main_activity" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_email"/>
+                <android.support.design.button.MaterialButton
+                    android:id="@+id/btn_vacancy_main_activity"
+                    style="@style/MainActivityButtonsStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{handler::onVacancyButtonClicked}"
+                    android:text="@string/btn_vacancy_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_patties_main_activity" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/main_email_value"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{handler::onEmailClicked}"/>
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/main_activity_views_top_margin"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_vacancy_main_activity">
 
-        </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_phone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@string/main_phone_number"
+                        android:onClick="@{handler::onPhoneNumberClicked}"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/main_activity_views_top_margin"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_email"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/main_email_value"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:onClick="@{handler::onEmailClicked}"/>
+
+                </LinearLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
 </layout>

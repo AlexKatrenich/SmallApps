@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.AppBarLayout
-            android:id="@+id/appBarLayout_product_list_activity"
+            android:id="@+id/abl_product_list_activity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,11 +25,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tb_activity_product_list"
+                android:id="@+id/tb_product_list_activity"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:title=" " />
+                app:title="@string/product_list_activity_toolbar_title"
+                app:titleMarginStart="20dp"/>
 
         </android.support.design.widget.AppBarLayout>
 
@@ -40,14 +40,15 @@
             android:layout_height="wrap_content"
             android:visibility="@{model.loading}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout_product_list_activity" />
+            app:layout_constraintTop_toBottomOf="@+id/abl_product_list_activity" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_product_list_activity"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+            app:layout_constraintBottom_toTopOf="@+id/bnv_product_list_activity"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progressBar"
@@ -55,7 +56,7 @@
 
 
         <android.support.design.widget.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
+            android:id="@+id/bnv_product_list_activity"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
