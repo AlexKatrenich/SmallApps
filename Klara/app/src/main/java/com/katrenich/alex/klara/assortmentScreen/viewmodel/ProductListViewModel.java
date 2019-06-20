@@ -14,9 +14,17 @@ import com.katrenich.alex.klara.model.PattyProduct;
 import com.katrenich.alex.klara.model.Product;
 import com.katrenich.alex.klara.model.Products;
 import com.katrenich.alex.klara.model.SaladProduct;
+import com.katrenich.alex.klara.net.NetworkService;
+import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
+
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class ProductListViewModel extends ViewModel {
@@ -24,11 +32,14 @@ public class ProductListViewModel extends ViewModel {
     public ObservableInt loading;
     private ProductListAdapter mAdapter;
     private Products mProducts;
+    public MutableLiveData<Boolean> dataWasLoaded;
 
     public void init(){
         loading = new ObservableInt(View.GONE);
         mAdapter = new ProductListAdapter(R.layout.product_list_item, this);
         mProducts = new Products();
+        dataWasLoaded = new MutableLiveData<>();
+        dataWasLoaded.setValue(false);
     }
 
     public ProductListAdapter getAdapter(){
@@ -36,7 +47,11 @@ public class ProductListViewModel extends ViewModel {
     }
 
     public void fetchList(){
-        mProducts.fetchList();
+        if (dataWasLoaded.getValue()) {
+            mProducts.setCurrentListProducts(mProducts.getAllProducts());
+        } else {
+            loadData();
+        }
     }
 
     public MutableLiveData<List<Product>> getProducts(){
@@ -114,5 +129,34 @@ public class ProductListViewModel extends ViewModel {
             }
         }
         mProducts.setCurrentListProducts(saladProducts);
+    }
+
+    private void loadData(){
+        // отримання Single-об'єктів з сайту
+        Single<Document> documentCakes = NetworkService.getInstance().getKlaraWebSiteInfo().getCakeProductsCatalog();
+        Single<Document> documentDrinks = NetworkService.getInstance().getKlaraWebSiteInfo().getDrinkProductsCatalog();
+        Single<Document> documentPatty = NetworkService.getInstance().getKlaraWebSiteInfo().getPattyProductsCatalog();
+        Single<Document> documentSalad = NetworkService.getInstance().getKlaraWebSiteInfo().getSaladProductsCatalog();
+
+        // перетворення об'єктів в потоки зі списками
+        Single<List<Product>> listCakes = documentCakes.subscribeOn(Schedulers.io()).map(document -> KlaraWebSiteHtmlParser.parseListProducts(document, KlaraWebSiteHtmlParser.ProductType.CAKES));
+        Single<List<Product>> listDrinks = documentDrinks.subscribeOn(Schedulers.io()).map(document -> KlaraWebSiteHtmlParser.parseListProducts(document, KlaraWebSiteHtmlParser.ProductType.DRINKS));
+        Single<List<Product>> listPatties = documentPatty.subscribeOn(Schedulers.io()).map(document -> KlaraWebSiteHtmlParser.parseListProducts(document, KlaraWebSiteHtmlParser.ProductType.PATTIES));
+        Single<List<Product>> listSalad = documentSalad.subscribeOn(Schedulers.io()).map(document -> KlaraWebSiteHtmlParser.parseListProducts(document, KlaraWebSiteHtmlParser.ProductType.SALADS));
+
+        listCakes.zipWith(listDrinks, (products, products2) -> {
+            products.addAll(products2);
+            return products;
+        }).zipWith(listPatties, (products, products2) -> {
+            products.addAll(products2);
+            return products;
+        }).zipWith(listSalad, (products, products2) -> {
+            products.addAll(products2);
+            return products;
+        }).observeOn(AndroidSchedulers.mainThread()).subscribe(products -> {
+            dataWasLoaded.setValue(true);
+            mProducts.addToAllProducts(products);
+            Log.i(TAG, "loadData: 4");
+        }, Throwable::printStackTrace);
     }
 }

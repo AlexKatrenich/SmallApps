@@ -14,13 +14,9 @@ import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.viewmodel.ProductListViewModel;
 import com.katrenich.alex.klara.databinding.ActivityProductsListBinding;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ProductsListActivity extends AppCompatActivity {
     private static final String TAG = "ProductsListActivity";
-    @BindView(R.id.rv_product_list_activity)
-    protected RecyclerView rvProductList;
 
     private ProductListViewModel mViewModel;
     protected Toolbar mToolbar;
@@ -31,7 +27,6 @@ public class ProductsListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products_list);
-        ButterKnife.bind(this);
         init(savedInstanceState);
     }
 
@@ -80,7 +75,7 @@ public class ProductsListActivity extends AppCompatActivity {
 
     private void setupListUpdate() {
         mViewModel.loading.set(View.VISIBLE);
-        mViewModel.fetchList();
+        mViewModel.dataWasLoaded.observe(this, aBoolean -> mViewModel.fetchList());
         mViewModel.getProducts().observe(this, products -> {
             mViewModel.loading.set(View.GONE);
             mViewModel.setProductsInAdapter(products);

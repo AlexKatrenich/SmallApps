@@ -1,6 +1,7 @@
 package com.katrenich.alex.klara.model;
 
 public class SaladProduct extends Product {
+    public SaladProduct(){}
 
     public SaladProduct(String name) {
         super(name);

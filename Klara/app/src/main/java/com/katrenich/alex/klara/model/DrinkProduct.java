@@ -2,6 +2,8 @@ package com.katrenich.alex.klara.model;
 
 public class DrinkProduct extends Product {
 
+    public DrinkProduct(){}
+
     public DrinkProduct(String name) {
         super(name);
     }

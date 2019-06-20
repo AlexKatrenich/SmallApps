@@ -7,6 +7,9 @@ public class Product {
     private Integer weight; // 1000 = 1000 gram or ml
     private Integer price; // 1000 = 10.00 UAH
 
+    public Product() {
+    }
+
     public Product(String name) {
         this.name = name;
     }
