@@ -2,30 +2,32 @@ package com.katrenich.alex.klara.model;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BaseObservable;
+import android.util.Log;
 
-import com.katrenich.alex.klara.Mock;
 import com.katrenich.alex.klara.net.NetworkService;
+import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
 
 import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class Products extends BaseObservable {
-    private MutableLiveData<List<Product>> products = new MutableLiveData<>();
+    private static final String TAG = "Products";
+    private MutableLiveData<List<Product>> currentProducts = new MutableLiveData<>();
     private List<Product> allProducts = new ArrayList<>();
 
-    public MutableLiveData<List<Product>> getProducts() {
-        return products;
+    public MutableLiveData<List<Product>> getCurrentProducts() {
+        return currentProducts;
     }
 
     public void setCurrentListProducts(List<Product> products){
-        this.products.setValue(products);
+        this.currentProducts.setValue(products);
     }
 
     public List<Product> getAllProducts(){
@@ -33,9 +35,25 @@ public class Products extends BaseObservable {
     }
 
     public void fetchList(){
-        products.setValue(Mock.getProductList());
-        allProducts.addAll(Mock.getProductList());
+        Log.i(TAG, "fetchList: ");
+        fetchCakeProductList();
+    }
 
-
+    private void fetchCakeProductList(){
+        Log.i(TAG, "fetchCakeProductList: ");
+        Single<Document> document = NetworkService.getInstance().getKlaraWebSiteInfo().getCakeProductsCatalog();
+        document.subscribeOn(Schedulers.io())
+                .map(KlaraWebSiteHtmlParser::parseListCakeProducts)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(cakeProducts -> {
+                            for (CakeProduct cp : cakeProducts) {
+                                allProducts.add(cp);
+                                Log.i(TAG, "fetchCakeProductList: 1" + cp);
+                            }
+                            setCurrentListProducts(allProducts);
+                }
+                , throwable -> {
+                            Log.e(TAG, "fetchCakeProductList: ", throwable);
+                        });
     }
 }

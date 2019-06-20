@@ -1,7 +1,6 @@
 package com.katrenich.alex.klara.net;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.katrenich.alex.klara.net.utils.KlaraPageConverterFactory;
 
 import retrofit2.Retrofit;
 

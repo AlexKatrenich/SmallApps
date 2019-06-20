@@ -2,13 +2,23 @@ package com.katrenich.alex.klara.net;
 
 import org.jsoup.nodes.Document;
 
-import io.reactivex.Flowable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 
 public interface KlaraWebSiteQueries {
 
-    @GET("{path}")
-    Flowable<Document> getData(@Path("path") String path);
+    @GET("catalog")
+    Single<Document> getProductsCatalog();
 
+    @GET("catalog/deserti/")
+    Single<Document> getCakeProductsCatalog();
+
+    @GET("catalog/pirizhki/")
+    Single<Document> getPattyProductsCatalog();
+
+    @GET("catalog/napoi/")
+    Single<Document> getDrinkProductsCatalog();
+
+    @GET("catalog/salaty/")
+    Single<Document> getSaladProductsCatalog();
 }

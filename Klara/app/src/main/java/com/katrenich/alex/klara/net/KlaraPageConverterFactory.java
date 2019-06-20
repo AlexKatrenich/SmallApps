@@ -1,4 +1,4 @@
-package com.katrenich.alex.klara.net.utils;
+package com.katrenich.alex.klara.net;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

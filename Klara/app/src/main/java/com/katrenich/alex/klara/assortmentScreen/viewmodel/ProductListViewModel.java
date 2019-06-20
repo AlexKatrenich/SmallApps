@@ -40,7 +40,7 @@ public class ProductListViewModel extends ViewModel {
     }
 
     public MutableLiveData<List<Product>> getProducts(){
-        return mProducts.getProducts();
+        return mProducts.getCurrentProducts();
     }
 
     public void setProductsInAdapter(List<Product> products){
@@ -53,12 +53,10 @@ public class ProductListViewModel extends ViewModel {
     }
 
     public Product getProductAt(Integer position){
-        Log.i(TAG, "getProductAt position:  " + mProducts.getProducts().getValue().get(position));
-        if (mProducts.getProducts().getValue() != null &&
-                mProducts.getProducts().getValue().size() > position){
+        if (mProducts.getCurrentProducts().getValue() != null &&
+                mProducts.getCurrentProducts().getValue().size() > position){
 
-            Log.i(TAG, "getProductAt position:  " + mProducts.getProducts().getValue().get(position));
-            return mProducts.getProducts().getValue().get(position);
+            return mProducts.getCurrentProducts().getValue().get(position);
         }
         return null;
     }
