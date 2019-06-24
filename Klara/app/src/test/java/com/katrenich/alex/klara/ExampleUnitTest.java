@@ -53,25 +53,6 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void testGetNumberFromText(){
-        String[] s = {"15 г", "15 грн", "//15 грн'", "'15 '", "15 ", "15"};
-        try {
-            for (int i = 0; i < s.length; i++) {
-                Integer j = KlaraWebSiteHtmlParser.getNumberFromText(s[i]);
-                if (j != null) {
-                    System.out.println(j);
-                    assertEquals(j.intValue(), 15);
-                } else {
-                    System.err.println("integer == null");
-                }
-            }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
     public void getAllProducts(){
         Single<Document> documentCakes = NetworkService.getInstance().getKlaraWebSiteInfo().getCakeProductsCatalog();
         Single<Document> documentDrinks = NetworkService.getInstance().getKlaraWebSiteInfo().getDrinkProductsCatalog();

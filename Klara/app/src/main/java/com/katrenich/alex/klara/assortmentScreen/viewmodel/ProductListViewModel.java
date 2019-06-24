@@ -33,6 +33,7 @@ public class ProductListViewModel extends ViewModel {
     private ProductListAdapter mAdapter;
     private Products mProducts;
     public MutableLiveData<Boolean> dataWasLoaded;
+    private Integer bnvState;
 
     public void init(){
         loading = new ObservableInt(View.GONE);
@@ -40,6 +41,7 @@ public class ProductListViewModel extends ViewModel {
         mProducts = new Products();
         dataWasLoaded = new MutableLiveData<>();
         dataWasLoaded.setValue(false);
+        bnvState = null;
     }
 
     public ProductListAdapter getAdapter(){
@@ -48,10 +50,22 @@ public class ProductListViewModel extends ViewModel {
 
     public void fetchList(){
         if (dataWasLoaded.getValue()) {
-            mProducts.setCurrentListProducts(mProducts.getAllProducts());
+            if(bnvState == null){
+                List<Product> productList = mProducts.getAllProducts();
+                Log.i(TAG, "fetchList: " + productList);
+                mProducts.setCurrentListProducts(productList);
+            }
         } else {
             loadData();
         }
+    }
+
+    public void saveBnvState(int i){
+        bnvState = i;
+    }
+
+    public Integer restoreBnvState(){
+        return bnvState;
     }
 
     public MutableLiveData<List<Product>> getProducts(){
@@ -119,8 +133,6 @@ public class ProductListViewModel extends ViewModel {
     }
 
     public void showSaladProducts() {
-        Log.i(TAG, "showSaladProducts: ");
-
         List<Product> saladProducts = new ArrayList<>();
         List<Product> products = mProducts.getAllProducts();
         for (Product p: products) {
@@ -129,6 +141,7 @@ public class ProductListViewModel extends ViewModel {
             }
         }
         mProducts.setCurrentListProducts(saladProducts);
+        Log.i(TAG, "showSaladProducts: " + saladProducts);
     }
 
     private void loadData(){
@@ -156,7 +169,6 @@ public class ProductListViewModel extends ViewModel {
         }).observeOn(AndroidSchedulers.mainThread()).subscribe(products -> {
             dataWasLoaded.setValue(true);
             mProducts.addToAllProducts(products);
-            Log.i(TAG, "loadData: 4");
         }, Throwable::printStackTrace);
     }
 }

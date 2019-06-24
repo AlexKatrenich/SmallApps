@@ -75,7 +75,7 @@ public class KlaraWebSiteHtmlParser {
     }
 
     // метод видаляє всі зайві символи, окрім чисел та повертає числове значення
-    public static Integer getNumberFromText(String text) throws NumberFormatException{
+    protected static Integer getNumberFromText(String text) throws NumberFormatException{
         if (text != null && !text.isEmpty()){
             text = text.replaceAll("[^0-9]", "");
             try {
