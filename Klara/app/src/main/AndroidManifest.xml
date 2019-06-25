@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".assortmentScreen.ui.ProductsListActivity"/>
+        <activity android:name=".placesListScreen.ui.CoffeeShopsActivity"/>
     </application>
 
 </manifest>

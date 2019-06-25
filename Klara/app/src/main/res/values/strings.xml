@@ -9,4 +9,5 @@
     <string name="bnv_menu_item_all_caption">Все</string>
     <string name="main_activity_toolbar_caption">Тітка Клара</string>
     <string name="product_list_activity_toolbar_title">Асортимент</string>
+    <string name="coffee_shops_activity_toolbar_title">Наші пиріжкові</string>
 </resources>

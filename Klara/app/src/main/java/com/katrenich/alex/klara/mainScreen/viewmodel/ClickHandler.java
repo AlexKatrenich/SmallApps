@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.ui.ProductsListActivity;
+import com.katrenich.alex.klara.placesListScreen.ui.CoffeeShopsActivity;
 
 public class ClickHandler {
 
@@ -21,7 +22,9 @@ public class ClickHandler {
     }
 
     public void onPattiesButtonClicked(View v){
-        Toast.makeText(v.getContext(), "Button patties was clicked", Toast.LENGTH_SHORT).show();
+        Context context = v.getContext();
+        Intent intent = new Intent(context, CoffeeShopsActivity.class);
+        context.startActivity(intent);
     }
 
     public void onVacancyButtonClicked(View v){
