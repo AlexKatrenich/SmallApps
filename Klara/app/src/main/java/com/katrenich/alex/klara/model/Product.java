@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Product {
     private String name;
     private Integer weight; // 1000 = 1000 gram or ml
-    private Integer price; // 1000 = 10.00 UAH
+    private Integer price; // 10 = 10.00 UAH
 
     public Product() {
     }

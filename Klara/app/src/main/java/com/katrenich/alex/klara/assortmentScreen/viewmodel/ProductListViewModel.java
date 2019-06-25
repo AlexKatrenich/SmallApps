@@ -1,11 +1,22 @@
 package com.katrenich.alex.klara.assortmentScreen.viewmodel;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
+import android.content.res.Resources;
+import android.databinding.BindingAdapter;
 import android.databinding.ObservableInt;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.katrenich.alex.klara.App;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.adapter.ProductListAdapter;
 import com.katrenich.alex.klara.model.CakeProduct;
@@ -27,13 +38,17 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class ProductListViewModel extends ViewModel {
+public class ProductListViewModel extends AndroidViewModel{
     private static final String TAG = "ProductListViewModel";
     public ObservableInt loading;
     private ProductListAdapter mAdapter;
     private Products mProducts;
     public MutableLiveData<Boolean> dataWasLoaded;
     private Integer bnvState;
+
+    public ProductListViewModel(@NonNull Application application) {
+        super(application);
+    }
 
     public void init(){
         loading = new ObservableInt(View.GONE);
@@ -170,5 +185,41 @@ public class ProductListViewModel extends ViewModel {
             dataWasLoaded.setValue(true);
             mProducts.addToAllProducts(products);
         }, Throwable::printStackTrace);
+    }
+
+    public String getStringWeight(Product product){
+        if (product != null) {
+            if (product.getClass() == DrinkProduct.class) {
+                return product.getWeight() + " мл";
+            } else {
+                return product.getWeight() + " г";
+            }
+        } else {
+            return " ";
+        }
+    }
+
+    public String getStringPrice(Product product){
+        if (product != null) {
+            return product.getPrice() + " грн";
+        } else {
+            return " ";
+        }
+    }
+
+    @BindingAdapter({"app:product"})
+    public static void loadImage(ImageView view, Product product){
+        int drawableID;
+        if (product.getClass() == DrinkProduct.class){
+            drawableID = R.drawable.ic_coffee;
+        } else if (product.getClass() == CakeProduct.class){
+            drawableID = R.drawable.ic_cake;
+        } else if (product.getClass() == SaladProduct.class){
+            drawableID = R.drawable.ic_salad;
+        } else {
+            drawableID = R.drawable.ic_patty;
+        }
+
+        Glide.with(App.getInstance()).load(App.getInstance().getDrawable(drawableID)).into(view);
     }
 }
