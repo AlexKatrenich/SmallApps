@@ -3,13 +3,8 @@ package com.katrenich.alex.klara.assortmentScreen.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
-import android.content.Context;
-import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableInt;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -52,7 +47,7 @@ public class ProductListViewModel extends AndroidViewModel{
 
     public void init(){
         loading = new ObservableInt(View.GONE);
-        mAdapter = new ProductListAdapter(R.layout.product_list_item, this);
+        mAdapter = new ProductListAdapter(R.layout.item_list_product, this);
         mProducts = new Products();
         dataWasLoaded = new MutableLiveData<>();
         dataWasLoaded.setValue(false);

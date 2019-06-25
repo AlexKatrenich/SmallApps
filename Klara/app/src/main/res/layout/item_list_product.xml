@@ -39,6 +39,7 @@
                 android:layout_margin="5dp"
                 android:scaleType="centerCrop"
                 app:product="@{viewmodel.getProductAt(position)}"
+                tools:src="@drawable/ic_patty"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

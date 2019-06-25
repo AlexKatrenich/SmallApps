@@ -122,4 +122,11 @@ public class ProductsListActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onDestroy() {
+        setSupportActionBar(null);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(null);
+        super.onDestroy();
+    }
 }
