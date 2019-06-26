@@ -32,10 +32,10 @@
                 android:layout_height="150dp"
                 android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/no_picture_aviable"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/no_picture_aviable" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_coffee_shop_item_address"
@@ -45,9 +45,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/belgrano"
+                android:text="@{coffeeShopViewModel.getCoffeeShopAt(coffeeShopItemPosition).address}"
                 android:textAlignment="center"
                 android:textSize="16sp"
-                android:text="@{coffeeShopViewModel.getCoffeeShopAt(coffeeShopItemPosition).address}"
                 android:typeface="normal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:src="@drawable/ic_clock"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_coffee_shop_work_time"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"

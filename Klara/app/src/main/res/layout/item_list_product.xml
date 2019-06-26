@@ -36,14 +36,15 @@
                 android:id="@+id/iv_product_image_list_item"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:scaleType="centerCrop"
-                app:product="@{viewmodel.getProductAt(position)}"
-                tools:src="@drawable/ic_patty"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:product="@{viewmodel.getProductAt(position)}"
+                tools:src="@drawable/ic_patty" />
 
             <TextView
                 android:id="@+id/tv_product_item_caption"

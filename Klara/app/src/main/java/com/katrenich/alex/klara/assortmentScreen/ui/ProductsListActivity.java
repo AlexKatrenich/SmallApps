@@ -117,7 +117,6 @@ public class ProductsListActivity extends AppCompatActivity {
         mViewModel.dataWasLoaded.observe(this, aBoolean -> mViewModel.fetchList());
         mViewModel.getProducts().observe(this, products -> {
             mViewModel.loading.set(View.GONE);
-            Log.i(TAG, "setupListUpdate: " + products);
             mViewModel.setProductsInAdapter(products);
         });
     }

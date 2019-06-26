@@ -69,7 +69,7 @@ public class CoffeeShopsListAdapter extends RecyclerView.Adapter<CoffeeShopsList
         }
 
         void bind(CoffeeShopsViewModel viewModel, Integer position){
-            mBinding.setVariable(BR.coffeeShopsModel, viewModel);
+            mBinding.setVariable(BR.coffeeShopViewModel, viewModel);
             mBinding.setVariable(BR.coffeeShopItemPosition, position);
             mBinding.executePendingBindings();
         }

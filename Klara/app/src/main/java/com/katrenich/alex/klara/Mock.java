@@ -5,6 +5,7 @@ import com.katrenich.alex.klara.model.DrinkProduct;
 import com.katrenich.alex.klara.model.PattyProduct;
 import com.katrenich.alex.klara.model.Product;
 import com.katrenich.alex.klara.model.SaladProduct;
+import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,5 +51,25 @@ public class Mock {
         products.add(new SaladProduct("Грецький", 200, 5600));
         products.add(new SaladProduct("Вінегрет", 200, 3400));
         return products;
+    }
+
+
+    public static List<CoffeeShop> getCoffeShopsList(){
+        List<CoffeeShop> shops = new ArrayList<>(15);
+        shops.add(new CoffeeShop("м. Київ, м. Вокзальна, вул. Жилянська, 107", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Контрактова пл., вул. Воздвиженська, 22", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Контрактова пл., вул. Нижній Вал, 33 ", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Палац Спорту, вул. Рогнідинська, 1", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Площа Льва Толстого, вул. Велика Васильківська, 44", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Поштова пл., вул. Сагайдачного, 25", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("БУФЕТ у БЦ Saksagansky м. Київ, вул. Саксаганського, 70 А", " Пн-Пт 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("БУФЕТ у холі УкрНДІагропроект м. Київ, Солом'янська пл.,  2", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Університет, вул. Саксаганського, 131", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Університет, вул. Саксаганського, 68", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Кловська, вул. Мечникова, 22 А", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Золоті Ворота, вул. Лисенка, 10", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Васильківська, вул. Васильківська, 34, корпус В", "з 08:00 - до 20:00"));
+        shops.add(new CoffeeShop("м. Київ, м. Олімпійська, вул. Велика Васильківська, 63", "з 08:00 - до 20:00"));
+        return shops;
     }
 }
