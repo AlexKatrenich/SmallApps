@@ -4,6 +4,7 @@ import com.katrenich.alex.klara.model.DrinkProduct;
 import com.katrenich.alex.klara.model.PattyProduct;
 import com.katrenich.alex.klara.model.Product;
 import com.katrenich.alex.klara.model.SaladProduct;
+import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -88,5 +89,27 @@ public class KlaraWebSiteHtmlParser {
             throw new NumberFormatException();
         }
 
+    }
+
+    // метод для парсингу з HTML-документу списку кав'ярень
+    public static List<CoffeeShop> parseListCoffeeShops(Document doc){
+        List<CoffeeShop> shops = new ArrayList<>();
+        if (doc != null){
+            int size = doc.select("li[class=contacts__slider-item]").size();
+            for (int i = 0; i < size; i++) {
+                Elements shopImageURL = doc.select("img[class=contacts__slider-img]").eq(i);
+                String imageURL = shopImageURL.attr("src");
+
+                Elements shopAddress = doc.select("div[class=contacts__slider-address]").eq(i);
+                String address = shopAddress.text();
+
+                Elements shopWorkTime = doc.select("div[class=contacts__slider-address-operating]").eq(i);
+                String time = shopWorkTime.text();
+
+                CoffeeShop shop = new CoffeeShop(address, time, imageURL);
+                shops.add(shop);
+            }
+        }
+        return shops;
     }
 }

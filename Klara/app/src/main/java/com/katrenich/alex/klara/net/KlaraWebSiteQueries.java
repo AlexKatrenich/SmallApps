@@ -21,4 +21,7 @@ public interface KlaraWebSiteQueries {
 
     @GET("catalog/salaty/")
     Single<Document> getSaladProductsCatalog();
+
+    @GET("contacts/")
+    Single<Document> getCoffeeShopsCatalog();
 }
