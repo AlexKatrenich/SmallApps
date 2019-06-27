@@ -10,10 +10,16 @@ import android.view.View;
 
 import com.katrenich.alex.klara.Mock;
 import com.katrenich.alex.klara.R;
+import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.placesListScreen.adapter.CoffeeShopsListAdapter;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
+import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
 
 import java.util.List;
+
+import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -46,8 +52,18 @@ public class CoffeeShopsViewModel extends AndroidViewModel {
     }
 
     private void loadData() {
-        List<CoffeeShop> shops = Mock.getCoffeShopsList();
-        shopList.setValue(shops);
+//        List<CoffeeShop> shops = Mock.getCoffeShopsList();
+//        shopList.setValue(shops);
+        NetworkService.getInstance()
+                .getKlaraWebSiteInfo()
+                .getCoffeeShopsCatalog()
+                .subscribeOn(Schedulers.io())
+                .map(KlaraWebSiteHtmlParser::parseListCoffeeShops)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(coffeeShops -> {
+                    dataWasLoad = true;
+                    shopList.setValue(coffeeShops);
+                    }, Throwable::printStackTrace);
     }
 
     public void setCoffeeShopsInAdapter(List<CoffeeShop> shops) {

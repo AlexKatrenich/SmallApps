@@ -61,6 +61,7 @@ public class CoffeeShop {
         return "CoffeeShop{" +
                 "address='" + address + '\'' +
                 ", workTime='" + workTime + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }

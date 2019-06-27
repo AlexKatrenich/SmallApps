@@ -1,4 +1,6 @@
 package com.katrenich.alex.klara.utils;
+import com.katrenich.alex.klara.App;
+import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.model.CakeProduct;
 import com.katrenich.alex.klara.model.DrinkProduct;
 import com.katrenich.alex.klara.model.PattyProduct;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class KlaraWebSiteHtmlParser {
     private static final String TAG = "KlaraWebSiteHtmlParser";
+    public static final String MAIN_URL = "https://klara.ua/";
 
     public enum ProductType{
         CAKES,
@@ -98,9 +101,10 @@ public class KlaraWebSiteHtmlParser {
             int size = doc.select("li[class=contacts__slider-item]").size();
             for (int i = 0; i < size; i++) {
                 Elements shopImageURL = doc.select("img[class=contacts__slider-img]").eq(i);
-                String imageURL = shopImageURL.attr("src");
+                String imageURL = MAIN_URL + shopImageURL.attr("src");
 
                 Elements shopAddress = doc.select("div[class=contacts__slider-address]").eq(i);
+
                 String address = shopAddress.text();
 
                 Elements shopWorkTime = doc.select("div[class=contacts__slider-address-operating]").eq(i);
