@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.ui.ProductsListActivity;
 import com.katrenich.alex.klara.placesListScreen.ui.CoffeeShopsActivity;
+import com.katrenich.alex.klara.vacancyScreen.ui.VacancyListActivity;
 
 public class ClickHandler {
 
@@ -28,7 +29,9 @@ public class ClickHandler {
     }
 
     public void onVacancyButtonClicked(View v){
-        Toast.makeText(v.getContext(), "Button vacancy was clicked", Toast.LENGTH_SHORT).show();
+        Context context = v.getContext();
+        Intent intent = new Intent(context, VacancyListActivity.class);
+        context.startActivity(intent);
     }
 
     public void onPhoneNumberClicked(View v){
