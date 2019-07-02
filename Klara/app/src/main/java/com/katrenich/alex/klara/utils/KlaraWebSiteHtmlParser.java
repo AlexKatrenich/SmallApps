@@ -1,11 +1,9 @@
 package com.katrenich.alex.klara.utils;
-import com.katrenich.alex.klara.App;
-import com.katrenich.alex.klara.R;
-import com.katrenich.alex.klara.model.CakeProduct;
-import com.katrenich.alex.klara.model.DrinkProduct;
-import com.katrenich.alex.klara.model.PattyProduct;
-import com.katrenich.alex.klara.model.Product;
-import com.katrenich.alex.klara.model.SaladProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.CakeProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.DrinkProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.PattyProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.Product;
+import com.katrenich.alex.klara.assortmentScreen.model.SaladProduct;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
 
 import org.jsoup.nodes.Document;

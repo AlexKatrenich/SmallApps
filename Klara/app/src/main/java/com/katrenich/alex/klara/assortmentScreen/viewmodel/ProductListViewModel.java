@@ -14,12 +14,12 @@ import com.bumptech.glide.Glide;
 import com.katrenich.alex.klara.App;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.assortmentScreen.adapter.ProductListAdapter;
-import com.katrenich.alex.klara.model.CakeProduct;
-import com.katrenich.alex.klara.model.DrinkProduct;
-import com.katrenich.alex.klara.model.PattyProduct;
-import com.katrenich.alex.klara.model.Product;
-import com.katrenich.alex.klara.model.Products;
-import com.katrenich.alex.klara.model.SaladProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.CakeProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.DrinkProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.PattyProduct;
+import com.katrenich.alex.klara.assortmentScreen.model.Product;
+import com.katrenich.alex.klara.assortmentScreen.model.Products;
+import com.katrenich.alex.klara.assortmentScreen.model.SaladProduct;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
 

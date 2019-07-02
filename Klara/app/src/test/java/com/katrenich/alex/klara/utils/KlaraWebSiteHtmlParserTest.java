@@ -1,6 +1,6 @@
 package com.katrenich.alex.klara.utils;
 
-import com.katrenich.alex.klara.model.Product;
+import com.katrenich.alex.klara.assortmentScreen.model.Product;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
 

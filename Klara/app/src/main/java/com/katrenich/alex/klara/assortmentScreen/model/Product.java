@@ -1,4 +1,4 @@
-package com.katrenich.alex.klara.model;
+package com.katrenich.alex.klara.assortmentScreen.model;
 
 import java.util.Objects;
 

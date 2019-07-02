@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.katrenich.alex.klara.BR;
 import com.katrenich.alex.klara.assortmentScreen.viewmodel.ProductListViewModel;
-import com.katrenich.alex.klara.model.Product;
+import com.katrenich.alex.klara.assortmentScreen.model.Product;
 
 import java.util.List;
 
