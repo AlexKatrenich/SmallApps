@@ -16,7 +16,6 @@ import com.katrenich.alex.klara.vacancyScreen.viewmodel.VacancyListViewModel;
 import java.util.List;
 
 public class VacancyListAdapter extends RecyclerView.Adapter<VacancyListAdapter.VacancyViewHolder> {
-    public static final String TAG = "VacancyListAdapter";
     private int layoutId;
     private List<Vacancy> mVacancies;
     private VacancyListViewModel mViewModel;
@@ -56,8 +55,6 @@ public class VacancyListAdapter extends RecyclerView.Adapter<VacancyListAdapter.
     public void setVacancies(List<Vacancy> vacancies) {
         if(vacancies != null){
             mVacancies = vacancies;
-        } else {
-            Log.i(TAG, "setVacancies: vacancies == NULL!");
         }
     }
 

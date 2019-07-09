@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.katrenich.alex.klara.R;
@@ -14,7 +13,6 @@ import com.katrenich.alex.klara.databinding.ActivityVacancyListBinding;
 import com.katrenich.alex.klara.vacancyScreen.viewmodel.VacancyListViewModel;
 
 public class VacancyListActivity extends AppCompatActivity {
-    public static final String TAG = "VacancyListActivity";
     private Toolbar mToolbar;
     private VacancyListViewModel mViewModel;
 
@@ -50,7 +48,6 @@ public class VacancyListActivity extends AppCompatActivity {
         mViewModel.vacancyList.observe(this, vacancies -> {
             mViewModel.loading.set(View.GONE);
             mViewModel.setVacancyListInAdapter(vacancies);
-            Log.i(TAG, "viewUpdate: " + vacancies);
         });
     }
 

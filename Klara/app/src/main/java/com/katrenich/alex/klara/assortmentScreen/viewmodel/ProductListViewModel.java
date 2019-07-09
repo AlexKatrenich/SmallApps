@@ -101,13 +101,10 @@ public class ProductListViewModel extends AndroidViewModel{
     }
 
     public void showAllProducts() {
-        Log.i(TAG, "showAllProducts: ");
         mProducts.setCurrentListProducts(mProducts.getAllProducts());
     }
 
     public void showCakeProducts() {
-        Log.i(TAG, "showCakeProducts: ");
-
         List<Product> cakeProducts = new ArrayList<>();
         List<Product> products = mProducts.getAllProducts();
         for (Product p: products) {
@@ -119,7 +116,6 @@ public class ProductListViewModel extends AndroidViewModel{
     }
 
     public void showDrinkProducts() {
-        Log.i(TAG, "showDrinkProducts: ");
         List<Product> drinkProducts = new ArrayList<>();
         List<Product> products = mProducts.getAllProducts();
         for (Product p: products) {
@@ -131,7 +127,6 @@ public class ProductListViewModel extends AndroidViewModel{
     }
 
     public void showPattyProducts() {
-        Log.i(TAG, "showPattyProducts: ");
         List<Product> pattyProducts = new ArrayList<>();
         List<Product> products = mProducts.getAllProducts();
         for (Product p: products) {
@@ -151,7 +146,6 @@ public class ProductListViewModel extends AndroidViewModel{
             }
         }
         mProducts.setCurrentListProducts(saladProducts);
-        Log.i(TAG, "showSaladProducts: " + saladProducts);
     }
 
     private void loadData(){
