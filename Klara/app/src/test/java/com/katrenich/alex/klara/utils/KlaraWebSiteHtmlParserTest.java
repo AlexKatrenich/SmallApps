@@ -3,6 +3,7 @@ package com.katrenich.alex.klara.utils;
 import com.katrenich.alex.klara.assortmentScreen.model.Product;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
+import com.katrenich.alex.klara.vacancyScreen.model.Vacancy;
 
 import org.jsoup.nodes.Document;
 import org.junit.Test;
@@ -87,6 +88,21 @@ public class KlaraWebSiteHtmlParserTest {
         shopsSingle.subscribe(coffeeShops -> {
             for (CoffeeShop cp : coffeeShops) {
                 System.out.println(cp);
+            }
+        }, Throwable::printStackTrace);
+    }
+
+    @Test
+    public void parseListVacanciesTest(){
+        Single<Document> doc = NetworkService.getInstance().getKlaraWebSiteInfo().getVacancyCatalog();
+        checkQueriesResult(doc, "VacancyList document");
+
+        Single<List<Vacancy>> vacanciesSingle = doc.map(KlaraWebSiteHtmlParser::parseListVacancies);
+        System.out.println("Document transformed to list");
+
+        vacanciesSingle.subscribe(vacancies -> {
+            for (Vacancy vacancy : vacancies) {
+                System.out.println(vacancy);
             }
         }, Throwable::printStackTrace);
     }

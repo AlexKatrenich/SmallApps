@@ -12,10 +12,15 @@ import android.widget.Toast;
 import com.katrenich.alex.klara.App;
 import com.katrenich.alex.klara.Mock;
 import com.katrenich.alex.klara.R;
+import com.katrenich.alex.klara.net.NetworkService;
+import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
 import com.katrenich.alex.klara.vacancyScreen.adapter.VacancyListAdapter;
 import com.katrenich.alex.klara.vacancyScreen.model.Vacancy;
 
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class VacancyListViewModel extends AndroidViewModel {
     public ObservableInt loading;
@@ -45,9 +50,16 @@ public class VacancyListViewModel extends AndroidViewModel {
     }
 
     private void loadData() {
-        vacancyList.setValue(Mock.getVacancyList());
-        dataWasLoad = true;
-        //TODO load from web-site
+        NetworkService.getInstance()
+                .getKlaraWebSiteInfo()
+                .getVacancyCatalog()
+                .subscribeOn(Schedulers.io())
+                .map(KlaraWebSiteHtmlParser::parseListVacancies)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(vacancies -> {
+                    dataWasLoad = true;
+                    vacancyList.setValue(vacancies);
+                }, Throwable::printStackTrace);
     }
 
     public void setVacancyListInAdapter(List<Vacancy> vacancies){

@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
-import com.katrenich.alex.klara.Mock;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.placesListScreen.adapter.CoffeeShopsListAdapter;
@@ -17,11 +16,9 @@ import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
 
 import java.util.List;
 
-import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class CoffeeShopsViewModel extends AndroidViewModel {
     public static final String TAG = "CoffeeShopsViewModel";

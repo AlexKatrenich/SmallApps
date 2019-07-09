@@ -5,6 +5,7 @@ import com.katrenich.alex.klara.assortmentScreen.model.PattyProduct;
 import com.katrenich.alex.klara.assortmentScreen.model.Product;
 import com.katrenich.alex.klara.assortmentScreen.model.SaladProduct;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
+import com.katrenich.alex.klara.vacancyScreen.model.Vacancy;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -113,5 +114,25 @@ public class KlaraWebSiteHtmlParser {
             }
         }
         return shops;
+    }
+
+    public static List<Vacancy> parseListVacancies(Document doc){
+        List<Vacancy> vacancies = new ArrayList<>();
+        if(doc != null){
+            int size = doc.select("li[class=vacansies__item]").size();
+            System.out.println(size);
+            for (int i = 0; i < size; i++) {
+                Elements vacancyCaption = doc.select("a[class=vacansies__triger]").eq(i);
+                String caption = vacancyCaption.text();
+
+                Elements vacancyDescription = doc.select("div[class=vacansies__inner-text]").eq(i);
+                String description = vacancyDescription.text();
+
+                Vacancy vacancy = new Vacancy(caption == null ? " " : caption, description == null ? " " : description);
+                vacancies.add(vacancy);
+            }
+        }
+
+        return vacancies;
     }
 }
