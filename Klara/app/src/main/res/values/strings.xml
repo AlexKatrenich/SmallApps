@@ -12,4 +12,5 @@
     <string name="coffee_shops_activity_toolbar_title">Наші пиріжкові</string>
     <string name="web_site_main_reference">https://klara.ua/</string>
     <string name="vacancy_list_activity_toolbar_title">Вакансії</string>
+    <string name="btn_get_vacancy_text">Натисніть, щоб відгукнутись на вакансію</string>
 </resources>

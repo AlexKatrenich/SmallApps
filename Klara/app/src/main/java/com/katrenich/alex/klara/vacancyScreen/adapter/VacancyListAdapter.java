@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.katrenich.alex.klara.BR;
 import com.katrenich.alex.klara.vacancyScreen.model.Vacancy;
 import com.katrenich.alex.klara.vacancyScreen.viewmodel.VacancyListViewModel;
 
@@ -38,8 +39,8 @@ public class VacancyListAdapter extends RecyclerView.Adapter<VacancyListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VacancyViewHolder holder, int i) {
-
+    public void onBindViewHolder(@NonNull VacancyViewHolder holder, int position) {
+        holder.bind(mViewModel, position);
     }
 
     @Override
@@ -65,6 +66,12 @@ public class VacancyListAdapter extends RecyclerView.Adapter<VacancyListAdapter.
         public VacancyViewHolder(ViewDataBinding binding){
             super(binding.getRoot());
             mBinding = binding;
+        }
+
+        void bind(VacancyListViewModel viewModel, Integer position){
+            mBinding.setVariable(BR.vacancyViewModel, viewModel);
+            mBinding.setVariable(BR.vacancyPosition, position);
+            mBinding.executePendingBindings();
         }
     }
 }

@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.databinding.ActivityVacancyListBinding;
@@ -38,5 +40,23 @@ public class VacancyListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        viewUpdate();
+    }
+
+    private void viewUpdate() {
+        mViewModel.loading.set(View.VISIBLE);
+        mViewModel.fetchList();
+        mViewModel.vacancyList.observe(this, vacancies -> {
+            mViewModel.loading.set(View.GONE);
+            mViewModel.setVacancyListInAdapter(vacancies);
+            Log.i(TAG, "viewUpdate: " + vacancies);
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        setSupportActionBar(null);
+        super.onDestroy();
     }
 }

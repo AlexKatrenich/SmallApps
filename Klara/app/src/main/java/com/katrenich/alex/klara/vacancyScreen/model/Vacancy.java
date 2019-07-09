@@ -6,6 +6,9 @@ public class Vacancy {
     private String caption;
     private String shortDescription;
 
+    public Vacancy() {
+    }
+
     public Vacancy(String caption) {
         this.caption = caption;
     }

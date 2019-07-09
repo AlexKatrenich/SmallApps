@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.katrenich.alex.klara.R;
@@ -14,7 +13,6 @@ import com.katrenich.alex.klara.databinding.ActivityCoffeeShopsBinding;
 import com.katrenich.alex.klara.placesListScreen.viewmodel.CoffeeShopsViewModel;
 
 public class CoffeeShopsActivity extends AppCompatActivity {
-    private static final String TAG = "CoffeeShopsActivity";
     private Toolbar mToolbar;
     private CoffeeShopsViewModel mViewModel;
 
@@ -51,7 +49,6 @@ public class CoffeeShopsActivity extends AppCompatActivity {
         mViewModel.shopList.observe(this, coffeeShops -> {
             mViewModel.loading.set(View.GONE);
             mViewModel.setCoffeeShopsInAdapter(coffeeShops);
-            Log.i(TAG, "viewUpdate: " + coffeeShops);
         });
 
     }

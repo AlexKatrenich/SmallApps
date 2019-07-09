@@ -52,8 +52,6 @@ public class CoffeeShopsViewModel extends AndroidViewModel {
     }
 
     private void loadData() {
-//        List<CoffeeShop> shops = Mock.getCoffeShopsList();
-//        shopList.setValue(shops);
         NetworkService.getInstance()
                 .getKlaraWebSiteInfo()
                 .getCoffeeShopsCatalog()
@@ -72,9 +70,7 @@ public class CoffeeShopsViewModel extends AndroidViewModel {
     }
 
     public CoffeeShop getCoffeeShopAt(Integer position){
-        Log.i(TAG, "getCoffeeShopAt: POSITION: " + position);
         if (shopList != null && shopList.getValue().size() > position){
-            Log.i(TAG, "getCoffeeShopAt: " + shopList.getValue().get(position));
             return shopList.getValue().get(position);
         }
             return null;

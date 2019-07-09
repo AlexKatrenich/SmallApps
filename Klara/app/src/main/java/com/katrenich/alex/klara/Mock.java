@@ -6,6 +6,7 @@ import com.katrenich.alex.klara.assortmentScreen.model.PattyProduct;
 import com.katrenich.alex.klara.assortmentScreen.model.Product;
 import com.katrenich.alex.klara.assortmentScreen.model.SaladProduct;
 import com.katrenich.alex.klara.placesListScreen.model.CoffeeShop;
+import com.katrenich.alex.klara.vacancyScreen.model.Vacancy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,5 +72,31 @@ public class Mock {
         shops.add(new CoffeeShop("м. Київ, м. Васильківська, вул. Васильківська, 34, корпус В", "з 08:00 - до 20:00"));
         shops.add(new CoffeeShop("м. Київ, м. Олімпійська, вул. Велика Васильківська, 63", "з 08:00 - до 20:00"));
         return shops;
+    }
+
+    public static List<Vacancy> getVacancyList(){
+        List<Vacancy> list = new ArrayList<>();
+        list.add(new Vacancy("Бариста", "Змінний гнучкий графік роботи\n" +
+                "Гідна заробітна плата\n" +
+                "Житлом не забезпечуємо\n" +
+                "\n" +
+                "Запишись на співбесіду\n" +
+                "067 510 38 37 Яна"));
+        list.add(new Vacancy("Техпідтримка", "Змінний гнучкий графік роботи\n" +
+                "Гідна заробітна плата\n" +
+                "\n" +
+                "Запишись на співбесіду\n" +
+                "067 510 38 37 Яна"));
+        list.add(new Vacancy("Пекар", "Змінний гнучкий графік роботи\n" +
+                "Гідна заробітна плата\n" +
+                "\n" +
+                "Запишись на співбесіду\n" +
+                "067 510 38 37 Яна"));
+        list.add(new Vacancy("Кондитер", "Змінний гнучкий графік роботи\n" +
+                "Гідна заробітна плата\n" +
+                "\n" +
+                "Запишись на співбесіду\n" +
+                "067 510 38 37 Яна"));
+        return list;
     }
 }
