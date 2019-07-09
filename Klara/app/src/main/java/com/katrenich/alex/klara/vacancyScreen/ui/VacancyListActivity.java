@@ -49,7 +49,13 @@ public class VacancyListActivity extends AppCompatActivity {
             mViewModel.loading.set(View.GONE);
             mViewModel.setVacancyListInAdapter(vacancies);
         });
+
+        mViewModel.selectedVacancy.observe(this, vacancy -> {
+            VacancyResponseFragment dialog = new VacancyResponseFragment();
+            dialog.show(getSupportFragmentManager(), dialog.getTag());
+        });
     }
+
 
     @Override
     protected void onDestroy() {

@@ -5,12 +5,8 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.katrenich.alex.klara.App;
-import com.katrenich.alex.klara.Mock;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.utils.KlaraWebSiteHtmlParser;
@@ -27,6 +23,7 @@ public class VacancyListViewModel extends AndroidViewModel {
     private VacancyListAdapter mAdapter;
     private boolean dataWasLoad;
     public MutableLiveData<List<Vacancy>> vacancyList;
+    public MutableLiveData<Vacancy> selectedVacancy;
 
     public VacancyListViewModel(@NonNull Application application) {
         super(application);
@@ -37,6 +34,7 @@ public class VacancyListViewModel extends AndroidViewModel {
         mAdapter = new VacancyListAdapter(R.layout.item_list_vacancies, this);
         vacancyList = new MutableLiveData<>();
         dataWasLoad = false;
+        selectedVacancy = new MutableLiveData<>();
     }
 
     public VacancyListAdapter getAdapter(){
@@ -78,7 +76,7 @@ public class VacancyListViewModel extends AndroidViewModel {
 
     public void onItemClick(Integer index){
         Vacancy vacancy = vacancyList.getValue().get(index);
-        Toast.makeText(App.getInstance().getBaseContext(), "Vacancy " + vacancy.getCaption() + " selected", Toast.LENGTH_SHORT).show();
+        selectedVacancy.setValue(vacancy);
     }
 
 }

@@ -13,4 +13,8 @@
     <string name="web_site_main_reference">https://klara.ua/</string>
     <string name="vacancy_list_activity_toolbar_title">Вакансії</string>
     <string name="btn_get_vacancy_text">Натисніть, щоб відгукнутись на вакансію</string>
+    <string name="et_vacancy_response_fragment_name_hint">Ваше ім\'я</string>
+    <string name="et_vacancy_response_fragment_email_hint">Ваш e-mail</string>
+    <string name="et_vacancy_response_fragment_comment_hint">Коментар</string>
+    <string name="btn_vacancy_response_fragment_caption">Відправити</string>
 </resources>
