@@ -17,4 +17,5 @@
     <string name="et_vacancy_response_fragment_email_hint">Ваш e-mail</string>
     <string name="et_vacancy_response_fragment_comment_hint">Коментар</string>
     <string name="btn_vacancy_response_fragment_caption">Відправити</string>
+    <string name="input_error_vacancy_response_fragment">*Поле необхідно заповнити</string>
 </resources>
