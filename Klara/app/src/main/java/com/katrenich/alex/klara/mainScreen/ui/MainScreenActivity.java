@@ -5,7 +5,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.katrenich.alex.klara.R;
@@ -45,7 +44,7 @@ public class MainScreenActivity extends AppCompatActivity {
                     Log.i(TAG, "onOffsetChanged: setTitle = Title");
                     isShow = true;
                 } else if(isShow) {
-                    collapsingToolbarLayout.setTitleEnabled(false); //careful there should a space between double quote otherwise it wont work
+                    collapsingToolbarLayout.setTitleEnabled(false);
                     Log.i(TAG, "onOffsetChanged: setTitle = ' ' ");
                     isShow = false;
                 }
