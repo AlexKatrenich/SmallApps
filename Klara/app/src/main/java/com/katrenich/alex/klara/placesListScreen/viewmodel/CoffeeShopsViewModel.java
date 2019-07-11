@@ -3,7 +3,9 @@ package com.katrenich.alex.klara.placesListScreen.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
+import android.content.Intent;
 import android.databinding.ObservableInt;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -77,6 +79,18 @@ public class CoffeeShopsViewModel extends AndroidViewModel {
 
     public void onItemClick(Integer index){
         CoffeeShop shop = shopList.getValue().get(index);
-        Toast.makeText(App.getInstance().getBaseContext(), shop.toString(), Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "onItemClick: CoffeeShop - " + shop.toString());
+        Uri intentUri = Uri.parse("geo:0,0?q=" + shop.getAddress());
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, intentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+        try{
+            if (mapIntent.resolveActivity(App.getInstance().getPackageManager()) != null){
+                App.getInstance().startActivity(mapIntent);
+            }
+        } catch (NullPointerException e){
+            Log.e(TAG, "onItemClick: NullPointerException: Couldn`t open map." + e.getMessage());
+            Toast.makeText(App.getInstance().getBaseContext(), "Couldn`t open map", Toast.LENGTH_SHORT).show();
+        }
+//        Toast.makeText(App.getInstance().getBaseContext(), shop.toString(), Toast.LENGTH_SHORT).show();y
     }
 }
