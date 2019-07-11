@@ -7,7 +7,9 @@ import android.databinding.ObservableInt;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.katrenich.alex.klara.App;
 import com.katrenich.alex.klara.R;
 import com.katrenich.alex.klara.net.NetworkService;
 import com.katrenich.alex.klara.placesListScreen.adapter.CoffeeShopsListAdapter;
@@ -71,5 +73,10 @@ public class CoffeeShopsViewModel extends AndroidViewModel {
             return shopList.getValue().get(position);
         }
             return null;
+    }
+
+    public void onItemClick(Integer index){
+        CoffeeShop shop = shopList.getValue().get(index);
+        Toast.makeText(App.getInstance().getBaseContext(), shop.toString(), Toast.LENGTH_SHORT).show();
     }
 }

@@ -24,7 +24,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:onClick="@{()-> coffeeShopViewModel.onItemClick(coffeeShopItemPosition)}">
 
             <ImageView
                 android:id="@+id/iv_coffee_shop_item"
