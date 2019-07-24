@@ -9,7 +9,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
-import com.katrenich.alex.smartiwaycopy.mainModule.util.UserActionController;
 
 @InjectViewState
 public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
@@ -22,7 +21,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     }
 
     public void onButtonAuthClicked(View view) {
-        UserActionController.getInstance().onAuthFragmentClick();
+
     }
 
 }

@@ -15,11 +15,8 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.model.CurrentUser;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.UserPhoneFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
-import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
-import com.katrenich.alex.smartiwaycopy.mainModule.util.UserActionController;
 import com.santalu.maskedittext.MaskEditText;
 
 public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhoneView {
@@ -61,8 +58,6 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
             public void afterTextChanged(Editable s) {
                 String phone = "+38" + etUserPhone.getRawText();
                 if(phone.length() == 13) {
-                    AuthController.getInstance().setCurrentUser(new CurrentUser(phone));
-                    UserActionController.getInstance().checkUserPhoneNumber();
                     Log.i(TAG, "afterTextChanged: " + phone);
                 }
             }
