@@ -3,20 +3,34 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.button.MaterialButton;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.authModule.model.CurrentUser;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.UserPhoneFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
+import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
+import com.katrenich.alex.smartiwaycopy.mainModule.util.UserActionController;
+import com.santalu.maskedittext.MaskEditText;
 
 public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhoneView {
 
+    private static final String TAG = "UserPhoneFragment";
     @InjectPresenter
     UserPhoneFragmentPresenter mPresenter;
+
+    private MaskEditText etUserPhone;
+    private TextView btnPolicyLicence;
+    private MaterialButton btnAuth;
 
     @Nullable
     @Override
@@ -30,7 +44,32 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
         initUI(view, savedInstanceState);
     }
 
-    private void initUI(View view, Bundle savedInstanceState) {
+    private void initUI(View v, Bundle savedInstanceState) {
+        etUserPhone = v.findViewById(R.id.et_user_phone_input_fragment);
+        etUserPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String phone = "+38" + etUserPhone.getRawText();
+                if(phone.length() == 13) {
+                    AuthController.getInstance().setCurrentUser(new CurrentUser(phone));
+                    UserActionController.getInstance().checkUserPhoneNumber();
+                    Log.i(TAG, "afterTextChanged: " + phone);
+                }
+            }
+        });
+        btnPolicyLicence = v.findViewById(R.id.tv_user_phone_fragment_license_btn);
+        btnPolicyLicence.setOnClickListener(mPresenter::onPolicyButtonClicked);
+        btnAuth = v.findViewById(R.id.btn_user_phone_fragment_auth);
+        btnAuth.setOnClickListener(mPresenter::onButtonAuthClicked);
     }
 }

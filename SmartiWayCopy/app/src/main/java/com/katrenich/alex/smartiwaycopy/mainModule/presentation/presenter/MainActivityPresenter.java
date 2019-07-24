@@ -2,20 +2,24 @@ package com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.UserPhoneFragment;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
+import com.katrenich.alex.smartiwaycopy.utils.AppStates;
+import com.katrenich.alex.smartiwaycopy.mainModule.util.UserActionController;
 
 import java.util.Observable;
 import java.util.Observer;
 
 @InjectViewState
-public class MainActivityPresenter extends MvpPresenter<MainView> implements Observer {
+public class MainActivityPresenter extends MvpPresenter<MainView> implements Observer{
     public static final String TAG = "MainActivityPresenter";
     public MutableLiveData<Integer> btnBackVisibility;
     public MutableLiveData<Integer> progressVisibility;
@@ -31,20 +35,11 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
         progressVisibility = new MutableLiveData<>();
         progressVisibility.setValue(View.GONE);
 
-        AuthController.getInstance().addObserver(this);
+        UserActionController.getInstance().addObserver(this);
+        UserActionController.getInstance().startApp();
 
-        bindFragment();
         getViewState().updateUI();
-    }
-
-    private void bindFragment() {
-        Fragment fragment = null;
-        if(!AuthController.getInstance().isUserLogged()){
-            fragment = new InfoDialogFragment();
-        } else {
-
-        }
-        bindCurrentFragment(fragment);
+        Log.i(TAG, "init: ");
     }
 
     private void bindCurrentFragment(Fragment fragment) {
@@ -57,6 +52,48 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
 
     @Override
     public void update(Observable o, Object arg) {
+        Log.i(TAG, "update: start");
+        AppStates states = AppStates.REGISTER_PHONE_ENTER;
+        try {
+             states = (AppStates) arg;
+        } catch (ClassCastException e){
+            Log.e(TAG, "update: ", e);
+        }
 
+        switch (states){
+            case REGISTER_PHONE_ENTER: {
+                bindCurrentFragment(new UserPhoneFragment());
+                Log.i(TAG, "update: REGISTER_PHONE_ENTER");
+                break;
+            }
+            case AUTHORIZATION: {
+                Log.i(TAG, "update: AUTHORIZATION");
+                break;
+            }
+            case PASSWORD_RECOVER: {
+                break;
+            }
+            case PASSWORD_CREATION: {
+                break;
+            }
+            case SMS_CODE_VALIDATION: {
+                break;
+            }
+            case MAIN_SCREEN_CREDIT:{
+                break;
+            }
+            case MAIN_SCREEN_SETTINGS:{
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        UserActionController.getInstance().deleteObserver(this);
+        super.onDestroy();
     }
 }

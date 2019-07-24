@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_phone_fragment_main_hint"
-        app:met_mask="+38 (###) ### ## ##" />
+        app:met_mask="+38 (0##) ### ## ##" />
 
     <TextView
         android:id="@+id/tv_user_phone_fragment_license"
