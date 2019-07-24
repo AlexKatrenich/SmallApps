@@ -1,7 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter;
 
-import android.arch.lifecycle.MutableLiveData;
-import android.support.v4.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
+import androidx.fragment.app.Fragment;
 import android.util.Log;
 import android.view.View;
 
@@ -9,7 +9,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.UserPhoneFragment;
-import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 import com.katrenich.alex.smartiwaycopy.utils.AppStates;
@@ -25,6 +24,7 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
     public MutableLiveData<Integer> progressVisibility;
 
     public MainActivityPresenter() {
+        Log.i(TAG, "MainActivityPresenter: ");
         init();
     }
 
@@ -47,6 +47,7 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
     }
 
     public void onBtnInfoClicked(View view) {
+
         getViewState().showInfoDialog(new InfoDialogFragment());
     }
 

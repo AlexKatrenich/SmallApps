@@ -1,9 +1,9 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.button.MaterialButton;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.button.MaterialButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;

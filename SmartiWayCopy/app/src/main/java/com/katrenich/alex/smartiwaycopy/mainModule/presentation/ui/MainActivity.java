@@ -1,12 +1,15 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui;
 
+
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -15,6 +18,7 @@ import com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter.MainAc
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {
+    public static final String TAG = "MainActivity";
 
     @InjectPresenter
     MainActivityPresenter mPresenter;
@@ -41,6 +45,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         btnBack = findViewById(R.id.ib_back_toolbar_main_activity);
         btnBack.setOnClickListener(v -> onBackPressed());
 
+        Log.i(TAG, "initUI: PRESENTER" + mPresenter);
         btnInfo = findViewById(R.id.ib_info_toolbar_main_activity);
         btnInfo.setOnClickListener(mPresenter::onBtnInfoClicked);
 

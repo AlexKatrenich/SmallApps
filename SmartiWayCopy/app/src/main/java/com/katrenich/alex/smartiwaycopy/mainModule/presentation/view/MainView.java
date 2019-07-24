@@ -1,18 +1,12 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.view;
 
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.arellomobile.mvp.MvpView;
-import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy;
-import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 public interface MainView extends MvpView {
     void updateUI();
-
-    @StateStrategyType(AddToEndSingleStrategy.class)
     void bindFragment(Fragment fragment, int containerId);
-
-    @StateStrategyType(AddToEndSingleStrategy.class)
     void showInfoDialog(DialogFragment dialogFragment);
 }
