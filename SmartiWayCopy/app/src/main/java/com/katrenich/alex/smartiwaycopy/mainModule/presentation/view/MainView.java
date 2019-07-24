@@ -9,6 +9,8 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType;
 
 public interface MainView extends MvpView {
     void updateUI();
+
+    @StateStrategyType(AddToEndSingleStrategy.class)
     void bindFragment(Fragment fragment, int containerId);
 
     @StateStrategyType(AddToEndSingleStrategy.class)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_user_phone_fragment_main_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:text="@string/user_phone_fragment_tv_hint_caption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <com.santalu.maskedittext.MaskEditText
+        android:id="@+id/et_user_phone_input_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:digits="0123456789+"
+        android:hint="@string/user_phone_fragment_input_et_hint"
+        android:inputType="phone"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_user_phone_fragment_license"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_phone_fragment_main_hint"
+        app:met_mask="+38 (###) ### ## ##" />
+
+    <TextView
+        android:id="@+id/tv_user_phone_fragment_license"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        style="@style/UserPhoneFragmentTextViewLicense"
+        android:text="@string/user_phone_fragment_license_caption"
+        app:layout_constraintBottom_toTopOf="@+id/tv_user_phone_fragment_license_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_user_phone_fragment_license_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        style="@style/UserPhoneFragmentTextViewLicense"
+        android:textColor="@color/colorAccent"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/user_phone_fragment_license_caption_btn"
+        app:layout_constraintBottom_toTopOf="@+id/btn_user_phone_fragment_auth"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.design.button.MaterialButton
+        android:id="@+id/btn_user_phone_fragment_auth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/user_phone_fragment_btn_auth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,10 +1,19 @@
 <resources>
     <string name="app_name">SmartiWayCopy</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <!--Fragment Info-->
     <string name="info_dialog_fragment_title">Обери метод зв\'язку</string>
     <string name="info_dialog_fragment_phone">Телефон</string>
     <string name="info_dialog_fragment_most_used_questions_btn">Часті питання</string>
     <string name="info_fragment_dialog_btn_cancel">Скасувати</string>
     <string name="info_dialog_phone_value">067 734 36 71</string>
     <string name="info_dialog_website_address">http://leadsdoit.com/</string>
+
+    <!--Fragment UserPhone-->
+    <string name="user_phone_fragment_input_et_hint">введи номер</string>
+    <string name="user_phone_fragment_tv_hint_caption">Номер мобільного телефону</string>
+    <string name="user_phone_fragment_btn_auth">я вже зареєстрований</string>
+    <string name="user_phone_fragment_license_caption">Підтверджуючи дану форму я погоджуюся з</string>
+    <string name="user_phone_fragment_license_caption_btn">умовами використання сервісу</string>
 </resources>
