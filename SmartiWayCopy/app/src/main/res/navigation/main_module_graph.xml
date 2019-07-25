@@ -9,5 +9,59 @@
         android:id="@+id/userPhoneFragment"
         android:name="com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.UserPhoneFragment"
         android:label="fragment_user_phone"
-        tools:layout="@layout/fragment_user_phone" />
+        tools:layout="@layout/fragment_user_phone" >
+        <action
+            android:id="@+id/action_userPhoneFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_userPhoneFragment_to_codeVerificationFragment2"
+            app:destination="@id/codeVerificationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeVerificationFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.CodeVerificationFragment"
+        android:label="fragment_code_varification"
+        tools:layout="@layout/fragment_code_varification" >
+        <action
+            android:id="@+id/action_codeVerificationFragment2_to_passwordSettingFragment"
+            app:destination="@id/passwordSettingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/creditFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment"
+        android:label="fragment_credit"
+        tools:layout="@layout/fragment_credit" />
+    <fragment
+        android:id="@+id/passwordSettingFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.PasswordSettingFragment"
+        android:label="fragment_password_setting"
+        tools:layout="@layout/fragment_password_setting" >
+        <action
+            android:id="@+id/action_passwordSettingFragment_to_creditFragment"
+            app:destination="@id/creditFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.AuthorizationFragment"
+        android:label="fragment_authorization"
+        tools:layout="@layout/fragment_authorization" >
+        <action
+            android:id="@+id/action_authorizationFragment_to_creditFragment"
+            app:destination="@id/creditFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

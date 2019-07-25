@@ -58,10 +58,11 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <FrameLayout
-        android:id="@+id/fl_fragment_container_main_activity"
+    <fragment
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/main_module_graph"
         app:layout_constraintBottom_toTopOf="@+id/bnv_main_activity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

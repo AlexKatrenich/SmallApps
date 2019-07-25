@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_authorization_fragment_message"
+        style="@style/TextViewMessageToUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/authorization_fragment_tv_message_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.santalu.maskedittext.MaskEditText
+        android:id="@+id/et_user_authorization_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:digits="0123456789+"
+        android:hint="@string/user_phone_fragment_input_et_hint"
+        android:inputType="phone"
+        android:textColorHint="@color/baseTextColor"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/et_password_authorization_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_authorization_fragment_message"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:met_mask="+38 (0##) ### ## ##" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_password_authorization_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/password_setting_fragment_edit_text_hint_password_enter"
+        app:layout_constraintBottom_toTopOf="@+id/btn_auth_authorization_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_user_authorization_fragment" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_auth_authorization_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/authorization_fragment_btn_auth_title"
+        app:layout_constraintBottom_toTopOf="@+id/btn_password_recover_authorization_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_password_recover_authorization_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/authorization_fragment_btn_pass_restore_title"
+        android:textColor="@color/secondaryTextColor"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

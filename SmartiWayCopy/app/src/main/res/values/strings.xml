@@ -36,6 +36,9 @@
     <string name="credit_fragment_tv_to_pay_title">До сплати:</string>
     <string name="credit_fragment_tv_sum_title">Сума</string>
     <string name="credit_fragment_tv_term_title">Термін (1)</string>
+    <string name="authorization_fragment_btn_auth_title">Авторизуватися</string>
+    <string name="authorization_fragment_btn_pass_restore_title">Відновлення паролю</string>
+    <string name="authorization_fragment_tv_message_title">Авторизація</string>
 
 
 </resources>

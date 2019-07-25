@@ -8,9 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.PasswordSettingFragment;
-import com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 
@@ -37,12 +34,11 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
         bnvVisibility.setValue(View.GONE);
 
         getViewState().updateUI();
-        bindCurrentFragment(new CreditFragment());
         Log.i(TAG, "init: ");
     }
 
     private void bindCurrentFragment(Fragment fragment) {
-        getViewState().bindFragment(fragment, R.id.fl_fragment_container_main_activity);
+
     }
 
     public void onBtnInfoClicked(View view) {
