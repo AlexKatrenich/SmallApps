@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_code_verification_fragment_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/TextViewMessageToUser"
@@ -17,20 +17,21 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_code_verification_fragment_code_enter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:textColor="@color/baseTextColor"
-        android:inputType="number"
         android:hint="@string/code_verification_fragment_edit_text_hint"
-        app:layout_constraintBottom_toTopOf="@+id/materialButton"
+        android:inputType="number"
+        android:textColorHint="@color/baseTextColor"
+        app:layout_constraintBottom_toTopOf="@+id/btn_code_verification_fragment_change_phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_code_verification_fragment_message" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btn_code_verification_fragment_change_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/code_verification_fragment_button_text"

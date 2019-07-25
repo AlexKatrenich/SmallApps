@@ -22,5 +22,11 @@
     <string name="code_verification_fragment_message_to_user_2"> було надіслано код підтвердження. Введи його.</string>
     <string name="code_verification_fragment_edit_text_hint">введи код</string>
     <string name="code_verification_fragment_button_text">змінити номер</string>
+    <string name="password_setting_fragment_message_to_user">Вимоги до паролю: від 7 до 30 символів; мінімум 1 велика і 1 мала літери; 1 цифра; відсутність спецсимволів.</string>
+    <string name="password_setting_fragment_edit_text_hint_password_enter">введи пароль</string>
+    <string name="password_setting_fragment_edit_text_hint_password_confirm">введи пароль ще раз</string>
+    <string name="password_setting_fragment_btn_confirm_title">підтвердити</string>
+
+    <!--Fragment user password setting-->
 
 </resources>

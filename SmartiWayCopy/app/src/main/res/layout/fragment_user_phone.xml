@@ -25,7 +25,7 @@
         android:layout_marginEnd="36dp"
         android:digits="0123456789+"
         android:hint="@string/user_phone_fragment_input_et_hint"
-        android:textColor="@color/baseTextColor"
+        android:textColorHint="@color/baseTextColor"
         android:inputType="phone"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/tv_user_phone_fragment_license"
