@@ -10,6 +10,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -28,6 +30,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     private ProgressBar mProgressBar;
     private ImageButton btnBack, btnInfo;
     private BottomNavigationView mBnv;
+    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mProgressBar = findViewById(R.id.pb_toolbar_main_activity);
 
         mBnv = findViewById(R.id.bnv_main_activity);
+
+        mNavController = Navigation.findNavController(this, R.id.nav_controller_main_activity);
     }
 
     @Override
@@ -64,16 +69,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
-    public void bindFragment(Fragment fragment, int containerId) {
-        if (fragment == null || containerId == 0) {
+    public void bindFragment(Integer fragmentId) {
+        if (fragmentId == null) {
             return;
         }
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(containerId, fragment)
-                .addToBackStack(null)
-                .commit();
+        mNavController.navigate(fragmentId);
     }
 
     @Override

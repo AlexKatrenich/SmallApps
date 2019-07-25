@@ -3,15 +3,19 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
+import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
 @InjectViewState
 public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
+
+    private static final String TAG = "UserPhoneFP";
 
     public void onPolicyButtonClicked(View view) {
         Context context = view.getContext();
@@ -21,7 +25,8 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     }
 
     public void onButtonAuthClicked(View view) {
-
+        Log.i(TAG, "onButtonAuthClicked: ");
+        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhoneFragment_to_authorizationFragment);
     }
 
 }

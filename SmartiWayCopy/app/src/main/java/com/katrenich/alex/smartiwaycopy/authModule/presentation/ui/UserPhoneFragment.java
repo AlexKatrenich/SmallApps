@@ -3,6 +3,7 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.google.android.material.button.MaterialButton;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -22,12 +23,17 @@ import com.santalu.maskedittext.MaskEditText;
 public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhoneView {
 
     private static final String TAG = "UserPhoneFragment";
+
     @InjectPresenter
     UserPhoneFragmentPresenter mPresenter;
 
     private MaskEditText etUserPhone;
     private TextView btnPolicyLicence;
     private MaterialButton btnAuth;
+
+    public UserPhoneFragment(){
+
+    }
 
     @Nullable
     @Override
