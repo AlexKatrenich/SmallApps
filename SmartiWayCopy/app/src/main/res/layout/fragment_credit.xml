@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/np_credit_fragment_price"
+        app:layout_constraintEnd_toEndOf="@+id/np_credit_fragment_price"
+        app:layout_constraintStart_toStartOf="@+id/np_credit_fragment_price">
+
+        <TextView
+            android:id="@+id/tv_credit_fragment_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextViewCaptionsCreditFragment"
+            android:text="@string/credit_fragment_tv_sum_title" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pen" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/np_credit_fragment_term"
+        app:layout_constraintEnd_toEndOf="@+id/np_credit_fragment_term"
+        app:layout_constraintStart_toStartOf="@+id/np_credit_fragment_term">
+
+        <TextView
+            android:id="@+id/tv_credit_fragment_term"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextViewCaptionsCreditFragment"
+            android:text="@string/credit_fragment_tv_term_title" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_pen" />
+
+    </LinearLayout>
+
+    <NumberPicker
+        android:id="@+id/np_credit_fragment_price"
+        style=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tv_credit_fragment_to_pay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/np_credit_fragment_term"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <NumberPicker
+        android:id="@+id/np_credit_fragment_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/tv_credit_fragment_to_pay"
+        app:layout_constraintEnd_toStartOf="@+id/np_credit_fragment_price"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/tv_credit_fragment_to_pay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:text="@string/credit_fragment_tv_to_pay_title"
+        android:textColor="@color/baseTextColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_credit_fragment_get_credit"
+        app:layout_constraintEnd_toStartOf="@+id/tv_credit_fragment_pay_value"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_credit_fragment_pay_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_credit_fragment_to_pay"
+        app:layout_constraintEnd_toStartOf="@+id/btn_info_credit_fragment"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_credit_fragment_to_pay"
+        app:layout_constraintTop_toTopOf="@+id/tv_credit_fragment_to_pay"
+        tools:text="1251" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/btn_info_credit_fragment"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@android:color/transparent"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_color_info"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_credit_fragment_pay_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_credit_fragment_pay_value"
+        app:layout_constraintTop_toTopOf="@+id/tv_credit_fragment_pay_value" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_credit_fragment_get_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/credit_fragment_btn_get_money_title"
+        android:textColor="@color/secondaryTextColor"
+        app:backgroundTint="@android:color/holo_green_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

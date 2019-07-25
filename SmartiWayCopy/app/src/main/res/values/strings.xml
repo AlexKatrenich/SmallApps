@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">SmartiWayCopy</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="main_activity_bnv_menu_credit_item_title">Кредит</string>
+    <string name="main_activity_bnv_menu_menu_item_title">Меню</string>
 
     <!--Fragment Info-->
     <string name="info_dialog_fragment_title">Обери метод зв\'язку</string>
@@ -28,8 +30,12 @@
     <string name="password_setting_fragment_edit_text_hint_password_enter">введи пароль</string>
     <string name="password_setting_fragment_edit_text_hint_password_confirm">введи пароль ще раз</string>
     <string name="password_setting_fragment_btn_confirm_title">підтвердити</string>
-    <string name="main_activity_bnv_menu_credit_item_title">Кредит</string>
-    <string name="main_activity_bnv_menu_menu_item_title">Меню</string>
+
+    <!--Fragment credit selection-->
+    <string name="credit_fragment_btn_get_money_title">отримати кошти</string>
+    <string name="credit_fragment_tv_to_pay_title">До сплати:</string>
+    <string name="credit_fragment_tv_sum_title">Сума</string>
+    <string name="credit_fragment_tv_term_title">Термін (1)</string>
 
 
 </resources>

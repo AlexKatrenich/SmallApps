@@ -33,4 +33,8 @@
         <item name="android:textColor">@color/baseTextColor</item>
     </style>
 
+    <style name="TextViewCaptionsCreditFragment" parent="TextViewMessageToUser">
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
 </resources>
