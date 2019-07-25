@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_credit"
+        android:title="@string/main_activity_bnv_menu_credit_item_title"
+        android:icon="@drawable/ic_credit"/>
+
+    <item
+        android:id="@+id/item_menu"
+        android:title="@string/main_activity_bnv_menu_menu_item_title"
+        android:icon="@drawable/ic_menu"/>
+
+</menu>

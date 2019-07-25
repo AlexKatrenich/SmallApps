@@ -18,6 +18,7 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
     public static final String TAG = "MainActivityPresenter";
     public MutableLiveData<Integer> btnBackVisibility;
     public MutableLiveData<Integer> progressVisibility;
+    public MutableLiveData<Integer> bnvVisibility;
 
     public MainActivityPresenter() {
         Log.i(TAG, "MainActivityPresenter: ");
@@ -30,6 +31,9 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
 
         progressVisibility = new MutableLiveData<>();
         progressVisibility.setValue(View.GONE);
+
+        bnvVisibility = new MutableLiveData<>();
+        bnvVisibility.setValue(View.GONE);
 
         getViewState().updateUI();
         bindCurrentFragment(new PasswordSettingFragment());

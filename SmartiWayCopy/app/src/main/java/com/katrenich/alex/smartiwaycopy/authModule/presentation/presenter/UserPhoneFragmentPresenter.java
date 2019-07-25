@@ -15,7 +15,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
 
     public void onPolicyButtonClicked(View view) {
         Context context = view.getContext();
-        String webAddress = context.getString(R.string.info_dialog_website_address);
+        String webAddress = context.getString(R.string.info_dialog_fragment_website_address);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webAddress));
         context.startActivity(intent);
     }

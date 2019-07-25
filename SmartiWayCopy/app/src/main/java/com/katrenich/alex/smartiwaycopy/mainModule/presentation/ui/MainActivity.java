@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter.MainActivityPresenter;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
@@ -26,6 +27,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     private Toolbar mToolbar;
     private ProgressBar mProgressBar;
     private ImageButton btnBack, btnInfo;
+    private BottomNavigationView mBnv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,15 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         btnInfo.setOnClickListener(mPresenter::onBtnInfoClicked);
 
         mProgressBar = findViewById(R.id.pb_toolbar_main_activity);
+
+        mBnv = findViewById(R.id.bnv_main_activity);
     }
 
     @Override
     public void updateUI() {
         mPresenter.progressVisibility.observe(this, mProgressBar::setVisibility);
         mPresenter.btnBackVisibility.observe(this, btnBack::setVisibility);
+        mPresenter.bnvVisibility.observe(this, mBnv::setVisibility);
     }
 
     @Override
