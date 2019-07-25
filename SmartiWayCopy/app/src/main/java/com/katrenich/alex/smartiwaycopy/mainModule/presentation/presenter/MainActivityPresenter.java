@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.UserPhoneFragment;
+import com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.CodeVerificationFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 
@@ -31,8 +31,8 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
         progressVisibility = new MutableLiveData<>();
         progressVisibility.setValue(View.GONE);
 
-        bindCurrentFragment(new UserPhoneFragment());
         getViewState().updateUI();
+        bindCurrentFragment(new CodeVerificationFragment());
         Log.i(TAG, "init: ");
     }
 

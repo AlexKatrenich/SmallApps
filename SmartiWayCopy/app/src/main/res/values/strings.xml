@@ -16,4 +16,11 @@
     <string name="user_phone_fragment_btn_auth">я вже зареєстрований</string>
     <string name="user_phone_fragment_license_caption">Підтверджуючи дану форму я погоджуюся з</string>
     <string name="user_phone_fragment_license_caption_btn">умовами використання сервісу</string>
+
+    <!--Fragment CodeVerification-->
+    <string name="code_verification_fragment_message_to_user_1">На твій номер </string>
+    <string name="code_verification_fragment_message_to_user_2"> було надіслано код підтвердження. Введи його.</string>
+    <string name="code_verification_fragment_edit_text_hint">введи код</string>
+    <string name="code_verification_fragment_button_text">змінити номер</string>
+
 </resources>
