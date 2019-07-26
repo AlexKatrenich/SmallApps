@@ -3,11 +3,10 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.button.MaterialButton;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.UserPhoneFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
@@ -72,7 +72,6 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
             }
         };
 
-        etUserPhone.setText(" ");
         etUserPhone.addTextChangedListener(mTextWatcher);
 
         btnPolicyLicence = v.findViewById(R.id.tv_user_phone_fragment_license_btn);
@@ -82,14 +81,21 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
     }
 
     @Override
-    public void onResume() {
-        etUserPhone.setText(" ");
-        super.onResume();
-    }
-
-    @Override
     public void onDestroy() {
         etUserPhone.removeTextChangedListener(mTextWatcher);
         super.onDestroy();
+    }
+
+    @Override
+    public void showMessage(String s) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle(App.getInstance().getString(R.string.user_phone_fragment_title_message))
+                .setMessage(s)
+                .setNegativeButton(App.getInstance().getString(R.string.user_phone_fragment_message_title_cancel_button), (dialog, which) -> {
+                    dialog.cancel();
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
     }
 }

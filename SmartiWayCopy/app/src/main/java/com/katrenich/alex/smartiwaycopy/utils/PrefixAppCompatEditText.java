@@ -3,11 +3,13 @@ package com.katrenich.alex.smartiwaycopy.utils;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
 // custom EditText with prefix
 public class PrefixAppCompatEditText extends AppCompatEditText {
+    private static final String TAG = "PrefixAppCompatEditText";
     float mOriginalLeftPadding = -1;
 
     public PrefixAppCompatEditText(Context context) {
@@ -33,6 +35,8 @@ public class PrefixAppCompatEditText extends AppCompatEditText {
     private void calculatePrefix() {
         if (mOriginalLeftPadding == -1) {
             String prefix = (String) getTag();
+            prefix = prefix + " ";
+            Log.i(TAG, "calculatePrefix: " + prefix);
             float[] widths = new float[prefix.length()];
             getPaint().getTextWidths(prefix, widths);
             float textWidth = 0;

@@ -1,12 +1,16 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -18,6 +22,9 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
 
     @InjectPresenter
     CodeVerificationFragmentPresenter mPresenter;
+    private TextView tvMessage;
+    private AppCompatEditText etUserVerificationCode;
+
 
     @Nullable
     @Override
@@ -33,6 +40,29 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
+        tvMessage = v.findViewById(R.id.tv_code_verification_fragment_message);
+        etUserVerificationCode = v.findViewById(R.id.et_code_verification_fragment_code_enter);
+        etUserVerificationCode.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.verificationCodeEntered(s.toString());
+            }
+        });
+    }
+
+    @Override
+    public void updateUI() {
+        mPresenter.messageTextViewData.observe(this, tvMessage::setText);
     }
 }

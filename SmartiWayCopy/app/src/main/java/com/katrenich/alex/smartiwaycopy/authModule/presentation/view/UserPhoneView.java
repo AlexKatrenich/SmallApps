@@ -4,4 +4,6 @@ import com.arellomobile.mvp.MvpView;
 
 public interface UserPhoneView extends MvpView {
 
+    void showMessage(String s);
+
 }

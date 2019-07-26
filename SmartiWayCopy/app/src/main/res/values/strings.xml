@@ -4,32 +4,29 @@
     <string name="main_activity_bnv_menu_credit_item_title">Кредит</string>
     <string name="main_activity_bnv_menu_menu_item_title">Меню</string>
 
-    <!--Test data-->
-    <string name="mobile_phone_varification_code">356789</string>
-    <string name="user_mobile_phone_number">0677343671</string>
-    <string name="user_password">Test2019</string>
-    <string name="user_phone_number_prefix">+380 </string>
-
     <!--Fragment Info-->
     <string name="info_dialog_fragment_title">Обери метод зв\'язку</string>
     <string name="info_dialog_fragment_phone">Телефон</string>
     <string name="info_dialog_fragment_most_used_questions_btn">Часті питання</string>
     <string name="info_dialog_fragment_btn_cancel">Скасувати</string>
-    <string name="info_dialog_fragment_phone_value">067 734 36 71</string>
-    <string name="info_dialog_fragment_website_address">http://leadsdoit.com/</string>
 
     <!--Fragment UserPhone-->
-    <string name="user_phone_fragment_input_et_hint">введи номер</string>
+    <string name="user_phone_fragment_input_et_hint"> введи номер</string>
     <string name="user_phone_fragment_tv_hint_caption">Номер мобільного телефону</string>
     <string name="user_phone_fragment_btn_auth">я вже зареєстрований</string>
     <string name="user_phone_fragment_license_caption">Підтверджуючи дану форму я погоджуюся з</string>
     <string name="user_phone_fragment_license_caption_btn">умовами використання сервісу</string>
+    <string name="user_phone_fragment_title_message">Увага</string>
+    <string name="user_phone_fragment_message_title_cancel_button">Продовжити</string>
+    <string name="user_phone_fragment_send_code_error_text">Проблема з відправленням коду верифікації, перевірте інтернет доступ</string>
 
     <!--Fragment CodeVerification-->
     <string name="code_verification_fragment_message_to_user_1">На твій номер </string>
     <string name="code_verification_fragment_message_to_user_2"> було надіслано код підтвердження. Введи його.</string>
     <string name="code_verification_fragment_edit_text_hint">введи код</string>
     <string name="code_verification_fragment_button_text">змінити номер</string>
+
+
 
     <!--Fragment user password setting-->
     <string name="password_setting_fragment_message_to_user">Вимоги до паролю: від 7 до 30 символів; мінімум 1 велика і 1 мала літери; 1 цифра; відсутність спецсимволів.</string>

@@ -11,6 +11,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
@@ -69,11 +70,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
-    public void bindFragment(Integer fragmentId) {
-        if (fragmentId == null) {
+    public void bindFragment(Integer destID) {
+        if (destID == null) {
             return;
         }
-        mNavController.navigate(fragmentId);
+        int currentDestination = mNavController.getCurrentDestination().getId();
+        Log.i(TAG, "bindFragment: Current = " + currentDestination + " destID= " + destID);
+        mNavController.navigate(destID);
     }
 
     @Override

@@ -12,10 +12,9 @@ import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
 import java.util.Observable;
-import java.util.Observer;
 
 @InjectViewState
-public class MainActivityPresenter extends MvpPresenter<MainView> implements Observer {
+public class MainActivityPresenter extends MvpPresenter<MainView> {
     public static final String TAG = "MainActivityPresenter";
     public MutableLiveData<Integer> btnBackVisibility;
     public MutableLiveData<Integer> progressVisibility;
@@ -36,7 +35,7 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
         bnvVisibility = new MutableLiveData<>();
         bnvVisibility.setValue(View.GONE);
 
-        MainActivityNavigateController.getInstance().addObserver(this);
+        MainActivityNavigateController.getInstance().setMainActivityPresenter(this);
 
         getViewState().updateUI();
         Log.i(TAG, "init: ");
@@ -51,20 +50,13 @@ public class MainActivityPresenter extends MvpPresenter<MainView> implements Obs
         getViewState().showInfoDialog(new InfoDialogFragment());
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        Integer resID = null;
-
-        try {
-            resID = (Integer) arg;
-        } catch (ClassCastException e){}
-
-        if(resID != null) bindCurrentFragment(resID);
+    public void updateNavigation(Integer resID){
+        bindCurrentFragment(resID);
     }
 
     @Override
     public void onDestroy() {
-        MainActivityNavigateController.getInstance().deleteObserver(this);
+        MainActivityNavigateController.getInstance().removeMainActivityPresenter();
         super.onDestroy();
     }
 }

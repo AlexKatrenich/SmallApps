@@ -38,7 +38,11 @@
         <action
             android:id="@+id/action_passwordSetting_to_credit"
             app:destination="@id/creditFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/creditFragment"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
@@ -49,6 +53,10 @@
         <action
             android:id="@+id/action_authorization_to_credit"
             app:destination="@id/creditFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
     </fragment>
     <fragment
@@ -58,6 +66,11 @@
         tools:layout="@layout/fragment_code_varification">
         <action
             android:id="@+id/action_codeVerification_to_passwordSetting"
-            app:destination="@id/passwordSettingFragment" />
+            app:destination="@id/passwordSettingFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/userPhoneFragment" />
     </fragment>
 </navigation>

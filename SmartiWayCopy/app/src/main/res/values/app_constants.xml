@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="code_verification_length">6</integer>
+    <string name="main_company_phone_number">067 734 36 71</string>
+    <string name="main_company_website_address">http://leadsdoit.com/</string>
+
+    <!--Test data-->
+    <string name="mobile_phone_verification_code">356789</string>
+    <string name="user_mobile_phone_number">0677343671</string>
+    <integer name="user_mobile_phone_number_length">10</integer>
+    <string name="user_password">Test2019</string>
+    <string name="user_phone_number_prefix">+38</string>
+
+</resources>

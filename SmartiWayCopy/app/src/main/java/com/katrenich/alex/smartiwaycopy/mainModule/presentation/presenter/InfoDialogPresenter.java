@@ -15,14 +15,14 @@ public class InfoDialogPresenter extends MvpPresenter<InfoView> {
 
     public void onPhoneBtnClick(View v){
         Context context = v.getContext();
-        String phone = context.getString(R.string.info_dialog_fragment_phone_value);
+        String phone = context.getString(R.string.main_company_phone_number);
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone, null));
         context.startActivity(intent);
     }
 
     public void onQuestionsBtnClick(View v){
         Context context = v.getContext();
-        String webAddress = context.getString(R.string.info_dialog_fragment_website_address);
+        String webAddress = context.getString(R.string.main_company_website_address);
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webAddress));
         context.startActivity(intent);
     }
