@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,23 +16,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.santalu.maskedittext.MaskEditText
+    <com.katrenich.alex.smartiwaycopy.utils.PrefixAppCompatEditText
         android:id="@+id/et_user_phone_input_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
-        android:digits="0123456789+"
+        android:maxLength="9"
         android:hint="@string/user_phone_fragment_input_et_hint"
-        android:textColorHint="@color/baseTextColor"
-        android:inputType="phone"
-        android:textSize="18sp"
+        android:tag="@string/user_phone_number_prefix"
+        android:inputType="number"
         app:layout_constraintBottom_toTopOf="@+id/tv_user_phone_fragment_license"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_phone_fragment_main_hint"
-        app:met_mask="+38 (###) ### ## ##" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_phone_fragment_main_hint" />
 
     <TextView
         android:id="@+id/tv_user_phone_fragment_license"

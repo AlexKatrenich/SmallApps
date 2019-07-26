@@ -3,9 +3,11 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.android.material.button.MaterialButton;
 import android.text.Editable;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,7 +20,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.UserPhoneFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
-import com.santalu.maskedittext.MaskEditText;
+import com.katrenich.alex.smartiwaycopy.utils.PrefixAppCompatEditText;
 
 public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhoneView {
 
@@ -27,7 +29,9 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
     @InjectPresenter
     UserPhoneFragmentPresenter mPresenter;
 
-    private MaskEditText etUserPhone;
+    private TextWatcher mTextWatcher;
+
+    private PrefixAppCompatEditText etUserPhone;
     private TextView btnPolicyLicence;
     private MaterialButton btnAuth;
 
@@ -49,7 +53,7 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
     private void initUI(View v, Bundle savedInstanceState) {
         etUserPhone = v.findViewById(R.id.et_user_phone_input_fragment);
-        etUserPhone.addTextChangedListener(new TextWatcher() {
+        mTextWatcher =  new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -62,17 +66,30 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
             @Override
             public void afterTextChanged(Editable s) {
-                String phoneNumber = etUserPhone.getRawText();
-                if(phoneNumber.length() == 10) {
-                    Log.i(TAG, "afterTextChanged: " + phoneNumber);
-                    mPresenter.phoneNumberEntered(phoneNumber);
-                }
+                Log.i(TAG, "afterTextChanged: " + s);
+                String phone = s.toString();
+                mPresenter.phoneNumberEntered(phone);
             }
-        });
+        };
+
+        etUserPhone.setText(" ");
+        etUserPhone.addTextChangedListener(mTextWatcher);
 
         btnPolicyLicence = v.findViewById(R.id.tv_user_phone_fragment_license_btn);
         btnPolicyLicence.setOnClickListener(mPresenter::onPolicyButtonClicked);
         btnAuth = v.findViewById(R.id.btn_user_phone_fragment_auth);
         btnAuth.setOnClickListener(mPresenter::onButtonAuthClicked);
+    }
+
+    @Override
+    public void onResume() {
+        etUserPhone.setText(" ");
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroy() {
+        etUserPhone.removeTextChangedListener(mTextWatcher);
+        super.onDestroy();
     }
 }

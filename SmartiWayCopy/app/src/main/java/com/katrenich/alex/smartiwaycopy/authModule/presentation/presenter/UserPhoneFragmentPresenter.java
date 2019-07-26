@@ -14,8 +14,6 @@ import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneVi
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
-import java.util.Calendar;
-import java.util.Date;
 
 @InjectViewState
 public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
@@ -34,18 +32,18 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
         MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_authorization);
     }
 
-    private Date time;
 
     public void phoneNumberEntered(String phoneNumber) {
-        if(time != null) {
-            Date currentTime = Calendar.getInstance().getTime();
-            long t = currentTime.getTime() - time.getTime();
-            if(t < 500) {return;}
-        } else {
-            time = Calendar.getInstance().getTime();
+        // check if calling method with same parameter - return;
+        User user = AuthController.getInstance().getUser();
+        if (user != null && user.getMobilePhone() != null) {
+            if(user.getMobilePhone().equals(phoneNumber)) return;
         }
-        AuthController.getInstance().setUser(new User(phoneNumber));
-        AuthController.getInstance().sendVerificationCode();
-        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+
+        if (phoneNumber.length() == 9){
+            AuthController.getInstance().setUser(new User(phoneNumber));
+            AuthController.getInstance().sendVerificationCode();
+            MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+        }
     }
 }

@@ -15,38 +15,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.santalu.maskedittext.MaskEditText
-        android:id="@+id/et_user_authorization_fragment"
+    <com.katrenich.alex.smartiwaycopy.utils.PrefixAppCompatEditText
+        android:id="@+id/et_user_phone_authorization_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="16dp"
-        android:digits="0123456789+"
         android:hint="@string/user_phone_fragment_input_et_hint"
         android:inputType="phone"
-        android:textColorHint="@color/baseTextColor"
+        android:tag="@string/user_phone_number_prefix"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/et_password_authorization_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_authorization_fragment_message"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:met_mask="+38 (0##) ### ## ##" />
+        app:layout_constraintVertical_chainStyle="packed"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_password_authorization_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:hint="@string/password_setting_fragment_edit_text_hint_password_enter"
         app:layout_constraintBottom_toTopOf="@+id/btn_auth_authorization_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_user_authorization_fragment" />
+        app:layout_constraintTop_toBottomOf="@+id/et_user_phone_authorization_fragment" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_auth_authorization_fragment"
