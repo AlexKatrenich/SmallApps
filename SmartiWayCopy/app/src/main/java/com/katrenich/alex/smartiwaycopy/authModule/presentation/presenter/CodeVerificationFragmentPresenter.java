@@ -1,5 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
+import android.view.View;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -64,8 +66,14 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
                         dataLoad = false;
                         if (aBoolean) {
                             MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
+                        } else {
+                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
                         }
                     });
         }
+    }
+
+    public void onChangePhoneNumberClicked(View view) {
+        MainActivityNavigateController.getInstance().navigateBack();
     }
 }

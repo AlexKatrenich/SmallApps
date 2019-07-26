@@ -5,6 +5,7 @@ public class User {
     private String mLastName;
     private String mMiddleName;
     private String mInnCode;
+    private String mPassword;
     private String mPassportSN;
     private String mMobilePhone;
     private String mBirthDate;
@@ -83,5 +84,13 @@ public class User {
         return "User{" +
                 "mMobilePhone='" + mMobilePhone + '\'' +
                 '}';
+    }
+
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
     }
 }

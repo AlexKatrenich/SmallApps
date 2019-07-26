@@ -4,4 +4,5 @@ import com.arellomobile.mvp.MvpView;
 
 public interface PasswordSettingView extends MvpView {
 
+    void showMessage(String message);
 }

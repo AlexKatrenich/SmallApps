@@ -18,14 +18,14 @@
     <string name="user_phone_fragment_license_caption_btn">умовами використання сервісу</string>
     <string name="user_phone_fragment_title_message">Увага</string>
     <string name="user_phone_fragment_message_title_cancel_button">Продовжити</string>
-    <string name="user_phone_fragment_send_code_error_text">Проблема з відправленням коду верифікації, перевірте інтернет доступ</string>
+    <string name="user_phone_fragment_send_code_error_text">Проблема з відправленням коду верифікації, будь ласка перевірте наявність інтернет доступу</string>
 
     <!--Fragment CodeVerification-->
     <string name="code_verification_fragment_message_to_user_1">На твій номер </string>
     <string name="code_verification_fragment_message_to_user_2"> було надіслано код підтвердження. Введи його.</string>
     <string name="code_verification_fragment_edit_text_hint">введи код</string>
     <string name="code_verification_fragment_button_text">змінити номер</string>
-
+    <string name="code_verification_fragment_code_error_text">Проблема з перевіркою коду верифікації, будь ласка перевірте наявність інтернет доступу</string>
 
 
     <!--Fragment user password setting-->
@@ -33,6 +33,8 @@
     <string name="password_setting_fragment_edit_text_hint_password_enter">введи пароль</string>
     <string name="password_setting_fragment_edit_text_hint_password_confirm">введи пароль ще раз</string>
     <string name="password_setting_fragment_btn_confirm_title">підтвердити</string>
+    <string name="password_setting_fragment_send_code_error_text">Проблема зі збереженням даних користувача, будь ласка перевірте наявність інтернет доступу</string>
+
 
     <!--Fragment credit selection-->
     <string name="credit_fragment_btn_get_money_title">отримати кошти</string>

@@ -48,4 +48,8 @@ public class MainActivityNavigateController {
                     .setValue(View.GONE);
         }
     }
+
+    public void navigateBack() {
+        if(mMainActivityPresenter != null) mMainActivityPresenter.updateNavigation(-1);
+    }
 }

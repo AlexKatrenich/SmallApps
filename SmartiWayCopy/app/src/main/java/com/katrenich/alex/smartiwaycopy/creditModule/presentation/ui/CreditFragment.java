@@ -1,10 +1,13 @@
 package com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.view.inputmethod.InputMethodManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +18,7 @@ import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.Cred
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.CreditSelectionView;
 
 public class CreditFragment extends MvpAppCompatFragment implements CreditSelectionView {
+    public static final String TAG = "CreditFragment";
 
     @InjectPresenter
     CreditFragmentPresenter mPresenter;
@@ -33,6 +37,13 @@ public class CreditFragment extends MvpAppCompatFragment implements CreditSelect
     }
 
     private void initUI(View view, Bundle savedInstanceState) {
+        InputMethodManager inputManager = (InputMethodManager) view
+                .getContext()
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        IBinder binder = view.getWindowToken();
+        inputManager.hideSoftInputFromWindow(binder,
+                InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
 }

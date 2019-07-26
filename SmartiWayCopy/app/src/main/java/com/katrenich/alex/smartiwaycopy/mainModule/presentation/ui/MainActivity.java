@@ -1,8 +1,10 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
@@ -70,12 +72,22 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     }
 
     @Override
+    public void onBackPressed() {
+        if (mNavController.getCurrentDestination().getId() == R.id.creditFragment) return;
+        super.onBackPressed();
+    }
+
+    @Override
     public void bindFragment(Integer destID) {
         if (destID == null) {
             return;
         }
-        int currentDestination = mNavController.getCurrentDestination().getId();
-        Log.i(TAG, "bindFragment: Current = " + currentDestination + " destID= " + destID);
+
+        if(destID == -1) {
+            mNavController.navigateUp();
+            return;
+        }
+
         mNavController.navigate(destID);
     }
 

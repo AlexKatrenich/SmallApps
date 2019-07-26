@@ -10,10 +10,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.button.MaterialButton;
+import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.CodeVerificationFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerificationView;
@@ -24,6 +27,7 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
     CodeVerificationFragmentPresenter mPresenter;
     private TextView tvMessage;
     private AppCompatEditText etUserVerificationCode;
+    private MaterialButton btnChanePhoneNumber;
 
 
     @Nullable
@@ -59,10 +63,26 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
                 mPresenter.verificationCodeEntered(s.toString());
             }
         });
+
+        btnChanePhoneNumber = v.findViewById(R.id.btn_code_verification_fragment_change_phone);
+        btnChanePhoneNumber.setOnClickListener(mPresenter::onChangePhoneNumberClicked);
+
     }
 
     @Override
     public void updateUI() {
         mPresenter.messageTextViewData.observe(this, tvMessage::setText);
+    }
+
+    @Override
+    public void showMessage(String s) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle(App.getInstance().getString(R.string.user_phone_fragment_title_message))
+                .setMessage(s)
+                .setNegativeButton(App.getInstance().getString(R.string.user_phone_fragment_message_title_cancel_button), (dialog, which) -> {
+                    dialog.cancel();
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

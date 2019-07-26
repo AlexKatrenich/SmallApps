@@ -19,6 +19,7 @@ public class AuthController {
     public static AuthController getInstance() {
         return ourInstance;
     }
+    private final int TEST_TIME_DELAY = 0;
 
     private AuthController() {
 
@@ -32,10 +33,10 @@ public class AuthController {
 
     public Single<Boolean> checkUserVerificationCode(String code) {
         String baseCode = App.getInstance().getString(R.string.mobile_phone_verification_code);
-
+        code = baseCode; //TEST
         return Single.just(baseCode.equals(code))
                 .subscribeOn(Schedulers.io())
-                .delay(3, TimeUnit.SECONDS);
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 
     public User getUser() {
@@ -61,8 +62,16 @@ public class AuthController {
             b = mUser.getMobilePhone().equals(App.getInstance().getString(R.string.user_mobile_phone_number));
         }
 
+        b = true; // TEST
         return Single.just(b)
                .subscribeOn(Schedulers.io())
-               .delay(2, TimeUnit.SECONDS);
+               .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<Boolean> setUserPassword(String password) {
+
+        return Single.just(true)
+                .subscribeOn(Schedulers.io())
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 }
