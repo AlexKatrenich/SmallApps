@@ -62,12 +62,14 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
             @Override
             public void afterTextChanged(Editable s) {
-                String phone = "+38" + etUserPhone.getRawText();
-                if(phone.length() == 13) {
-                    Log.i(TAG, "afterTextChanged: " + phone);
+                String phoneNumber = etUserPhone.getRawText();
+                if(phoneNumber.length() == 10) {
+                    Log.i(TAG, "afterTextChanged: " + phoneNumber);
+                    mPresenter.phoneNumberEntered(phoneNumber);
                 }
             }
         });
+
         btnPolicyLicence = v.findViewById(R.id.tv_user_phone_fragment_license_btn);
         btnPolicyLicence.setOnClickListener(mPresenter::onPolicyButtonClicked);
         btnAuth = v.findViewById(R.id.btn_user_phone_fragment_auth);

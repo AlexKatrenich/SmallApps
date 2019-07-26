@@ -4,6 +4,11 @@
     <string name="main_activity_bnv_menu_credit_item_title">Кредит</string>
     <string name="main_activity_bnv_menu_menu_item_title">Меню</string>
 
+    <!--Test data-->
+    <string name="mobile_phone_varification_code">356789</string>
+    <string name="user_mobile_phone_number">0677343671</string>
+    <string name="user_password">Test2019</string>
+
     <!--Fragment Info-->
     <string name="info_dialog_fragment_title">Обери метод зв\'язку</string>
     <string name="info_dialog_fragment_phone">Телефон</string>
