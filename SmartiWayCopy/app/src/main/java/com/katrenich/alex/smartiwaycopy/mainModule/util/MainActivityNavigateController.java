@@ -1,11 +1,10 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.util;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter.MainActivityPresenter;
-
-import java.util.Observable;
 
 public class MainActivityNavigateController {
     private static final MainActivityNavigateController ourInstance = new MainActivityNavigateController();
@@ -33,6 +32,15 @@ public class MainActivityNavigateController {
         if(mMainActivityPresenter != null) mMainActivityPresenter.updateNavigation(resID);
     }
 
+    public void navigate(Integer resID, Bundle bundle) {
+        if (bundle == null) {
+            navigate(resID);
+        } else {
+            if(mMainActivityPresenter != null) mMainActivityPresenter.updateNavigation(resID, bundle);
+        }
+
+    }
+
     public void showProgress() {
         if(mMainActivityPresenter != null ) {
             mMainActivityPresenter
@@ -52,4 +60,23 @@ public class MainActivityNavigateController {
     public void navigateBack() {
         if(mMainActivityPresenter != null) mMainActivityPresenter.updateNavigation(-1);
     }
+
+    public void showBackButton() {
+        if(mMainActivityPresenter != null ) {
+            mMainActivityPresenter
+                    .btnBackVisibility
+                    .setValue(View.VISIBLE);
+        }
+    }
+
+    public void hideBackButton(){
+        if(mMainActivityPresenter != null ) {
+            Log.i(TAG, "hideBackButton: ");
+            mMainActivityPresenter
+                    .btnBackVisibility
+                    .setValue(View.GONE);
+        }
+    }
+
+
 }

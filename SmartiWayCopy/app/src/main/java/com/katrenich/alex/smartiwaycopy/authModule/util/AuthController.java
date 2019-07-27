@@ -7,6 +7,8 @@ import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.model.User;
 
 import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 
@@ -31,7 +33,7 @@ public class AuthController {
         return Single.just(b);
     }
 
-    public Single<Boolean> checkUserVerificationCode(String code) {
+    public Single<Boolean> checkVerificationCodeNewUser(String code) {
         String baseCode = App.getInstance().getString(R.string.mobile_phone_verification_code);
         code = baseCode; //TEST
         return Single.just(baseCode.equals(code))
@@ -55,10 +57,12 @@ public class AuthController {
         this.token = token;
     }
 
-    public Single<Boolean> sendVerificationCode() {
+    public Single<Boolean> sendVerificationCodeNewUser(User user) {
+        mUser = user;
+
         boolean b = false;
         if (mUser != null && mUser.getMobilePhone() != null){
-            Log.i(TAG, "sendVerificationCode: " + mUser.getMobilePhone());
+            Log.i(TAG, "sendVerificationCodeNewUser: " + mUser.getMobilePhone());
             b = mUser.getMobilePhone().equals(App.getInstance().getString(R.string.user_mobile_phone_number));
         }
 
@@ -69,6 +73,46 @@ public class AuthController {
     }
 
     public Single<Boolean> setUserPassword(String password) {
+
+        return Single.just(true)
+                .subscribeOn(Schedulers.io())
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<Boolean> authorizeUser(User user) {
+        mUser = user;
+
+        return Single.just(true)
+                .subscribeOn(Schedulers.io())
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<Boolean> sendVerificationCodePassRecover(User user) {
+        mUser = user;
+
+        boolean b = false;
+        if (mUser != null && mUser.getMobilePhone() != null){
+            Log.i(TAG, "sendVerificationCodeNewUser: " + mUser.getMobilePhone());
+            b = mUser.getMobilePhone().equals(App.getInstance().getString(R.string.user_mobile_phone_number));
+        }
+
+        b = true; // TEST
+        return Single.just(b)
+                .subscribeOn(Schedulers.io())
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<Boolean> checkVerificationCodePassRecover(String code) {
+
+        String baseCode = App.getInstance().getString(R.string.mobile_phone_verification_code);
+        code = baseCode; //TEST
+
+        return Single.just(baseCode.equals(code))
+                .subscribeOn(Schedulers.io())
+                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<Boolean> changeCurrentUserPassword(String password) {
 
         return Single.just(true)
                 .subscribeOn(Schedulers.io())

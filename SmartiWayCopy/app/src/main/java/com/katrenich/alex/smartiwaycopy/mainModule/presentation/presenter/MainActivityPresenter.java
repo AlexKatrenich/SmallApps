@@ -1,5 +1,6 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.presenter;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -11,7 +12,6 @@ import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFra
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
-import java.util.Observable;
 
 @InjectViewState
 public class MainActivityPresenter extends MvpPresenter<MainView> {
@@ -58,5 +58,9 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
     public void onDestroy() {
         MainActivityNavigateController.getInstance().removeMainActivityPresenter();
         super.onDestroy();
+    }
+
+    public void updateNavigation(Integer resID, Bundle bundle) {
+        getViewState().bindFragment(resID, bundle);
     }
 }

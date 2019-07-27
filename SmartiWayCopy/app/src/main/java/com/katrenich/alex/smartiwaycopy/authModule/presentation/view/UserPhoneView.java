@@ -6,4 +6,5 @@ public interface UserPhoneView extends MvpView {
 
     void showMessage(String s);
 
+    void updateUI();
 }

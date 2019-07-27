@@ -4,6 +4,7 @@ package com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -74,6 +75,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     public void onBackPressed() {
         if (mNavController.getCurrentDestination().getId() == R.id.creditFragment) return;
+        mPresenter.btnBackVisibility.setValue(View.GONE);
         super.onBackPressed();
     }
 
@@ -104,6 +106,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         ft.addToBackStack(null);
 
         dialogFragment.show(getSupportFragmentManager(), infoDialogTag);
+    }
+
+    @Override
+    public void bindFragment(Integer resID, Bundle bundle) {
+        mNavController.navigate(resID, bundle);
     }
 
 }

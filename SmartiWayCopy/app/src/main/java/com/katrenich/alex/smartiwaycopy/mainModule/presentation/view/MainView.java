@@ -1,5 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.mainModule.presentation.view;
 
+import android.os.Bundle;
+
 import androidx.fragment.app.DialogFragment;
 
 
@@ -9,4 +11,6 @@ public interface MainView extends MvpView {
     void updateUI();
     void bindFragment(Integer id);
     void showInfoDialog(DialogFragment dialogFragment);
+
+    void bindFragment(Integer resID, Bundle bundle);
 }

@@ -1,5 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -17,8 +19,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 
 @InjectViewState
 public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerificationView> {
+    private static final String TAG = "CodeVerFragmentP";
     public MutableLiveData<String> messageTextViewData;
     private boolean dataLoad;
+    private String action;
+
 
     public CodeVerificationFragmentPresenter() {
         init();
@@ -54,12 +59,20 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     }
 
     public void verificationCodeEntered(String verificationCode) {
+        if(action != null && action.equals(App.getInstance().getString(R.string.auth_action_state))){
+            verificateCodePassRecover(verificationCode);
+        } else {
+            verificateCodeNewUser(verificationCode);
+        }
+    }
+
+    private void verificateCodeNewUser(String verificationCode) {
         int codeLength = App.getInstance().getResources().getInteger(R.integer.code_verification_length);
         if(verificationCode != null && verificationCode.length() == codeLength && !dataLoad){
             dataLoad = true;
             MainActivityNavigateController.getInstance().showProgress();
             AuthController.getInstance()
-                    .checkUserVerificationCode(verificationCode)
+                    .checkVerificationCodeNewUser(verificationCode)
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(aBoolean -> {
                         MainActivityNavigateController.getInstance().hideProgress();
@@ -73,7 +86,34 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
         }
     }
 
+    private void verificateCodePassRecover(String verificationCode) {
+        Log.i(TAG, "verificateCodePassRecover: ");
+        int codeLength = App.getInstance().getResources().getInteger(R.integer.code_verification_length);
+        if(verificationCode != null && verificationCode.length() == codeLength && !dataLoad){
+            dataLoad = true;
+            MainActivityNavigateController.getInstance().showProgress();
+            AuthController.getInstance()
+                    .checkVerificationCodePassRecover(verificationCode)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(aBoolean -> {
+                        MainActivityNavigateController.getInstance().hideProgress();
+                        dataLoad = false;
+                        if (aBoolean) {
+                            Bundle bundle = new Bundle();
+                            bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), action);
+                            MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting, bundle);
+                        } else {
+                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                        }
+                    });
+        }
+    }
+
     public void onChangePhoneNumberClicked(View view) {
         MainActivityNavigateController.getInstance().navigateBack();
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

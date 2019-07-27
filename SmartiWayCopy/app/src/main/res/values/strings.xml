@@ -19,6 +19,7 @@
     <string name="user_phone_fragment_title_message">Увага</string>
     <string name="user_phone_fragment_message_title_cancel_button">Продовжити</string>
     <string name="user_phone_fragment_send_code_error_text">Проблема з відправленням коду верифікації, будь ласка перевірте наявність інтернет доступу</string>
+    <string name="user_phone_fragment_tv_hint_caption_to_pass_recover">Відновлення паролю. Введи номер телефону свого облікового запису.</string>
 
     <!--Fragment CodeVerification-->
     <string name="code_verification_fragment_message_to_user_1">На твій номер </string>
@@ -35,15 +36,19 @@
     <string name="password_setting_fragment_btn_confirm_title">підтвердити</string>
     <string name="password_setting_fragment_send_code_error_text">Проблема зі збереженням даних користувача, будь ласка перевірте наявність інтернет доступу</string>
 
+    <!--Fragment authorization-->
+    <string name="authorization_fragment_btn_auth_title">Авторизуватися</string>
+    <string name="authorization_fragment_btn_pass_restore_title">Відновлення паролю</string>
+    <string name="authorization_fragment_tv_message_title">Авторизація</string>
+    <string name="authorization_fragment_message_pass_and_phone_not_confirm">Авторизацію не виконано. Номер телефону або пароль введені невірно.</string>
 
     <!--Fragment credit selection-->
     <string name="credit_fragment_btn_get_money_title">отримати кошти</string>
     <string name="credit_fragment_tv_to_pay_title">До сплати:</string>
     <string name="credit_fragment_tv_sum_title">Сума</string>
     <string name="credit_fragment_tv_term_title">Термін (1)</string>
-    <string name="authorization_fragment_btn_auth_title">Авторизуватися</string>
-    <string name="authorization_fragment_btn_pass_restore_title">Відновлення паролю</string>
-    <string name="authorization_fragment_tv_message_title">Авторизація</string>
+
+
 
 
 </resources>

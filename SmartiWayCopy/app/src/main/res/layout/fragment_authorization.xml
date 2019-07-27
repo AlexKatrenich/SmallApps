@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -24,6 +25,7 @@
         android:layout_marginBottom="16dp"
         android:hint="@string/user_phone_fragment_input_et_hint"
         android:inputType="phone"
+        android:maxLength="@integer/user_mobile_phone_number_length"
         android:tag="@string/user_phone_number_prefix"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/et_password_authorization_fragment"
@@ -40,6 +42,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
         android:hint="@string/password_setting_fragment_edit_text_hint_password_enter"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btn_auth_authorization_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

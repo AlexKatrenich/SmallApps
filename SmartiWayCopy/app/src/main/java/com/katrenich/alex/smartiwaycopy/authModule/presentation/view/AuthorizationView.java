@@ -4,4 +4,7 @@ import com.arellomobile.mvp.MvpView;
 
 public interface AuthorizationView extends MvpView {
 
+    void updateUI();
+
+    void showMessage(String string);
 }

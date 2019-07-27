@@ -15,6 +15,11 @@ public class User {
         mMobilePhone = mobilePhone;
     }
 
+    public User(String phoneNumb, String pass) {
+        mMobilePhone = phoneNumb;
+        mPassword = pass;
+    }
+
     public String getFirstName() {
         return mFirstName;
     }

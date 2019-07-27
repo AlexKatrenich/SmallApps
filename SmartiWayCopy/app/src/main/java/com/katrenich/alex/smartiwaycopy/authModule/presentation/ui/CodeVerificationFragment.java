@@ -41,6 +41,7 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
         super.onViewCreated(view, savedInstanceState);
 
         initUI(view, savedInstanceState);
+
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
@@ -67,6 +68,8 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
         btnChanePhoneNumber = v.findViewById(R.id.btn_code_verification_fragment_change_phone);
         btnChanePhoneNumber.setOnClickListener(mPresenter::onChangePhoneNumberClicked);
 
+        String action = getArguments().getString(App.getInstance().getString(R.string.auth_state_action_name));
+        mPresenter.setAction(action);
     }
 
     @Override

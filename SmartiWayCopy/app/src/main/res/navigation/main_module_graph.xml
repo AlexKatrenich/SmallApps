@@ -24,6 +24,10 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <argument
+            android:name="action"
+            app:argType="string"
+            android:defaultValue="REGISTER_NEW_USER" />
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
@@ -57,6 +61,16 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_authorizationFragment_to_userPhoneFragment"
+            app:destination="@id/userPhoneFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" >
+            <argument android:defaultValue="PASSWORD_RECOVER"
+                android:name="action" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/codeVerificationFragment"
@@ -71,5 +85,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/userPhoneFragment" />
+        <argument
+            android:name="action"
+            app:argType="string" />
     </fragment>
+    <argument android:defaultValue="REGISTER_NEW_USER"
+        android:name="action" />
 </navigation>

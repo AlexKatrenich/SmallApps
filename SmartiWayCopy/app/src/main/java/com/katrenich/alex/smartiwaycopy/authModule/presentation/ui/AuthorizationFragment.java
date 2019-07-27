@@ -10,20 +10,27 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.button.MaterialButton;
+import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.AuthorizationFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.AuthorizationView;
+import com.katrenich.alex.smartiwaycopy.utils.PrefixAppCompatEditText;
 
 public class AuthorizationFragment extends MvpAppCompatFragment implements AuthorizationView {
 
     private static final String TAG = "AuthorizationFragment";
     @InjectPresenter
     AuthorizationFragmentPresenter mPresenter;
-    AppCompatEditText mText;
+
+    private PrefixAppCompatEditText etUserPhone;
+    private AppCompatEditText etUserPass;
+    private MaterialButton btnAuth, btnPassRecover;
 
     @Nullable
     @Override
@@ -39,22 +46,30 @@ public class AuthorizationFragment extends MvpAppCompatFragment implements Autho
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
-        mText = v.findViewById(R.id.et_password_authorization_fragment);
-        mText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.i(TAG, "afterTextChanged: " + s);
-            }
-        });
+        etUserPass = v.findViewById(R.id.et_password_authorization_fragment);
+        etUserPhone = v.findViewById(R.id.et_user_phone_authorization_fragment);
+        btnAuth = v.findViewById(R.id.btn_auth_authorization_fragment);
+        btnAuth.setOnClickListener(v1 -> mPresenter.onButtonAuthClicked(etUserPhone.getText().toString(), etUserPass.getText().toString()));
+        btnPassRecover = v.findViewById(R.id.btn_password_recover_authorization_fragment);
+        btnPassRecover.setOnClickListener(mPresenter::onButtonPassRecoverClicked);
     }
+
+    @Override
+    public void updateUI(){
+        mPresenter.userPhoneNumber.observe(this, etUserPhone::setText);
+    }
+
+    @Override
+    public void showMessage(String s) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle(App.getInstance().getString(R.string.user_phone_fragment_title_message))
+                .setMessage(s)
+                .setNegativeButton(App.getInstance().getString(R.string.user_phone_fragment_message_title_cancel_button), (dialog, which) -> {
+                    dialog.cancel();
+                });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
 }

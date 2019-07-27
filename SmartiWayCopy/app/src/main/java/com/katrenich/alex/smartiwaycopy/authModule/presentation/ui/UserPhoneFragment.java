@@ -34,10 +34,7 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
     private PrefixAppCompatEditText etUserPhone;
     private TextView btnPolicyLicence;
     private MaterialButton btnAuth;
-
-    public UserPhoneFragment(){
-
-    }
+    private TextView tvUserMessage, tvLicense;
 
     @Nullable
     @Override
@@ -52,6 +49,17 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
+
+        if (getArguments() != null) {
+            try {
+                String action = getArguments().getString("action");
+                mPresenter.setAuthAction(action);
+            } catch (ClassCastException e){
+                Log.e(TAG, "initUI: ", e);
+            }
+
+        }
+
         etUserPhone = v.findViewById(R.id.et_user_phone_input_fragment);
         mTextWatcher =  new TextWatcher() {
             @Override
@@ -78,6 +86,16 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
         btnPolicyLicence.setOnClickListener(mPresenter::onPolicyButtonClicked);
         btnAuth = v.findViewById(R.id.btn_user_phone_fragment_auth);
         btnAuth.setOnClickListener(mPresenter::onButtonAuthClicked);
+        tvUserMessage = v.findViewById(R.id.tv_user_phone_fragment_user_message);
+        tvLicense = v.findViewById(R.id.tv_user_phone_fragment_license);
+    }
+
+    @Override
+    public void updateUI(){
+        mPresenter.btnAuthVisible.observe(this, btnAuth::setVisibility);
+        mPresenter.tvLicenseVisible.observe(this, tvLicense::setVisibility);
+        mPresenter.btnPolicyLicenceVisible.observe(this, btnPolicyLicence::setVisibility);
+        mPresenter.userMessage.observe(this, tvUserMessage::setText);
     }
 
     @Override
@@ -96,6 +114,5 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
                 });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
-
     }
 }
