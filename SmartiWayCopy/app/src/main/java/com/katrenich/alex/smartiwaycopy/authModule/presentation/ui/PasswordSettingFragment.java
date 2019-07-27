@@ -47,8 +47,10 @@ public class PasswordSettingFragment extends MvpAppCompatFragment implements Pas
 
     private void initUI(View v, Bundle savedInstanceState) {
 
-        String action = getArguments().getString(getString(R.string.auth_state_action_name));
-        mPresenter.setAuthAction(action);
+        if(getArguments() != null){
+            String action = getArguments().getString(getString(R.string.auth_state_action_name));
+            mPresenter.setAuthAction(action);
+        }
 
         etPassword = v.findViewById(R.id.et_password_setting_fragment_enter_password);
         etPassword.addTextChangedListener(new TextWatcher() {
