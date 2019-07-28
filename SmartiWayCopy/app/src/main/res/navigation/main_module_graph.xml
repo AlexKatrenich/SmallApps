@@ -44,6 +44,13 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/menuFragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_credit_to_userFullName"
+            app:destination="@id/userFullNameFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/passwordSettingFragment"
@@ -120,4 +127,22 @@
             app:popUpTo="@+id/creditFragment"
             app:popUpToInclusive="false" />
     </fragment>
+    <fragment
+        android:id="@+id/userFullNameFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.UserFullNameFragment"
+        android:label="fragment_user_full_name"
+        tools:layout="@layout/fragment_user_full_name" >
+        <action
+            android:id="@+id/action_userFullNameFragment_to_userDocumentsFragment"
+            app:destination="@id/userDocumentsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/userDocumentsFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.UserDocumentsFragment"
+        android:label="fragment_user_documents"
+        tools:layout="@layout/fragment_user_documents" />
 </navigation>

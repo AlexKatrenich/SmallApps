@@ -162,6 +162,9 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         }
 
         // TODO Calculate credit
+
+        MainActivityNavigateController.getInstance().hideBottomNavigationMenu();
+        MainActivityNavigateController.getInstance().navigate(R.id.action_credit_to_userFullName);
     }
 
     public void onBtnCreditInfoClicked(View view) {
