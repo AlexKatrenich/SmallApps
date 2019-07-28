@@ -1,4 +1,4 @@
-package com.katrenich.alex.smartiwaycopy.authModule.model;
+package com.katrenich.alex.smartiwaycopy.model;
 
 public class User {
     private String mFirstName;

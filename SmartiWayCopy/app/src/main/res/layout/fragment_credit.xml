@@ -8,9 +8,12 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_credit_fragment_btn_sum_credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/np_credit_fragment_price"
@@ -19,9 +22,9 @@
 
         <TextView
             android:id="@+id/tv_credit_fragment_sum"
+            style="@style/TextViewCaptionsCreditFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextViewCaptionsCreditFragment"
             android:text="@string/credit_fragment_tv_sum_title" />
 
         <ImageView
@@ -32,9 +35,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_credit_fragment_btn_term_credit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/np_credit_fragment_term"
@@ -43,9 +49,9 @@
 
         <TextView
             android:id="@+id/tv_credit_fragment_term"
+            style="@style/TextViewCaptionsCreditFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/TextViewCaptionsCreditFragment"
             android:text="@string/credit_fragment_tv_term_title" />
 
         <ImageView
@@ -57,9 +63,9 @@
 
     <NumberPicker
         android:id="@+id/np_credit_fragment_price"
-        style=""
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintBottom_toTopOf="@+id/tv_credit_fragment_to_pay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -69,8 +75,9 @@
 
     <NumberPicker
         android:id="@+id/np_credit_fragment_term"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintBottom_toTopOf="@+id/tv_credit_fragment_to_pay"
         app:layout_constraintEnd_toStartOf="@+id/np_credit_fragment_price"
         app:layout_constraintHorizontal_bias="0.5"
@@ -87,13 +94,13 @@
         android:textColor="@color/baseTextColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/btn_credit_fragment_get_credit"
-        app:layout_constraintEnd_toStartOf="@+id/tv_credit_fragment_pay_value"
+        app:layout_constraintEnd_toStartOf="@+id/tv_credit_fragment_final_price"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/tv_credit_fragment_pay_value"
+        android:id="@+id/tv_credit_fragment_final_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -114,11 +121,11 @@
         android:background="@android:color/transparent"
         android:scaleType="centerInside"
         android:src="@drawable/ic_color_info"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_credit_fragment_pay_value"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_credit_fragment_final_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/tv_credit_fragment_pay_value"
-        app:layout_constraintTop_toTopOf="@+id/tv_credit_fragment_pay_value" />
+        app:layout_constraintStart_toEndOf="@+id/tv_credit_fragment_final_price"
+        app:layout_constraintTop_toTopOf="@+id/tv_credit_fragment_final_price" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_credit_fragment_get_credit"

@@ -79,4 +79,19 @@ public class MainActivityNavigateController {
     }
 
 
+    public void showBottomNavigationMenu() {
+        if(mMainActivityPresenter != null ) {
+            mMainActivityPresenter
+                    .bnvVisibility
+                    .setValue(View.VISIBLE);
+        }
+    }
+
+    public void hideBottomNavigationMenu() {
+        if(mMainActivityPresenter != null ) {
+            mMainActivityPresenter
+                    .bnvVisibility
+                    .setValue(View.GONE);
+        }
+    }
 }

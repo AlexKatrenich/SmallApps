@@ -4,11 +4,10 @@ import android.util.Log;
 
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.model.User;
+import com.katrenich.alex.smartiwaycopy.model.User;
 
 import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 

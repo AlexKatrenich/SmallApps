@@ -2,7 +2,6 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -11,7 +10,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.model.User;
+import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.AuthorizationView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;

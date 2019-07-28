@@ -1,6 +1,14 @@
 package com.katrenich.alex.smartiwaycopy;
 
+import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.CreditFragmentPresenter;
+import com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment;
+
 import org.junit.Test;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -13,5 +21,10 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
+    }
+
+    @Test
+    public void test(){
+
     }
 }

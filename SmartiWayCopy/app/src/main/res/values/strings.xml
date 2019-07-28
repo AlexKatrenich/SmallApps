@@ -48,7 +48,31 @@
     <string name="credit_fragment_tv_sum_title">Сума</string>
     <string name="credit_fragment_tv_term_title">Термін (1)</string>
 
+    <!--DAYS_OF_WEEK name-->
+    <string-array name="days_of_week">
+        <item>нд</item>
+        <item>пн</item>
+        <item>вт</item>
+        <item>ср</item>
+        <item>чт</item>
+        <item>пт</item>
+        <item>сб</item>
+    </string-array>
 
-
+    <!--MONTH name-->
+    <string-array name="month_names">
+        <item>січня</item>
+        <item>лютого</item>
+        <item>березня</item>
+        <item>квітня</item>
+        <item>травня</item>
+        <item>червня</item>
+        <item>липня</item>
+        <item>серпня</item>
+        <item>вересня</item>
+        <item>жовтня</item>
+        <item>листопада</item>
+        <item>грудня</item>
+    </string-array>
 
 </resources>

@@ -8,6 +8,11 @@
     <string name="shared_preference_phone_numb">phone_numb</string>
     <string name="auth_state_action_name">action</string>
     <string name="auth_action_state">PASSWORD_RECOVER</string>
+    <integer name="calculate_cash_range_min_value">250</integer>
+    <integer name="calculate_cash_range_max_value">3000</integer>
+    <integer name="calculate_cash_range_iter_value">250</integer>
+    <integer name="max_count_of_credit_days">40</integer>
+
 
     <!--Test data-->
     <string name="mobile_phone_verification_code">654789</string>
