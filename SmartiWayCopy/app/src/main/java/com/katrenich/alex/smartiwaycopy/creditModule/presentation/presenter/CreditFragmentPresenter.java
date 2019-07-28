@@ -1,6 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter;
 
 import android.util.Log;
+import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -8,8 +9,11 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.CreditSelectionView;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditCalculator;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.model.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,11 +29,13 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
     public MutableLiveData<String> termCountValue;
     public MutableLiveData<String> creditCashValue;
     private String[] cashRange;
+    private int currentCashNumberPickerValue;
 
     public CreditFragmentPresenter() {
         initPresenter();
     }
 
+    // init all variables there
     private void initPresenter() {
         MainActivityNavigateController.getInstance().hideBackButton();
         MainActivityNavigateController.getInstance().showBottomNavigationMenu();
@@ -49,6 +55,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         getViewState().updateUI();
     }
 
+    // method for setting new value in variable `creditCashValue`
     private void setCreditCashValue(int i) {
         if(i < cashRange.length) {
             String s = cashRange[i];
@@ -58,12 +65,13 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         Log.i(TAG, "setCreditCashValue: " + i);
     }
 
-    //
+    // method for setting new value in variable `termCountValue`
     private void setTermCountValueText(int i) {
         String s = "Термін (" + i + ")";
         termCountValue.setValue(s);
     }
 
+    // method for getting cash range from resources constants
     private String[] getCashRange() {
         int minValue = App.getInstance().getResources().getInteger(R.integer.calculate_cash_range_min_value);
         int maxValue = App.getInstance().getResources().getInteger(R.integer.calculate_cash_range_max_value);
@@ -81,6 +89,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         return cashRange;
     }
 
+    // method for getting days range from resources constants
     private String[] getDatesRange() {
         List<Date> dates = getDatesFromNowCount(App.getInstance().getResources().getInteger(R.integer.max_count_of_credit_days));
         List<String> listDays = formatDaysToStingValue(dates);
@@ -118,7 +127,6 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         return list;
     }
 
-
     public static List<Date> getDatesFromNowCount(int count){
         List<Date> dates = new ArrayList<>();
         Calendar calendar = new GregorianCalendar();
@@ -138,7 +146,85 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         setTermCountValueText(countDaysOfCredit);
     }
 
+    // method calls when CashNumberPicker scrolled
     public void newCashValueSelected(int newVal) {
+        currentCashNumberPickerValue = newVal;
         setCreditCashValue(newVal);
+    }
+
+    public void onBtnGetCreditClicked(View view) {
+        User user = AuthController.getInstance().getUser();
+        if (user != null){
+            String mobilePhone = user.getMobilePhone();
+            Log.i(TAG, "onBtnGetCreditClicked: mobPhone = " + mobilePhone);
+        } else {
+            Log.i(TAG, "onBtnGetCreditClicked: User = null");
+        }
+
+        // TODO Calculate credit
+    }
+
+    public void onBtnCreditInfoClicked(View view) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(App.getInstance().getString(R.string.credit_fragment_info_dialog_credit) + " ");
+        sb.append(creditCashValue.getValue());
+        sb.append(".00 ");
+        sb.append(App.getInstance().getString(R.string.cash_currency));
+        sb.append("\r\n");
+        sb.append(App.getInstance().getString(R.string.credit_fragment_info_dialog_percents) + " ");
+        sb.append("0"); // TODO calculate percents and set to message
+        sb.append(".00 ");
+        sb.append(App.getInstance().getString(R.string.cash_currency));
+        sb.append("\r\n");
+        sb.append(App.getInstance().getString(R.string.credit_fragment_info_dialog_total) + " ");
+        sb.append(creditCashValue.getValue()); // TODO calculate percents+credit value and set to message
+        sb.append(".00 ");
+        sb.append(App.getInstance().getString(R.string.cash_currency));
+
+        getViewState().showCreditInfo(sb.toString());
+    }
+
+    // method calls when user click on button to set credit cash value manually
+    public void onSetCreditValueClicked(View view) {
+        getViewState().showSetCreditSumDialog();
+    }
+
+    // method calls when user click on button to set credit term manually
+    public void onSetCreditTermClicked(View view) {
+        getViewState().showSetCreditTermDialog();
+    }
+
+    // method call from UI, when user set value manually in dialog
+    public void setNewTermCredit(String s) {
+        try {
+            int term = Integer.valueOf(s);
+            int maxRange = App.getInstance().getResources().getInteger(R.integer.max_count_of_credit_days);
+            if (term > 0 && term <= maxRange){
+                setTermCountValueText(term);
+                getViewState().scrollTermToValue(term);
+            }
+        } catch (NumberFormatException e){
+            Log.e(TAG, "setNewTermCredit: ", e);
+        }
+    }
+
+    // method call from UI, when user set value manually in dialog
+    public void setNewCreditSum(String s) {
+        try {
+            int sum = Integer.valueOf(s);
+            int maxSum = App.getInstance().getResources().getInteger(R.integer.calculate_cash_range_max_value);
+            int minSum = App.getInstance().getResources().getInteger(R.integer.calculate_cash_range_min_value);
+            if (sum > minSum && sum <= maxSum){
+                // calculate new credit summary range for NumberPicker
+                String[] sumNewRange = CreditCalculator.createNewSumRange(creditSumRange.getValue(), sum);
+                creditSumRange.setValue(sumNewRange);
+                // calculate new position of numberPicker
+                int position = CreditCalculator.getCurrentElementPosition(sumNewRange, sum);
+                getViewState().scrollCreditSumToValue(position);
+                creditCashValue.setValue(String.valueOf(sum));
+            }
+        } catch (NumberFormatException e){
+            Log.e(TAG, "setNewTermCredit: ", e);
+        }
     }
 }

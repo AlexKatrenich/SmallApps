@@ -11,7 +11,8 @@
     <integer name="calculate_cash_range_min_value">250</integer>
     <integer name="calculate_cash_range_max_value">3000</integer>
     <integer name="calculate_cash_range_iter_value">250</integer>
-    <integer name="max_count_of_credit_days">40</integer>
+    <integer name="max_count_of_credit_days">30</integer>
+    <string name="cash_currency">грн</string>
 
 
     <!--Test data-->

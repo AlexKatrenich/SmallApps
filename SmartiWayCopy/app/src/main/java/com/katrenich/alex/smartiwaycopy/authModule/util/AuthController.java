@@ -23,7 +23,7 @@ public class AuthController {
     private final int TEST_TIME_DELAY = 0;
 
     private AuthController() {
-
+        mUser = new User();
     }
 
     public Single<Boolean> checkUserPhone(String phoneNumber) {
@@ -56,17 +56,10 @@ public class AuthController {
         this.token = token;
     }
 
-    public Single<Boolean> sendVerificationCodeNewUser(User user) {
-        mUser = user;
+    public Single<Boolean> sendVerificationCodeNewUser(String phoneNumber) {
+        mUser.setMobilePhone(phoneNumber);
 
-        boolean b = false;
-        if (mUser != null && mUser.getMobilePhone() != null){
-            Log.i(TAG, "sendVerificationCodeNewUser: " + mUser.getMobilePhone());
-            b = mUser.getMobilePhone().equals(App.getInstance().getString(R.string.user_mobile_phone_number));
-        }
-
-        b = true; // TEST
-        return Single.just(b)
+        return Single.just(true)
                .subscribeOn(Schedulers.io())
                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }

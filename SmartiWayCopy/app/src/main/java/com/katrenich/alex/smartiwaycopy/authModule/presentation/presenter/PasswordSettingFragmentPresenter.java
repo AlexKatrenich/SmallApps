@@ -76,8 +76,9 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
     }
 
     private void writeUserPhoneToSharedPref() {
-        String phoneNumber = AuthController.getInstance().getUser().getMobilePhone();
+        if (AuthController.getInstance().getUser() == null)  return;
 
+        String phoneNumber = AuthController.getInstance().getUser().getMobilePhone();
         if(phoneNumber != null){
             Context context = App.getInstance();
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.shared_preference_file_key), Context.MODE_PRIVATE);

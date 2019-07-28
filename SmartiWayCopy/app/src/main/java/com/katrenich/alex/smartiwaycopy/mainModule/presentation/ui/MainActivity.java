@@ -4,6 +4,8 @@ package com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
@@ -61,7 +63,19 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mProgressBar = findViewById(R.id.pb_toolbar_main_activity);
 
         mBnv = findViewById(R.id.bnv_main_activity);
+        mBnv.setOnNavigationItemSelectedListener(menuItem -> {
+            if(getSelectedItemID(mBnv) == menuItem.getItemId()) return false;
 
+            if (menuItem.getItemId() == R.id.item_credit){
+                mPresenter.onCreditBottomNavigationClicked();
+                return true;
+            } else if(menuItem.getItemId() == R.id.item_menu){
+                mPresenter.onMenuBottomNavigationClicked();
+                return true;
+            }
+
+            return false;
+        });
         mNavController = Navigation.findNavController(this, R.id.nav_controller_main_activity);
     }
 
@@ -74,7 +88,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void onBackPressed() {
-        if (mNavController.getCurrentDestination().getId() == R.id.creditFragment) return;
+        if (mNavController.getCurrentDestination().getId() == R.id.creditFragment || mNavController.getCurrentDestination().getId() == R.id.menuFragment) return;
         mPresenter.btnBackVisibility.setValue(View.GONE);
         super.onBackPressed();
     }
@@ -90,7 +104,10 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             return;
         }
 
-        mNavController.navigate(destID);
+
+        if(mNavController.getCurrentDestination().getId() != destID){
+            mNavController.navigate(destID);
+        }
     }
 
     @Override
@@ -111,6 +128,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     @Override
     public void bindFragment(Integer resID, Bundle bundle) {
         mNavController.navigate(resID, bundle);
+    }
+
+    private int getSelectedItemID(BottomNavigationView bottomNavigationView) {
+        Menu menu = bottomNavigationView.getMenu();
+        for (int i = 0; i < bottomNavigationView.getMenu().size(); i++) {
+            MenuItem menuItem = menu.getItem(i);
+            if (menuItem.isChecked()) {
+                return menuItem.getItemId();
+            }
+        }
+        return 0;
     }
 
 }

@@ -11,6 +11,9 @@ public class User {
     private String mBirthDate;
     private Integer mAge;
 
+    public User() {
+    }
+
     public User(String mobilePhone) {
         mMobilePhone = mobilePhone;
     }

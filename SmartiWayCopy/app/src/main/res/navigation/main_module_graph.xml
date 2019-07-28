@@ -33,7 +33,18 @@
         android:id="@+id/creditFragment"
         android:name="com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment"
         android:label="fragment_credit"
-        tools:layout="@layout/fragment_credit" />
+        tools:layout="@layout/fragment_credit" >
+        <action
+            android:id="@+id/action_credit_to_menu"
+            app:destination="@id/menuFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/menuFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/passwordSettingFragment"
         android:name="com.katrenich.alex.smartiwaycopy.authModule.presentation.ui.PasswordSettingFragment"
@@ -46,7 +57,8 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@+id/creditFragment" />
+            app:popUpTo="@+id/creditFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/authorizationFragment"
@@ -60,6 +72,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@+id/creditFragment"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_authorizationFragment_to_userPhoneFragment"
@@ -91,4 +104,20 @@
     </fragment>
     <argument android:defaultValue="REGISTER_NEW_USER"
         android:name="action" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.katrenich.alex.smartiwaycopy.menuModule.presentation.ui.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menu_to_credit"
+            app:destination="@id/creditFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@+id/creditFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

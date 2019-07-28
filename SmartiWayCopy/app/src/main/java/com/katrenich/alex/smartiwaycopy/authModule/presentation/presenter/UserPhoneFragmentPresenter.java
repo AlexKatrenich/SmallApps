@@ -98,7 +98,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     private void sendCodeNewUser(String phoneNumber) {
         MainActivityNavigateController.getInstance().showProgress();
         AuthController.getInstance()
-                .sendVerificationCodeNewUser(new User(phoneNumber))
+                .sendVerificationCodeNewUser(phoneNumber)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     MainActivityNavigateController.getInstance().hideProgress();

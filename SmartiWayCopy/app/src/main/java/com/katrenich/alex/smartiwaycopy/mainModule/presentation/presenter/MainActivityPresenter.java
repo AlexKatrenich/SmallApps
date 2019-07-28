@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.ui.InfoDialogFragment;
 import com.katrenich.alex.smartiwaycopy.mainModule.presentation.view.MainView;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
@@ -62,5 +63,13 @@ public class MainActivityPresenter extends MvpPresenter<MainView> {
 
     public void updateNavigation(Integer resID, Bundle bundle) {
         getViewState().bindFragment(resID, bundle);
+    }
+
+    public void onCreditBottomNavigationClicked() {
+        updateNavigation(R.id.action_menu_to_credit);
+    }
+
+    public void onMenuBottomNavigationClicked() {
+        updateNavigation(R.id.action_credit_to_menu);
     }
 }
