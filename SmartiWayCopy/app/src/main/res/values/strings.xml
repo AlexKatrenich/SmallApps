@@ -63,14 +63,19 @@
     <string name="user_full_name_fragment_et_last_name_hint">Введи прізвище</string>
     <string name="user_full_name_fragment_et_middle_name_hint">Введи ім\'я по батькові</string>
     <string name="user_full_name_fragment_btn_next_title">Продовжити</string>
+    <string name="user_full_name_fragment_alert_dialog_text">Всі поля повинні бути заповнені, перевірте коректність введених даних</string>
+    <string name="user_full_name_fragment_alert_dialog_title">Помилка вводу</string>
+    <string name="user_full_name_fragment_alert_dialog_button_cancel_title">Продовжити</string>
 
     <!--Fragment to enter user documents data-->
     <string name="user_documents_fragment_message">Введи дані зі свого паспорту та Ідентифікаційного номеру платника податків</string>
     <string name="user_documents_fragment_et_IPN_hint">Введи ІПН</string>
-    <string name="user_documents_fragment_et_passport_hint">Введи серію та номер паспорту</string>
+    <string name="user_documents_fragment_et_passport_hint">Серія та номер паспорту(ХХ.000000)</string>
     <string name="user_documents_fragment_btn_birth_date_title">Обери дату народження</string>
     <string name="user_documents_fragment_btn_next_title">Продовжити</string>
-
+    <string name="user_documents_fragment_alert_dialog_text">Всі поля повинні бути заповнені, перевірте коректність введених даних</string>
+    <string name="user_documents_fragment_alert_dialog_title">Помилка вводу</string>
+    <string name="user_documents_fragment_alert_dialog_button_cancel_title">Продовжити</string>
 
     <!--DAYS_OF_WEEK name-->
     <string-array name="days_of_week">

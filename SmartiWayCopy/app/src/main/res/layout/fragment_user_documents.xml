@@ -35,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_documents_fragment_et_IPN_hint"
+            android:inputType="number"
             android:maxLength="10" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -57,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_documents_fragment_et_passport_hint"
+            android:digits="@string/digits_for_passport_entering"
             android:maxLength="10"
             app:met_mask="##.######" />
 
@@ -70,6 +72,8 @@
         android:layout_marginEnd="@dimen/user_documents_fragment_views_side_margins"
         android:layout_marginBottom="8dp"
         android:text="@string/user_documents_fragment_btn_birth_date_title"
+        app:backgroundTint="@color/colorPrimaryDark"
+        android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toTopOf="@+id/btn_user_documents_fragment_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

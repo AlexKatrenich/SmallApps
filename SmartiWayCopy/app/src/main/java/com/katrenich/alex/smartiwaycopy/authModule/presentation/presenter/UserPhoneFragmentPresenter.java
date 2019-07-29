@@ -13,6 +13,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
@@ -25,6 +26,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     private static final String TAG = "UserPhoneFP";
 
+    private UserInfo mUserInfo;
     private String authAction;
     public MutableLiveData<Integer> btnAuthVisible;
     public MutableLiveData<Integer> btnPolicyLicenceVisible;
@@ -36,6 +38,8 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     }
 
     private void init() {
+        mUserInfo = App.getUserInfo();
+
         btnAuthVisible = new MutableLiveData<>();
         btnPolicyLicenceVisible = new MutableLiveData<>();
         tvLicenseVisible = new MutableLiveData<>();
@@ -63,8 +67,9 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
 
     public void phoneNumberEntered(String phoneNumber) {
         // check if calling method with same parameter - return;
-        User user = AuthController.getInstance().getUser();
+        User user = mUserInfo.getCurrentUser();
         if (user != null && user.getMobilePhone() != null) {
+            Log.i(TAG, "phoneNumberEntered: UserPhone= " + user.getMobilePhone() + " phoneNumber= " + phoneNumber);
             if(user.getMobilePhone().equals(phoneNumber)) return;
         }
 
@@ -78,15 +83,22 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     }
 
     private void sendPassRecoverCode(String phoneNumber) {
+        Log.i(TAG, "sendPassRecoverCode: ");
         MainActivityNavigateController.getInstance().showProgress();
         AuthController.getInstance()
-                .sendVerificationCodePassRecover(new User(phoneNumber))
+                .sendVerificationCodePassRecover(phoneNumber)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aBoolean -> {
                     MainActivityNavigateController.getInstance().hideProgress();
                     if (aBoolean) {
                         Bundle bundle = new Bundle();
                         bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), authAction);
+
+                        // set phone to UserInfo
+                        User currentUser = mUserInfo.getCurrentUser();
+                        currentUser.setMobilePhone(phoneNumber);
+                        mUserInfo.setCurrentUser(currentUser);
+                        Log.i(TAG, "sendPassRecoverCode: " + mUserInfo.getCurrentUser());
                         MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification, bundle);
                     } else {
                         getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
@@ -96,6 +108,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
 
 
     private void sendCodeNewUser(String phoneNumber) {
+        Log.i(TAG, "sendCodeNewUser: ");
         MainActivityNavigateController.getInstance().showProgress();
         AuthController.getInstance()
                 .sendVerificationCodeNewUser(phoneNumber)
@@ -103,6 +116,11 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
                 .subscribe(aBoolean -> {
                     MainActivityNavigateController.getInstance().hideProgress();
                     if (aBoolean) {
+                        User currentUser = mUserInfo.getCurrentUser();
+                        currentUser.setMobilePhone(phoneNumber);
+                        Log.i(TAG, "sendPassRecoverCode: " + currentUser);
+                        mUserInfo.setCurrentUser(currentUser);
+                        Log.i(TAG, "sendPassRecoverCode: " + mUserInfo.getCurrentUser());
                         MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
                     } else {
                         getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
@@ -119,6 +137,8 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
             tvLicenseVisible.setValue(View.GONE);
             userMessage.setValue(App.getInstance().getString(R.string.user_phone_fragment_tv_hint_caption_to_pass_recover));
             MainActivityNavigateController.getInstance().showBackButton();
+        } else {
+            MainActivityNavigateController.getInstance().hideBackButton();
         }
     }
 }

@@ -133,7 +133,7 @@
         android:label="fragment_user_full_name"
         tools:layout="@layout/fragment_user_full_name" >
         <action
-            android:id="@+id/action_userFullNameFragment_to_userDocumentsFragment"
+            android:id="@+id/action_userFullName_to_userDocuments"
             app:destination="@id/userDocumentsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"

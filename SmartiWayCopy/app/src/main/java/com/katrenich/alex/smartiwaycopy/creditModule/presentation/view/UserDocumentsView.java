@@ -4,4 +4,9 @@ import com.arellomobile.mvp.MvpView;
 
 public interface UserDocumentsView extends MvpView {
 
+    void showBirthDatePickerDialog();
+    void showMessageDialog(String message);
+
+    void updateUI();
+
 }

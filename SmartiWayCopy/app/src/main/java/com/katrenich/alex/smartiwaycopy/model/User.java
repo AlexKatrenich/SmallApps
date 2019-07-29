@@ -1,5 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.model;
 
+import androidx.annotation.NonNull;
+
 public class User {
     private String mFirstName;
     private String mLastName;
@@ -90,7 +92,15 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "mMobilePhone='" + mMobilePhone + '\'' +
+                "mFirstName='" + mFirstName + '\'' +
+                ", mLastName='" + mLastName + '\'' +
+                ", mMiddleName='" + mMiddleName + '\'' +
+                ", mInnCode='" + mInnCode + '\'' +
+                ", mPassword='" + mPassword + '\'' +
+                ", mPassportSN='" + mPassportSN + '\'' +
+                ", mMobilePhone='" + mMobilePhone + '\'' +
+                ", mBirthDate='" + mBirthDate + '\'' +
+                ", mAge=" + mAge +
                 '}';
     }
 

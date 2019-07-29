@@ -11,6 +11,7 @@ import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.PasswordSettingView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
 import java.util.regex.Pattern;
@@ -22,9 +23,11 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
 
     private String authAction;
     private boolean loadingData;
+    private UserInfo mUserInfo;
 
     public PasswordSettingFragmentPresenter() {
         loadingData = false;
+        mUserInfo = App.getUserInfo();
     }
 
     public void onButtonConfirmClicked(String password, String passConfirm) {
@@ -76,9 +79,8 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
     }
 
     private void writeUserPhoneToSharedPref() {
-        if (AuthController.getInstance().getUser() == null)  return;
 
-        String phoneNumber = AuthController.getInstance().getUser().getMobilePhone();
+        String phoneNumber = mUserInfo.getCurrentUser().getMobilePhone();
         if(phoneNumber != null){
             Context context = App.getInstance();
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.shared_preference_file_key), Context.MODE_PRIVATE);

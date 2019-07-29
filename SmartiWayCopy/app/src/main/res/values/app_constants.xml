@@ -13,7 +13,8 @@
     <integer name="calculate_cash_range_iter_value">250</integer>
     <integer name="max_count_of_credit_days">30</integer>
     <string name="cash_currency">грн</string>
-
+    <string name="digits_for_name_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ\'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя</string>
+    <string name="digits_for_passport_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ0123456789</string>
 
     <!--Test data-->
     <string name="mobile_phone_verification_code">654789</string>

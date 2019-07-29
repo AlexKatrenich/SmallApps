@@ -39,17 +39,18 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: ");
         return inflater.inflate(R.layout.fragment_user_phone, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Log.i(TAG, "onViewCreated: ");
         super.onViewCreated(view, savedInstanceState);
         initUI(view, savedInstanceState);
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
-
         if (getArguments() != null) {
             try {
                 String action = getArguments().getString("action");
@@ -57,9 +58,11 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
             } catch (ClassCastException e){
                 Log.e(TAG, "initUI: ", e);
             }
-
+        } else {
+            Log.i(TAG, "onResume: getArguments() == null ");
         }
 
+        Log.i(TAG, "initUI: ");
         etUserPhone = v.findViewById(R.id.et_user_phone_input_fragment);
         mTextWatcher =  new TextWatcher() {
             @Override
@@ -92,10 +95,16 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
     @Override
     public void updateUI(){
+        Log.i(TAG, "updateUI: ");
         mPresenter.btnAuthVisible.observe(this, btnAuth::setVisibility);
         mPresenter.tvLicenseVisible.observe(this, tvLicense::setVisibility);
         mPresenter.btnPolicyLicenceVisible.observe(this, btnPolicyLicence::setVisibility);
         mPresenter.userMessage.observe(this, tvUserMessage::setText);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

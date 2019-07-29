@@ -88,9 +88,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void onBackPressed() {
-        if (mNavController.getCurrentDestination().getId() == R.id.creditFragment || mNavController.getCurrentDestination().getId() == R.id.menuFragment) return;
-        mPresenter.btnBackVisibility.setValue(View.GONE);
+
         super.onBackPressed();
+
+        if(mNavController.getCurrentDestination().getId() == R.id.creditFragment || mNavController.getCurrentDestination().getId() == R.id.menuFragment){
+            mPresenter.bnvVisibility.setValue(View.VISIBLE);
+            mPresenter.btnBackVisibility.setValue(View.GONE);
+        }
     }
 
     @Override

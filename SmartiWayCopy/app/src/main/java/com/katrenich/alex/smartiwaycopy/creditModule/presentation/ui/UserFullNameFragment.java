@@ -7,9 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.AppCompatEditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.google.android.material.button.MaterialButton;
+import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.UserFullNameFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserFullNameView;
@@ -18,6 +22,9 @@ public class UserFullNameFragment extends MvpAppCompatFragment implements UserFu
 
     @InjectPresenter
     UserFullNameFragmentPresenter mPresenter;
+
+    private AppCompatEditText etUserFirstName, etUserLastName, etUserMiddleName;
+    private MaterialButton btnNext;
 
     @Nullable
     @Override
@@ -32,11 +39,26 @@ public class UserFullNameFragment extends MvpAppCompatFragment implements UserFu
     }
 
     private void initUI(View v, Bundle savedInstanceState) {
-
+        etUserFirstName = v.findViewById(R.id.et_user_full_name_fragment_first_name);
+        etUserLastName = v.findViewById(R.id.et_user_full_name_fragment_last_name);
+        etUserMiddleName = v.findViewById(R.id.et_user_full_name_fragment_middle_name);
+        btnNext = v.findViewById(R.id.btn_user_full_name_fragment_next);
+        btnNext.setOnClickListener(v1 -> {
+            String firstName = etUserFirstName.getText().toString();
+            String lastName = etUserLastName.getText().toString();
+            String middleName = etUserMiddleName.getText().toString();
+            mPresenter.onBtnNextClicked(firstName, middleName, lastName);
+        });
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showMessage(String s) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        builder.setTitle(App.getInstance().getString(R.string.user_full_name_fragment_alert_dialog_title))
+                .setMessage(s)
+                .setNegativeButton(App.getInstance().getString(R.string.user_full_name_fragment_alert_dialog_button_cancel_title), (dialog, which) -> dialog.cancel());
 
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

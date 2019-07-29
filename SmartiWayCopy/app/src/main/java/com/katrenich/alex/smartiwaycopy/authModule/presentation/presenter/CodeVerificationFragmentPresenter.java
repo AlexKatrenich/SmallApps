@@ -10,6 +10,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerificationView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
@@ -23,6 +24,7 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     public MutableLiveData<String> messageTextViewData;
     private boolean dataLoad;
     private String action;
+    private UserInfo mUserInfo;
 
 
     public CodeVerificationFragmentPresenter() {
@@ -30,17 +32,17 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     }
 
     private void init() {
+        mUserInfo = App.getUserInfo();
         messageTextViewData = new MutableLiveData<>();
         messageTextViewData.setValue(getMessageToUser());
         dataLoad = false;
-
         getViewState().updateUI();
     }
 
     private String getMessageToUser(){
-        User user =  AuthController.getInstance().getUser();
-        if (user == null) return " ";
-
+        Log.i(TAG, "getMessageToUser: ");
+        User user = mUserInfo.getCurrentUser();
+        Log.i(TAG, "getMessageToUser: " + user) ;
         String userPhone = user.getMobilePhone();
 
         if(userPhone != null) {

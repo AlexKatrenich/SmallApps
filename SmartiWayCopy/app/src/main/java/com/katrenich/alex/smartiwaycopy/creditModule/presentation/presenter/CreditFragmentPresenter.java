@@ -12,6 +12,7 @@ import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.CreditSelectionView;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditCalculator;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 import com.katrenich.alex.smartiwaycopy.model.User;
 
@@ -29,6 +30,8 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
     public MutableLiveData<String> termCountValue;
     public MutableLiveData<String> creditCashValue;
     private String[] cashRange;
+    private UserInfo mUserInfo;
+
     private int currentCashNumberPickerValue;
 
     public CreditFragmentPresenter() {
@@ -37,6 +40,8 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
 
     // init all variables there
     private void initPresenter() {
+        mUserInfo = App.getUserInfo();
+
         MainActivityNavigateController.getInstance().hideBackButton();
         MainActivityNavigateController.getInstance().showBottomNavigationMenu();
 
@@ -69,6 +74,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
     private void setTermCountValueText(int i) {
         String s = "Термін (" + i + ")";
         termCountValue.setValue(s);
+        mUserInfo.setCreditTerm(i);
     }
 
     // method for getting cash range from resources constants
@@ -153,7 +159,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
     }
 
     public void onBtnGetCreditClicked(View view) {
-        User user = AuthController.getInstance().getUser();
+        User user = mUserInfo.getCurrentUser();
         if (user != null){
             String mobilePhone = user.getMobilePhone();
             Log.i(TAG, "onBtnGetCreditClicked: mobPhone = " + mobilePhone);
@@ -164,6 +170,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         // TODO Calculate credit
 
         MainActivityNavigateController.getInstance().hideBottomNavigationMenu();
+        MainActivityNavigateController.getInstance().showBackButton();
         MainActivityNavigateController.getInstance().navigate(R.id.action_credit_to_userFullName);
     }
 

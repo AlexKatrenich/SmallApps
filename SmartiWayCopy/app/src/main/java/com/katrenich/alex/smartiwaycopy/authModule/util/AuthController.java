@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.model.User;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,7 +13,6 @@ import io.reactivex.schedulers.Schedulers;
 public class AuthController {
     public static final String TAG = "AuthController";
     private static final AuthController ourInstance = new AuthController();
-    private User mUser;
     private String token;
 
     public static AuthController getInstance() {
@@ -23,7 +21,6 @@ public class AuthController {
     private final int TEST_TIME_DELAY = 0;
 
     private AuthController() {
-        mUser = new User();
     }
 
     public Single<Boolean> checkUserPhone(String phoneNumber) {
@@ -40,14 +37,6 @@ public class AuthController {
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 
-    public User getUser() {
-        return mUser;
-    }
-
-    public void setUser(User user) {
-        mUser = user;
-    }
-
     public String getToken() {
         return token;
     }
@@ -57,7 +46,6 @@ public class AuthController {
     }
 
     public Single<Boolean> sendVerificationCodeNewUser(String phoneNumber) {
-        mUser.setMobilePhone(phoneNumber);
 
         return Single.just(true)
                .subscribeOn(Schedulers.io())
@@ -71,25 +59,17 @@ public class AuthController {
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 
-    public Single<Boolean> authorizeUser(User user) {
-        mUser = user;
+    public Single<Boolean> authorizeUser(String userPhone, String password) {
 
         return Single.just(true)
                 .subscribeOn(Schedulers.io())
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 
-    public Single<Boolean> sendVerificationCodePassRecover(User user) {
-        mUser = user;
+    public Single<Boolean> sendVerificationCodePassRecover(String phoneNumber) {
 
-        boolean b = false;
-        if (mUser != null && mUser.getMobilePhone() != null){
-            Log.i(TAG, "sendVerificationCodeNewUser: " + mUser.getMobilePhone());
-            b = mUser.getMobilePhone().equals(App.getInstance().getString(R.string.user_mobile_phone_number));
-        }
-
-        b = true; // TEST
-        return Single.just(b)
+        // TEST
+        return Single.just(true)
                 .subscribeOn(Schedulers.io())
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }

@@ -1,11 +1,9 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,12 +105,10 @@ public class PasswordSettingFragment extends MvpAppCompatFragment implements Pas
 
     @Override
     public void showMessage(String s) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(App.getInstance());
         builder.setTitle(App.getInstance().getString(R.string.user_phone_fragment_title_message))
                 .setMessage(s)
-                .setNegativeButton(App.getInstance().getString(R.string.user_phone_fragment_message_title_cancel_button), (dialog, which) -> {
-                    dialog.cancel();
-                });
+                .setNegativeButton(App.getInstance().getString(R.string.user_phone_fragment_message_title_cancel_button), (dialog, which) -> dialog.cancel());
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
