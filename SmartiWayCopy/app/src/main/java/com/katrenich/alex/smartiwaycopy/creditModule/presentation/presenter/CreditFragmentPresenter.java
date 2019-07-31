@@ -9,7 +9,6 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.CreditSelectionView;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditCalculator;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;

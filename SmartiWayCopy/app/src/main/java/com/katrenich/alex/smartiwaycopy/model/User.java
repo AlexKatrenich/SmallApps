@@ -1,8 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.model;
 
-import androidx.annotation.NonNull;
-
 public class User {
+    private int mId;
     private String mFirstName;
     private String mLastName;
     private String mMiddleName;
@@ -89,6 +88,22 @@ public class User {
         mAge = age;
     }
 
+    public String getPassword() {
+        return mPassword;
+    }
+
+    public void setPassword(String password) {
+        mPassword = password;
+    }
+
+    public int getId() {
+        return mId;
+    }
+
+    public void setId(int id) {
+        mId = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -102,13 +117,5 @@ public class User {
                 ", mBirthDate='" + mBirthDate + '\'' +
                 ", mAge=" + mAge +
                 '}';
-    }
-
-    public String getPassword() {
-        return mPassword;
-    }
-
-    public void setPassword(String password) {
-        mPassword = password;
     }
 }

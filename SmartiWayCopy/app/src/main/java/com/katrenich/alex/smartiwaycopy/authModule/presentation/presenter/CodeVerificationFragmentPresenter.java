@@ -1,6 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
@@ -16,12 +17,19 @@ import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerific
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 @InjectViewState
 public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerificationView> {
     private static final String TAG = "CodeVerFragmentP";
     public MutableLiveData<String> messageTextViewData;
+    public MutableLiveData<Integer> btnResendCodeVisibility;
     private boolean dataLoad;
     private String action;
     private UserInfo mUserInfo;
@@ -35,9 +43,22 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
         mUserInfo = App.getUserInfo();
         messageTextViewData = new MutableLiveData<>();
         messageTextViewData.setValue(getMessageToUser());
+        btnResendCodeVisibility = new MutableLiveData<>();
         dataLoad = false;
+
+        initTimeToShowResendButton(10);
         getViewState().updateUI();
     }
+
+
+    private void initTimeToShowResendButton(int sec) {
+        Single.just(View.VISIBLE)
+                .subscribeOn(Schedulers.io())
+                .delay(sec, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(btnResendCodeVisibility::setValue);
+    }
+
 
     private String getMessageToUser(){
         Log.i(TAG, "getMessageToUser: ");
@@ -49,7 +70,7 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
             StringBuilder sb = new StringBuilder();
             String firstPartMessage = App.getInstance().getString(R.string.code_verification_fragment_message_to_user_1);
             sb.append(firstPartMessage);
-            String phonePrefix = App.getInstance().getString(R.string.user_phone_number_prefix);
+            String phonePrefix = App.getInstance().getString(R.string.user_phone_number_prefix_text);
             sb.append(" " + phonePrefix);
             sb.append(userPhone + " ");
             String secondPartMessage = App.getInstance().getString(R.string.code_verification_fragment_message_to_user_2);
@@ -117,5 +138,9 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
 
     public void setAction(String action) {
         this.action = action;
+    }
+
+    public void onButtonResendCodeClicked(View view) {
+
     }
 }

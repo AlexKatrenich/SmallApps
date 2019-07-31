@@ -35,12 +35,14 @@
     <string name="password_setting_fragment_edit_text_hint_password_confirm">введи пароль ще раз</string>
     <string name="password_setting_fragment_btn_confirm_title">підтвердити</string>
     <string name="password_setting_fragment_send_code_error_text">Проблема зі збереженням даних користувача, будь ласка перевірте наявність інтернет доступу</string>
+    <string name="user_phone_number_prefix_text">+380</string>
 
     <!--Fragment authorization-->
     <string name="authorization_fragment_btn_auth_title">Авторизуватися</string>
     <string name="authorization_fragment_btn_pass_restore_title">Відновлення паролю</string>
     <string name="authorization_fragment_tv_message_title">Авторизація</string>
     <string name="authorization_fragment_message_pass_and_phone_not_confirm">Авторизацію не виконано. Номер телефону або пароль введені невірно.</string>
+    <string name="authorization_fragment_phone_et_hint">введи номер</string>
 
     <!--Fragment credit selection-->
     <string name="credit_fragment_btn_get_money_title">отримати кошти</string>
@@ -68,14 +70,15 @@
     <string name="user_full_name_fragment_alert_dialog_button_cancel_title">Продовжити</string>
 
     <!--Fragment to enter user documents data-->
-    <string name="user_documents_fragment_message">Введи дані зі свого паспорту та Ідентифікаційного номеру платника податків</string>
+    <string name="user_documents_fragment_message">Введи дані зі свого паспорту та картки платника податків</string>
     <string name="user_documents_fragment_et_IPN_hint">Введи ІПН</string>
-    <string name="user_documents_fragment_et_passport_hint">Серія та номер паспорту(ХХ.000000)</string>
+    <string name="user_documents_fragment_et_passport_hint">Серія та номер паспорту(ХХ000000)</string>
     <string name="user_documents_fragment_btn_birth_date_title">Обери дату народження</string>
     <string name="user_documents_fragment_btn_next_title">Продовжити</string>
     <string name="user_documents_fragment_alert_dialog_text">Всі поля повинні бути заповнені, перевірте коректність введених даних</string>
     <string name="user_documents_fragment_alert_dialog_title">Помилка вводу</string>
     <string name="user_documents_fragment_alert_dialog_button_cancel_title">Продовжити</string>
+    <string name="code_verification_fragment_code_resent_button">Не отримав код, натисни сюди</string>
 
     <!--DAYS_OF_WEEK name-->
     <string-array name="days_of_week">

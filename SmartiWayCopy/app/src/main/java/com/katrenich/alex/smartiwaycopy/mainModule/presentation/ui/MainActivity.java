@@ -88,6 +88,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     @Override
     public void onBackPressed() {
+        // don`t respond while pressed back-button on Menu or Credit screen
+        if(mNavController.getCurrentDestination().getId() == R.id.creditFragment || mNavController.getCurrentDestination().getId() == R.id.menuFragment) return;
 
         super.onBackPressed();
 

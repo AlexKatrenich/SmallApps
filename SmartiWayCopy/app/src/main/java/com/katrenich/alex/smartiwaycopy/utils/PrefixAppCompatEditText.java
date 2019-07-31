@@ -35,7 +35,6 @@ public class PrefixAppCompatEditText extends AppCompatEditText {
     private void calculatePrefix() {
         if (mOriginalLeftPadding == -1) {
             String prefix = (String) getTag();
-            prefix = prefix + " ";
             Log.i(TAG, "calculatePrefix: " + prefix);
             float[] widths = new float[prefix.length()];
             getPaint().getTextWidths(prefix, widths);

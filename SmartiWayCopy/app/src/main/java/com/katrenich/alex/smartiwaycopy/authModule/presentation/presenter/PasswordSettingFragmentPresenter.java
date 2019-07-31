@@ -2,8 +2,7 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.text.Editable;
+
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
@@ -79,7 +78,6 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
     }
 
     private void writeUserPhoneToSharedPref() {
-
         String phoneNumber = mUserInfo.getCurrentUser().getMobilePhone();
         if(phoneNumber != null){
             Context context = App.getInstance();

@@ -23,7 +23,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginEnd="36dp"
         android:layout_marginBottom="16dp"
-        android:hint="@string/user_phone_fragment_input_et_hint"
+        android:hint="@string/authorization_fragment_phone_et_hint"
         android:inputType="phone"
         android:maxLength="@integer/user_mobile_phone_number_length"
         android:tag="@string/user_phone_number_prefix"
@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_authorization_fragment_message"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/et_password_authorization_fragment"

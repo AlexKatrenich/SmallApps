@@ -21,11 +21,14 @@ import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.CodeVerificationFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerificationView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class CodeVerificationFragment extends MvpAppCompatFragment implements CodeVerificationView {
 
     @InjectPresenter
     CodeVerificationFragmentPresenter mPresenter;
-    private TextView tvMessage;
+    private TextView tvMessage, btnResendCode;
     private AppCompatEditText etUserVerificationCode;
     private MaterialButton btnChanePhoneNumber;
 
@@ -68,16 +71,19 @@ public class CodeVerificationFragment extends MvpAppCompatFragment implements Co
         btnChanePhoneNumber = v.findViewById(R.id.btn_code_verification_fragment_change_phone);
         btnChanePhoneNumber.setOnClickListener(mPresenter::onChangePhoneNumberClicked);
 
+        btnResendCode = v.findViewById(R.id.btn_resend_code);
+        btnResendCode.setOnClickListener(mPresenter::onButtonResendCodeClicked);
+
         if (getArguments() != null) {
             String action = getArguments().getString(App.getInstance().getString(R.string.auth_state_action_name));
             mPresenter.setAction(action);
         }
-
     }
 
     @Override
     public void updateUI() {
         mPresenter.messageTextViewData.observe(this, tvMessage::setText);
+        mPresenter.btnResendCodeVisibility.observe(this, btnResendCode::setVisibility);
     }
 
     @Override

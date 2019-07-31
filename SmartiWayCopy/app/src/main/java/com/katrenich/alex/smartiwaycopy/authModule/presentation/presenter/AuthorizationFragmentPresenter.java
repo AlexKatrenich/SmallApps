@@ -53,9 +53,8 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
                     .subscribe(aBoolean -> {
                         MainActivityNavigateController.getInstance().hideProgress();
                         if(aBoolean) {
-                            User currentUser = mUserInfo.getCurrentUser();
-                            currentUser.setMobilePhone(phoneNumb);
-                            mUserInfo.setCurrentUser(currentUser);
+                            mUserInfo.getCurrentUser().setMobilePhone(phoneNumb);
+                            writePhoneToSharPref(phoneNumb);
                             MainActivityNavigateController.getInstance().navigate(R.id.action_authorization_to_credit);
                         } else {
                             getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
@@ -66,6 +65,16 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
         }
 
 
+    }
+
+    private void writePhoneToSharPref(String phoneNumb) {
+        if(phoneNumb != null){
+            Context context = App.getInstance();
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.shared_preference_file_key), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(context.getString(R.string.shared_preference_phone_numb), phoneNumb);
+            editor.apply();
+        }
     }
 
     public void onButtonPassRecoverClicked(View view) {

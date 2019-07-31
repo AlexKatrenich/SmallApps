@@ -22,8 +22,8 @@
             app:destination="@id/codeVerificationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <argument
             android:name="action"
             app:argType="string"
@@ -102,7 +102,7 @@
             app:destination="@id/passwordSettingFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_out_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@+id/userPhoneFragment" />
         <argument

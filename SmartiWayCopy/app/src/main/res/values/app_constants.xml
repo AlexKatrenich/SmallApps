@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <integer name="code_verification_length">6</integer>
+    <integer name="code_verification_length">4</integer>
     <string name="main_company_phone_number">067 734 36 71</string>
+    <string name="test_server_api_address">https://credit-api.peremoga.pp.ua/api/v1/</string>
     <string name="main_company_website_address">http://leadsdoit.com/</string>
+    <string name="x_api_token">Y01Zr9J7542zDNVa6KPugcvH6Z67lmxi</string>
     <string name="pass_verification_pattern_regex">^.*(?=.{7,30})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$</string>
-    <string name="shared_preference_file_key">com.alex.katrenich.SmartyWayCopy</string>
+    <string name="shared_preference_file_key">APP_PREF</string>
     <string name="shared_preference_phone_numb">phone_numb</string>
     <string name="auth_state_action_name">action</string>
     <string name="auth_action_state">PASSWORD_RECOVER</string>
@@ -13,14 +16,16 @@
     <integer name="calculate_cash_range_iter_value">250</integer>
     <integer name="max_count_of_credit_days">30</integer>
     <string name="cash_currency">грн</string>
-    <string name="digits_for_name_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ\'абвгґдеєжзиіїйклмнопрстуфхцчшщьюя</string>
-    <string name="digits_for_passport_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ0123456789</string>
+    <string name="digits_for_name_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ\'абвгґдеєжзиіїйклмнопрстуфхцчшщьюяёъыэЁЪЫЭ</string>
+    <string name="digits_for_passport_entering">АБВГҐДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЬЮЯ0123456789абвгґдеєжзиіїйклмнопрстуфхцчшщьюяёъыэЁЪЫЭ</string>
+    <string name="user_phone_number_prefix">+380</string>
 
     <!--Test data-->
     <string name="mobile_phone_verification_code">654789</string>
     <string name="user_mobile_phone_number">0677343671</string>
-    <integer name="user_mobile_phone_number_length">10</integer>
+    <integer name="user_mobile_phone_number_length">9</integer>
     <string name="user_password">Test2019</string>
-    <string name="user_phone_number_prefix">+38</string>
+
+
 
 </resources>

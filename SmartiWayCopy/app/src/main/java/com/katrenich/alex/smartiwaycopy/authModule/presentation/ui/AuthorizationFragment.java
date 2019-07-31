@@ -1,9 +1,6 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.ui;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +22,7 @@ import com.katrenich.alex.smartiwaycopy.utils.PrefixAppCompatEditText;
 public class AuthorizationFragment extends MvpAppCompatFragment implements AuthorizationView {
 
     private static final String TAG = "AuthorizationFragment";
+
     @InjectPresenter
     AuthorizationFragmentPresenter mPresenter;
 
@@ -48,6 +46,7 @@ public class AuthorizationFragment extends MvpAppCompatFragment implements Autho
     private void initUI(View v, Bundle savedInstanceState) {
         etUserPass = v.findViewById(R.id.et_password_authorization_fragment);
         etUserPhone = v.findViewById(R.id.et_user_phone_authorization_fragment);
+        etUserPhone.setHint(" " + getString(R.string.authorization_fragment_phone_et_hint));
         btnAuth = v.findViewById(R.id.btn_auth_authorization_fragment);
         btnAuth.setOnClickListener(v1 -> mPresenter.onButtonAuthClicked(etUserPhone.getText().toString(), etUserPass.getText().toString()));
         btnPassRecover = v.findViewById(R.id.btn_password_recover_authorization_fragment);

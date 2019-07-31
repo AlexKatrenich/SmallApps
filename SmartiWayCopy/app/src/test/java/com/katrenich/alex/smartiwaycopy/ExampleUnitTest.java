@@ -3,6 +3,7 @@ package com.katrenich.alex.smartiwaycopy;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.CreditFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
+import com.katrenich.alex.smartiwaycopy.network.NetworkService;
 
 import org.junit.Test;
 
@@ -25,16 +26,10 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void test(){
-        String s[] = new String[]{
-                "30.07.1990",
-                "20.07.1990",
-                "18.09.1990",
-                "01.01.2001"
-        };
+    public void phoneCheckRequest(){
+        String s = "АБВГДЄ";
 
-        for (String s1 : s) {
-            System.out.println(UserInfo.calculateAgeFromBirthDay(s1));
-        }
+        System.out.println(s.substring(1));
+
     }
 }

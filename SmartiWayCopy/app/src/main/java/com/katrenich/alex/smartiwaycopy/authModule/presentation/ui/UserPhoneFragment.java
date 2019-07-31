@@ -64,6 +64,7 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
         Log.i(TAG, "initUI: ");
         etUserPhone = v.findViewById(R.id.et_user_phone_input_fragment);
+        etUserPhone.setHint(" " + getString(R.string.user_phone_fragment_input_et_hint));
         mTextWatcher =  new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -77,8 +78,11 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.i(TAG, "afterTextChanged: " + s);
                 String phone = s.toString();
+                if (s.length() == 9) {
+                    etUserPhone.setText("");
+                }
+                Log.i(TAG, "afterTextChanged: " + etUserPhone.getText());
                 mPresenter.phoneNumberEntered(phone);
             }
         };

@@ -16,10 +16,7 @@ import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
-import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 
 @InjectViewState
@@ -32,6 +29,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     public MutableLiveData<Integer> btnPolicyLicenceVisible;
     public MutableLiveData<Integer> tvLicenseVisible;
     public MutableLiveData<String> userMessage;
+    private boolean dataLoading;
 
     public UserPhoneFragmentPresenter() {
         init();
@@ -39,6 +37,7 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
 
     private void init() {
         mUserInfo = App.getUserInfo();
+        dataLoading = false;
 
         btnAuthVisible = new MutableLiveData<>();
         btnPolicyLicenceVisible = new MutableLiveData<>();
@@ -66,66 +65,52 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
     }
 
     public void phoneNumberEntered(String phoneNumber) {
-        // check if calling method with same parameter - return;
-        User user = mUserInfo.getCurrentUser();
-        if (user != null && user.getMobilePhone() != null) {
-            Log.i(TAG, "phoneNumberEntered: UserPhone= " + user.getMobilePhone() + " phoneNumber= " + phoneNumber);
-            if(user.getMobilePhone().equals(phoneNumber)) return;
-        }
-
-        if (phoneNumber.length() == 10){
+        if (phoneNumber.length() == 9 && !dataLoading){
+            dataLoading = true;
+            mUserInfo.getCurrentUser().setMobilePhone(phoneNumber);
             if (authAction.equals(App.getInstance().getString(R.string.auth_action_state))){
                 sendPassRecoverCode(phoneNumber);
             } else {
-                sendCodeNewUser(phoneNumber);
+                registerNewUser(phoneNumber);
             }
         }
     }
 
+
     private void sendPassRecoverCode(String phoneNumber) {
         Log.i(TAG, "sendPassRecoverCode: ");
-        MainActivityNavigateController.getInstance().showProgress();
-        AuthController.getInstance()
-                .sendVerificationCodePassRecover(phoneNumber)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                    MainActivityNavigateController.getInstance().hideProgress();
-                    if (aBoolean) {
-                        Bundle bundle = new Bundle();
-                        bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), authAction);
 
-                        // set phone to UserInfo
-                        User currentUser = mUserInfo.getCurrentUser();
-                        currentUser.setMobilePhone(phoneNumber);
-                        mUserInfo.setCurrentUser(currentUser);
-                        Log.i(TAG, "sendPassRecoverCode: " + mUserInfo.getCurrentUser());
-                        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification, bundle);
-                    } else {
-                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                    }
-                });
+        // TEST
+        dataLoading = false;
+        Bundle bundle = new Bundle();
+        bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), authAction);
+        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification, bundle);
     }
 
+    private void registerNewUser(String phoneNumber) {
+        Log.i(TAG, "registerNewUser: ");
 
-    private void sendCodeNewUser(String phoneNumber) {
-        Log.i(TAG, "sendCodeNewUser: ");
-        MainActivityNavigateController.getInstance().showProgress();
-        AuthController.getInstance()
-                .sendVerificationCodeNewUser(phoneNumber)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                    MainActivityNavigateController.getInstance().hideProgress();
-                    if (aBoolean) {
-                        User currentUser = mUserInfo.getCurrentUser();
-                        currentUser.setMobilePhone(phoneNumber);
-                        Log.i(TAG, "sendPassRecoverCode: " + currentUser);
-                        mUserInfo.setCurrentUser(currentUser);
-                        Log.i(TAG, "sendPassRecoverCode: " + mUserInfo.getCurrentUser());
-                        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
-                    } else {
-                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                    }
-                });
+        dataLoading = false;
+        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+
+//        AuthController.getInstance()
+//                .sendVerificationCodeNewUser(phoneNumber)
+//                .subscribe(phoneRegisterResponse -> {
+//                    MainActivityNavigateController.getInstance().hideProgress();
+//                    dataLoading = false;
+//
+//                    if(phoneRegisterResponse.getSuccess()){
+//                        mUserInfo.getCurrentUser().setMobilePhone(phoneNumber);
+//                        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+//                    } else {
+//                        getViewState().showMessage("Такий номер телефону вже зареєстровано");
+//                    }
+//                        }
+//                , throwable -> {
+//                       dataLoading = false;
+//                       MainActivityNavigateController.getInstance().hideProgress();
+//                       getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+//                        });
     }
 
     public void setAuthAction(String authAction) {

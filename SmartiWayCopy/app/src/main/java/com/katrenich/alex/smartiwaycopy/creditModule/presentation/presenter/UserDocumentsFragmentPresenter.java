@@ -16,12 +16,15 @@ import com.katrenich.alex.smartiwaycopy.model.User;
 @InjectViewState
 public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsView> {
     private String userBirthDay;
+    private String userIPN;
+    private String userPassport;
     public MutableLiveData<String> btnBirthDateTitle;
     private UserInfo mUserInfo;
+    public MutableLiveData<Integer> visibilityBtnNext;
 
     public UserDocumentsFragmentPresenter() {
         mUserInfo = App.getUserInfo();
-
+        visibilityBtnNext = new MutableLiveData<>();
         btnBirthDateTitle = new MutableLiveData<>();
         getViewState().updateUI();
     }
@@ -59,7 +62,28 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
         getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_text));
     }
 
+    private void checkFullDataEntering(){
+        boolean b = false;
+        if(userIPN != null && userIPN.length() == 10){
+            b = true;
+        } else {
+            visibilityBtnNext.setValue(View.GONE);
+            return;
+        }
+
+        if(userPassport != null && userPassport.length() == 8 && userBirthDay != null){
+            b = true;
+        } else {
+            visibilityBtnNext.setValue(View.GONE);
+            return;
+        }
+
+        if (b) visibilityBtnNext.setValue(View.VISIBLE);
+
+    }
+
     public void setUserBirthDay(int year, int month, int dayOfMonth) {
+        month++;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(dayOfMonth < 10 ? "0" + dayOfMonth : String.valueOf(dayOfMonth));
         stringBuilder.append(".");
@@ -69,5 +93,18 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
 
         userBirthDay = stringBuilder.toString();
         btnBirthDateTitle.setValue("Дата народження: " + userBirthDay);
+        checkFullDataEntering();
+    }
+
+
+    public void setUserIPN(String ipn){
+        userIPN = ipn;
+        checkFullDataEntering();
+    }
+
+    public void setUserPassport(String passport) {
+        this.userPassport = passport;
+        checkFullDataEntering();
+
     }
 }

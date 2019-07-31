@@ -1,4 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="user_documents_fragment_views_side_margins">24dp</dimen>
+    <dimen name="user_documents_fragment_views_side_margins">20dp</dimen>
 </resources>

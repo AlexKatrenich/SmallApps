@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -24,7 +25,6 @@ import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.UserDocumentsFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocumentsView;
-import com.santalu.maskedittext.MaskEditText;
 
 import java.util.Calendar;
 
@@ -33,7 +33,7 @@ public class UserDocumentsFragment extends MvpAppCompatFragment implements UserD
     @InjectPresenter
     UserDocumentsFragmentPresenter mPresenter;
     private AppCompatEditText etIPN;
-    private MaskEditText etPassport;
+    private AppCompatEditText etPassport;
     private MaterialButton btnBirthDate, btnNext;
 
     @Nullable
@@ -50,46 +50,80 @@ public class UserDocumentsFragment extends MvpAppCompatFragment implements UserD
 
     private void initUI(View v, Bundle savedInstanceState) {
         etIPN = v.findViewById(R.id.et_user_documents_fragment_ipn);
+        etIPN.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.setUserIPN(s.toString());
+            }
+        });
         etPassport = v.findViewById(R.id.et_user_documents_fragment_passport);
+        etPassport.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPresenter.setUserPassport(s.toString());
+            }
+        });
         btnBirthDate = v.findViewById(R.id.btn_user_documents_fragment_birth_date);
         btnBirthDate.setOnClickListener(mPresenter::onBtnDateClicked);
         btnNext = v.findViewById(R.id.btn_user_documents_fragment_next);
         btnNext.setOnClickListener(v1 -> {
             String ipn = etIPN.getText().toString();
-            String passport = etPassport.getRawText();
+            String passport = etPassport.getText().toString();
             mPresenter.onBtnNextClicked(ipn, passport);
         });
+
     }
 
     @Override
     public void updateUI() {
-        mPresenter.btnBirthDateTitle.observe(this, s -> {
-            btnBirthDate.setText(s);
-            btnBirthDate.setTextColor(App.getInstance().getResources().getColor(android.R.color.white));
-            btnBirthDate.setBackgroundTintList(ContextCompat.getColorStateList(this.getContext(), R.color.colorAccent));
-        });
+        mPresenter.btnBirthDateTitle.observe(this, btnBirthDate::setText);
+        mPresenter.visibilityBtnNext.observe(this, btnNext::setVisibility);
     }
 
     @Override
     public void showBirthDatePickerDialog() {
-        Calendar cal = Calendar.getInstance();
+        SpinnerDatePickerDialog dialog = new SpinnerDatePickerDialog();
+        dialog.setDateSetListener((view, year, month, dayOfMonth) -> mPresenter.setUserBirthDay(year, month, dayOfMonth));
+        dialog.show(getFragmentManager(), "dateDialog");
 
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        try {
-            Context context = this.getContext();
-            if(context == null) return;
-            DatePickerDialog dialog = new DatePickerDialog(
-                    this.getContext(),
-                    0,
-                    (view, year1, month1, dayOfMonth) -> mPresenter.setUserBirthDay(year1, month1, dayOfMonth),
-                    year, month, day);
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTime().getTime());
-            dialog.show();
-        } catch (NullPointerException e){
-
-        }
+//        Calendar cal = Calendar.getInstance();
+//
+//        int year = cal.get(Calendar.YEAR);
+//        int month = cal.get(Calendar.MONTH);
+//        int day = cal.get(Calendar.DAY_OF_MONTH);
+//        try {
+//            Context context = this.getContext();
+//            if(context == null) return;
+//            DatePickerDialog dialog = new DatePickerDialog(
+//                    this.getContext(),
+//                    0,
+//                    (view, year1, month1, dayOfMonth) -> mPresenter.setUserBirthDay(year1, month1, dayOfMonth),
+//                    year, month, day);
+//            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTime().getTime());
+//            dialog.show();
+//        } catch (NullPointerException e){
+//
+//        }
     }
 
     @Override

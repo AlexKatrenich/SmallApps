@@ -1,13 +1,18 @@
 package com.katrenich.alex.smartiwaycopy.authModule.util;
 
-import android.util.Log;
-
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.checkPhoneNumber.PhoneCheckResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.checkPhoneNumber.PhoneExistsPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhonePOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhoneRegisterPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhoneRegisterResponse;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class AuthController {
@@ -21,12 +26,7 @@ public class AuthController {
     private final int TEST_TIME_DELAY = 0;
 
     private AuthController() {
-    }
 
-    public Single<Boolean> checkUserPhone(String phoneNumber) {
-        String number = App.getInstance().getString(R.string.user_mobile_phone_number);
-        Boolean b = number.equals(phoneNumber);
-        return Single.just(b);
     }
 
     public Single<Boolean> checkVerificationCodeNewUser(String code) {
@@ -45,11 +45,22 @@ public class AuthController {
         this.token = token;
     }
 
-    public Single<Boolean> sendVerificationCodeNewUser(String phoneNumber) {
+    public Single<BaseResponse> resendVerificationCodeNewUser(String phone){
 
-        return Single.just(true)
-               .subscribeOn(Schedulers.io())
-               .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+        return App.getNetworkService().getNetworkClient()
+                .getNewCodeVerification(phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Single<PhoneRegisterResponse> sendVerificationCodeNewUser(String phoneNumber) {
+        PhonePOJO phone = new PhonePOJO();
+        phone.setPhone(phoneNumber);
+
+        return App.getNetworkService().getNetworkClient()
+                .registerPhone(phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<Boolean> setUserPassword(String password) {

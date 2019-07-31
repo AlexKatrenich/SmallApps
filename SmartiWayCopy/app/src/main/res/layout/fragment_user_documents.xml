@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/user_documents_fragment_views_side_margins"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="@dimen/user_documents_fragment_views_side_margins"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_user_documents_fragment_message"
         app:layout_constraintVertical_chainStyle="packed">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_user_documents_fragment_ipn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,14 +54,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
-        <com.santalu.maskedittext.MaskEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/et_user_documents_fragment_passport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_documents_fragment_et_passport_hint"
             android:digits="@string/digits_for_passport_entering"
-            android:maxLength="10"
-            app:met_mask="##.######" />
+            android:maxLength="8"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,8 +72,6 @@
         android:layout_marginEnd="@dimen/user_documents_fragment_views_side_margins"
         android:layout_marginBottom="8dp"
         android:text="@string/user_documents_fragment_btn_birth_date_title"
-        app:backgroundTint="@color/colorPrimaryDark"
-        android:textColor="@color/secondaryTextColor"
         app:layout_constraintBottom_toTopOf="@+id/btn_user_documents_fragment_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/user_documents_fragment_btn_next_title"
+        android:visibility="gone"
         android:layout_marginStart="@dimen/user_documents_fragment_views_side_margins"
         android:layout_marginEnd="@dimen/user_documents_fragment_views_side_margins"
         android:layout_marginBottom="8dp"
