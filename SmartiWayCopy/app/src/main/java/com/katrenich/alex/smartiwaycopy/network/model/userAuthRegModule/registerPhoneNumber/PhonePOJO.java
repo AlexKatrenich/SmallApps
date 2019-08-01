@@ -1,4 +1,4 @@
-package com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber;
+package com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

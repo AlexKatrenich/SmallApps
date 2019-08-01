@@ -2,6 +2,7 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 
 import com.arellomobile.mvp.InjectViewState;
@@ -12,14 +13,14 @@ import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.PasswordSet
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import java.util.regex.Pattern;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 @InjectViewState
 public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSettingView> {
 
+    private static final String TAG = "PasswordSettingFragPres";
     private String authAction;
     private boolean loadingData;
     private UserInfo mUserInfo;
@@ -33,48 +34,36 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
         if(!password.equals(passConfirm)) return;
         if(loadingData) return;
 
-        if (authAction != null && authAction.equals(App.getInstance().getString(R.string.auth_action_state))){
-            changeCurrentUserPassword(password);
-        } else {
-            setNewUserPassword(password);
-        }
+        setUserPassword(password);
     }
 
-    private void changeCurrentUserPassword(String password) {
-        MainActivityNavigateController.getInstance().showProgress();
-        loadingData = true;
-        AuthController.getInstance()
-                .changeCurrentUserPassword(password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                    loadingData = false;
-                    MainActivityNavigateController.getInstance().hideProgress();
-                    if(aBoolean) {
-                        writeUserPhoneToSharedPref();
-                        MainActivityNavigateController.getInstance().navigate(R.id.action_passwordSetting_to_credit);
-                    } else {
-                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                    }
-                });
-    }
-
-
-    private void setNewUserPassword(String password){
+    private void setUserPassword(String password){
         MainActivityNavigateController.getInstance().showProgress();
         loadingData = true;
         AuthController.getInstance()
                 .setUserPassword(password)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aBoolean -> {
-                    loadingData = false;
-                    MainActivityNavigateController.getInstance().hideProgress();
-                    if(aBoolean) {
-                        writeUserPhoneToSharedPref();
-                        MainActivityNavigateController.getInstance().navigate(R.id.action_passwordSetting_to_credit);
-                    } else {
-                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                    }
-                });
+                .map(passwordSaveResponse -> passwordSaveResponse.getData())
+                .subscribe(userTokenPOJO -> {
+                            loadingData = false;
+                            MainActivityNavigateController.getInstance().hideProgress();
+
+                            Log.i(TAG, "setUserPassword: passwordResponsePOJO = " + userTokenPOJO);
+
+                            String token = userTokenPOJO.getToken();
+                            if (token != null) {
+                                ApiKeyPrefUtils.storeApiKey(App.getInstance(), token);
+                                writeUserPhoneToSharedPref();
+                                MainActivityNavigateController.getInstance().navigate(R.id.action_passwordSetting_to_credit);
+                            } else {
+                                Log.i(TAG, "setUserPassword: TOKEN == NULL");
+                            }
+
+                        }, throwable -> {
+                            loadingData = false;
+                            MainActivityNavigateController.getInstance().hideProgress();
+                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                        }
+                );
     }
 
     private void writeUserPhoneToSharedPref() {

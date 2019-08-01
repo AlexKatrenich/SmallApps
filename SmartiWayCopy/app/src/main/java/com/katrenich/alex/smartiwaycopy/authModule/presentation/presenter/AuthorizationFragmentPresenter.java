@@ -2,6 +2,7 @@ package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -15,14 +16,18 @@ import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.AuthorizationView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
+import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 
 @InjectViewState
 public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationView> {
 
+    private static final String TAG = "AuthorizationFragmentP";
     private UserInfo mUserInfo;
-
+    private boolean loadData;
     public MutableLiveData<String> userPhoneNumber;
 
     public AuthorizationFragmentPresenter() {
@@ -34,7 +39,7 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
         mUserInfo = App.getUserInfo();
         userPhoneNumber = new MutableLiveData<>();
         getUserPhoneFromSharedPref();
-
+        loadData = false;
     }
 
     private void getUserPhoneFromSharedPref() {
@@ -46,19 +51,36 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
 
     public void onButtonAuthClicked(String phoneNumb, String pass) {
         if(phoneNumb != null && pass != null){
+            if (loadData) return;
             MainActivityNavigateController.getInstance().showProgress();
+            loadData = true;
+
             AuthController.getInstance()
                     .authorizeUser(phoneNumb, pass)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aBoolean -> {
+                    .subscribe(userTokenResponseResponse -> {
+                        loadData = false;
                         MainActivityNavigateController.getInstance().hideProgress();
-                        if(aBoolean) {
+                       if (userTokenResponseResponse.isSuccessful()){
+                           Log.i(TAG, "onButtonAuthClicked: userTokenResponseResponse.isSuccessful");
+                           UserTokenPOJO data = userTokenResponseResponse.body().getData();
+                           if (data != null){
+                            String token = data.getToken();
                             mUserInfo.getCurrentUser().setMobilePhone(phoneNumb);
+                            ApiKeyPrefUtils.storeApiKey(App.getInstance(), token);
                             writePhoneToSharPref(phoneNumb);
                             MainActivityNavigateController.getInstance().navigate(R.id.action_authorization_to_credit);
-                        } else {
-                            getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
-                        }
+                           } else {
+                               Log.e(TAG, "onButtonAuthClicked: " + userTokenResponseResponse.body());
+                           }
+                       } else {
+                           int code = userTokenResponseResponse.code();
+                           if(code == 406 || code == 422) {
+                               getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
+                           } else  {
+                               Log.i(TAG, "onButtonAuthClicked:" + userTokenResponseResponse.message());
+                               getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_server_not_respond));
+                           }
+                       }
                     });
         } else {
             getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));

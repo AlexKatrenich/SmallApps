@@ -19,7 +19,7 @@ public class ApiKeyPrefUtils {
     public static void storeApiKey(Context context, String apiKey){
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString("API_KEY", apiKey);
-        editor.commit();
+        editor.apply();
     }
 
     public static String getApiKey(Context context){

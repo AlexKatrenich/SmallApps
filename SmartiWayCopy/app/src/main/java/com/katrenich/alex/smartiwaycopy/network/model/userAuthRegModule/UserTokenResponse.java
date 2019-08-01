@@ -1,20 +1,21 @@
-package com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber;
+package com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule;
+
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
 
-public class PhoneRegisterResponse extends BaseResponse {
+public class UserTokenResponse extends BaseResponse {
 
     @SerializedName("data")
     @Expose
-    private PhoneRegisterPOJO data;
+    private UserTokenPOJO data;
 
-    public PhoneRegisterPOJO getData() {
+    public UserTokenPOJO getData() {
         return data;
     }
 
-    public void setData(PhoneRegisterPOJO data) {
+    public void setData(UserTokenPOJO data) {
         this.data = data;
     }
 }

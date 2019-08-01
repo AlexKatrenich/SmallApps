@@ -21,9 +21,9 @@
             android:id="@+id/action_userPhone_to_codeVerification"
             app:destination="@id/codeVerificationFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_out_left" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="action"
             app:argType="string"

@@ -19,6 +19,7 @@
     <string name="user_phone_fragment_title_message">Увага</string>
     <string name="user_phone_fragment_message_title_cancel_button">Продовжити</string>
     <string name="user_phone_fragment_send_code_error_text">Проблема з відправленням коду верифікації, будь ласка перевірте наявність інтернет доступу</string>
+    <string name="user_phone_fragment_send_code_error_text_phone_register_already">Вказаний номер телефону вже було використано для реєстрації. Якщо ти вже зареєстрований - скористайся формою авторизації або відновлення паролю.</string>
     <string name="user_phone_fragment_tv_hint_caption_to_pass_recover">Відновлення паролю. Введи номер телефону свого облікового запису.</string>
 
     <!--Fragment CodeVerification-->
@@ -41,6 +42,7 @@
     <string name="authorization_fragment_btn_auth_title">Авторизуватися</string>
     <string name="authorization_fragment_btn_pass_restore_title">Відновлення паролю</string>
     <string name="authorization_fragment_tv_message_title">Авторизація</string>
+    <string name="authorization_fragment_message_server_not_respond">Авторизацію не виконано. Будь ласка перевірте наявність інтернет доступу</string>
     <string name="authorization_fragment_message_pass_and_phone_not_confirm">Авторизацію не виконано. Номер телефону або пароль введені невірно.</string>
     <string name="authorization_fragment_phone_et_hint">введи номер</string>
 

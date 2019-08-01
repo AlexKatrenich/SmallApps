@@ -1,19 +1,21 @@
 package com.katrenich.alex.smartiwaycopy.authModule.util;
 
 import com.katrenich.alex.smartiwaycopy.App;
-import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
-import com.katrenich.alex.smartiwaycopy.network.model.checkPhoneNumber.PhoneCheckResponse;
-import com.katrenich.alex.smartiwaycopy.network.model.checkPhoneNumber.PhoneExistsPOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhonePOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhoneRegisterPOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber.PhoneRegisterResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhonePOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhoneRegisterResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.SecretCodePOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.setPassword.PasswordPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userAuth.PhonePassPOJO;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class AuthController {
     public static final String TAG = "AuthController";
@@ -29,14 +31,6 @@ public class AuthController {
 
     }
 
-    public Single<Boolean> checkVerificationCodeNewUser(String code) {
-        String baseCode = App.getInstance().getString(R.string.mobile_phone_verification_code);
-        code = baseCode; //TEST
-        return Single.just(baseCode.equals(code))
-                .subscribeOn(Schedulers.io())
-                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
-    }
-
     public String getToken() {
         return token;
     }
@@ -48,7 +42,7 @@ public class AuthController {
     public Single<BaseResponse> resendVerificationCodeNewUser(String phone){
 
         return App.getNetworkService().getNetworkClient()
-                .getNewCodeVerification(phone)
+                .getNewSecretCode(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
@@ -58,23 +52,32 @@ public class AuthController {
         phone.setPhone(phoneNumber);
 
         return App.getNetworkService().getNetworkClient()
-                .registerPhone(phone)
+                .getSecretCode(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<Boolean> setUserPassword(String password) {
+    public Single<UserTokenResponse> setUserPassword(String password) {
+        PasswordPOJO pojo = new PasswordPOJO();
+        pojo.setPassword(password);
+        pojo.setPhone(UserInfo.getInstance().getCurrentUser().getMobilePhone());
 
-        return Single.just(true)
+        return App.getNetworkService().getNetworkClient()
+                .savePassword(pojo)
                 .subscribeOn(Schedulers.io())
-                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<Boolean> authorizeUser(String userPhone, String password) {
+    public Single<Response<UserTokenResponse>> authorizeUser(String userPhone, String password) {
+        PhonePassPOJO pojo = new PhonePassPOJO();
+        pojo.setPassword(password);
+        pojo.setPhone(userPhone);
 
-        return Single.just(true)
+        // TODO auth
+        return App.getNetworkService().getNetworkClient()
+                .authUser(pojo)
                 .subscribeOn(Schedulers.io())
-                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<Boolean> sendVerificationCodePassRecover(String phoneNumber) {
@@ -85,14 +88,15 @@ public class AuthController {
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
     }
 
-    public Single<Boolean> checkVerificationCodePassRecover(String code) {
+    public Single<BaseResponse> verificateCode(String code) {
+        SecretCodePOJO pojo = new SecretCodePOJO();
+        pojo.setPhone(UserInfo.getInstance().getCurrentUser().getMobilePhone());
+        pojo.setSecretCode(Integer.valueOf(code));
 
-        String baseCode = App.getInstance().getString(R.string.mobile_phone_verification_code);
-        code = baseCode; //TEST
-
-        return Single.just(baseCode.equals(code))
+        return App.getNetworkService().getNetworkClient()
+                .verificateSecretCode(pojo)
                 .subscribeOn(Schedulers.io())
-                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Single<Boolean> changeCurrentUserPassword(String password) {

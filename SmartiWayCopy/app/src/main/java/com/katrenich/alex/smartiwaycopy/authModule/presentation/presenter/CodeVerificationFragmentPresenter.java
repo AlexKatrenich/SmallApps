@@ -1,7 +1,5 @@
 package com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter;
 
-import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
@@ -17,8 +15,6 @@ import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerific
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
@@ -32,6 +28,7 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     public MutableLiveData<Integer> btnResendCodeVisibility;
     private boolean dataLoad;
     private String action;
+    private int sec = 15; // seconds to show button Resend Secret Code
     private UserInfo mUserInfo;
 
 
@@ -46,12 +43,13 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
         btnResendCodeVisibility = new MutableLiveData<>();
         dataLoad = false;
 
-        initTimeToShowResendButton(10);
+        showResendButtonAfter(sec);
         getViewState().updateUI();
     }
 
 
-    private void initTimeToShowResendButton(int sec) {
+    private void showResendButtonAfter(int sec) {
+        btnResendCodeVisibility.setValue(View.GONE);
         Single.just(View.VISIBLE)
                 .subscribeOn(Schedulers.io())
                 .delay(sec, TimeUnit.SECONDS)
@@ -82,52 +80,21 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     }
 
     public void verificationCodeEntered(String verificationCode) {
-        if(action != null && action.equals(App.getInstance().getString(R.string.auth_action_state))){
-            verificateCodePassRecover(verificationCode);
-        } else {
-            verificateCodeNewUser(verificationCode);
-        }
-    }
-
-    private void verificateCodeNewUser(String verificationCode) {
         int codeLength = App.getInstance().getResources().getInteger(R.integer.code_verification_length);
         if(verificationCode != null && verificationCode.length() == codeLength && !dataLoad){
             dataLoad = true;
             MainActivityNavigateController.getInstance().showProgress();
-            AuthController.getInstance()
-                    .checkVerificationCodeNewUser(verificationCode)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aBoolean -> {
-                        MainActivityNavigateController.getInstance().hideProgress();
-                        dataLoad = false;
-                        if (aBoolean) {
-                            MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
-                        } else {
-                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                        }
-                    });
-        }
-    }
 
-    private void verificateCodePassRecover(String verificationCode) {
-        Log.i(TAG, "verificateCodePassRecover: ");
-        int codeLength = App.getInstance().getResources().getInteger(R.integer.code_verification_length);
-        if(verificationCode != null && verificationCode.length() == codeLength && !dataLoad){
-            dataLoad = true;
-            MainActivityNavigateController.getInstance().showProgress();
             AuthController.getInstance()
-                    .checkVerificationCodePassRecover(verificationCode)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(aBoolean -> {
-                        MainActivityNavigateController.getInstance().hideProgress();
+                    .verificateCode(verificationCode)
+                    .subscribe(baseResponse -> {
                         dataLoad = false;
-                        if (aBoolean) {
-                            Bundle bundle = new Bundle();
-                            bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), action);
-                            MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting, bundle);
-                        } else {
-                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-                        }
+                        MainActivityNavigateController.getInstance().hideProgress();
+                        MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
+                    }, throwable -> {
+                        dataLoad = false;
+                        MainActivityNavigateController.getInstance().hideProgress();
+                        getViewState().showMessage(App.getInstance().getString(R.string.code_verification_fragment_code_error_text));
                     });
         }
     }
@@ -141,6 +108,21 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     }
 
     public void onButtonResendCodeClicked(View view) {
-
+        String phone = UserInfo.getInstance().getCurrentUser().getMobilePhone();
+        if(!dataLoad && phone != null){
+            MainActivityNavigateController.getInstance().showProgress();
+            showResendButtonAfter(sec);
+            dataLoad = true;
+            AuthController.getInstance()
+                    .resendVerificationCodeNewUser(phone)
+                    .subscribe(baseResponse -> {
+                        dataLoad = false;
+                        MainActivityNavigateController.getInstance().hideProgress();
+                    }, throwable -> {
+                        dataLoad = false;
+                        MainActivityNavigateController.getInstance().hideProgress();
+                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                    });
+        }
     }
 }

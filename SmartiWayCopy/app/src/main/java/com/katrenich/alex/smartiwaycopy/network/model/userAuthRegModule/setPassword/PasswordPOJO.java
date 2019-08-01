@@ -1,16 +1,16 @@
-package com.katrenich.alex.smartiwaycopy.network.model.checkPhoneNumber;
+package com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.setPassword;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PhoneExistsPOJO {
-
+public class PasswordPOJO {
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("exists")
+
+    @SerializedName("password")
     @Expose
-    private Boolean exists;
+    private String password;
 
     public String getPhone() {
         return phone;
@@ -20,11 +20,11 @@ public class PhoneExistsPOJO {
         this.phone = phone;
     }
 
-    public Boolean getExists() {
-        return exists;
+    public String getPassword() {
+        return password;
     }
 
-    public void setExists(Boolean exists) {
-        this.exists = exists;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,16 +1,16 @@
-package com.katrenich.alex.smartiwaycopy.network.model.registerPhoneNumber;
+package com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userAuth;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PhoneRegisterPOJO {
-    
+public class PhonePassPOJO {
+
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("status")
+    @SerializedName("password")
     @Expose
-    private String status;
+    private String password;
 
     public String getPhone() {
         return phone;
@@ -20,11 +20,11 @@ public class PhoneRegisterPOJO {
         this.phone = phone;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPassword() {
+        return password;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

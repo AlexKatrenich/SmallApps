@@ -13,6 +13,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
@@ -79,38 +80,67 @@ public class UserPhoneFragmentPresenter extends MvpPresenter<UserPhoneView> {
 
     private void sendPassRecoverCode(String phoneNumber) {
         Log.i(TAG, "sendPassRecoverCode: ");
-
-        // TEST
-        dataLoading = false;
-        Bundle bundle = new Bundle();
-        bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), authAction);
-        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification, bundle);
+        MainActivityNavigateController.getInstance().showProgress();
+        // TODO change on another URL to recover password
+        AuthController.getInstance()
+                .resendVerificationCodeNewUser(phoneNumber)
+                .subscribe(baseResponse -> {
+                    dataLoading = false;
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    Bundle bundle = new Bundle();
+                    bundle.putString(App.getInstance().getString(R.string.auth_state_action_name), authAction);
+                    MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification, bundle);
+                }, throwable -> {
+                    dataLoading = false;
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                });
     }
 
     private void registerNewUser(String phoneNumber) {
         Log.i(TAG, "registerNewUser: ");
+        MainActivityNavigateController.getInstance().showProgress();
 
-        dataLoading = false;
-        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
-
-//        AuthController.getInstance()
-//                .sendVerificationCodeNewUser(phoneNumber)
-//                .subscribe(phoneRegisterResponse -> {
-//                    MainActivityNavigateController.getInstance().hideProgress();
-//                    dataLoading = false;
-//
-//                    if(phoneRegisterResponse.getSuccess()){
-//                        mUserInfo.getCurrentUser().setMobilePhone(phoneNumber);
-//                        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
-//                    } else {
-//                        getViewState().showMessage("Такий номер телефону вже зареєстровано");
-//                    }
-//                        }
-//                , throwable -> {
-//                       dataLoading = false;
-//                       MainActivityNavigateController.getInstance().hideProgress();
-//                       getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
-//                        });
+        AuthController.getInstance()
+                .sendVerificationCodeNewUser(phoneNumber)
+                .map(phoneRegisterResponse -> phoneRegisterResponse.getData())
+                .subscribe(phoneRegisterPOJO -> {
+                    dataLoading = false;
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    String s = phoneRegisterPOJO.getStatus();
+                    Log.i(TAG, "registerNewUser: Status: " + s);
+                    switch (s){
+                        case "register" : {
+                            getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text_phone_register_already));
+                            break;
+                        } case "verified" : {
+                            MainActivityNavigateController.getInstance().showProgress();
+                            dataLoading = true;
+                            AuthController.getInstance()
+                                    .resendVerificationCodeNewUser(phoneNumber)
+                                    .subscribe(baseResponse -> {
+                                        MainActivityNavigateController.getInstance().showProgress();
+                                        dataLoading = true;
+                                        MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+                                    }, throwable -> {
+                                        MainActivityNavigateController.getInstance().showProgress();
+                                        dataLoading = true;
+                                        getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                                    });
+                            break;
+                        } case "new" : {
+                            MainActivityNavigateController.getInstance().navigate(R.id.action_userPhone_to_codeVerification);
+                            break;
+                        } default: {
+                            break;
+                        }
+                    }
+                }, throwable -> {
+                    dataLoading = false;
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    Log.i(TAG, "registerNewUser: " + throwable.getMessage());
+                    getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
+                });
     }
 
     public void setAuthAction(String authAction) {
