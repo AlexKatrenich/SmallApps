@@ -25,6 +25,7 @@ import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.UserDocumentsFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocumentsView;
+import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 
 import java.util.Calendar;
 
@@ -105,25 +106,6 @@ public class UserDocumentsFragment extends MvpAppCompatFragment implements UserD
         SpinnerDatePickerDialog dialog = new SpinnerDatePickerDialog();
         dialog.setDateSetListener((view, year, month, dayOfMonth) -> mPresenter.setUserBirthDay(year, month, dayOfMonth));
         dialog.show(getFragmentManager(), "dateDialog");
-
-//        Calendar cal = Calendar.getInstance();
-//
-//        int year = cal.get(Calendar.YEAR);
-//        int month = cal.get(Calendar.MONTH);
-//        int day = cal.get(Calendar.DAY_OF_MONTH);
-//        try {
-//            Context context = this.getContext();
-//            if(context == null) return;
-//            DatePickerDialog dialog = new DatePickerDialog(
-//                    this.getContext(),
-//                    0,
-//                    (view, year1, month1, dayOfMonth) -> mPresenter.setUserBirthDay(year1, month1, dayOfMonth),
-//                    year, month, day);
-//            dialog.getDatePicker().setMaxDate(Calendar.getInstance().getTime().getTime());
-//            dialog.show();
-//        } catch (NullPointerException e){
-//
-//        }
     }
 
     @Override
@@ -131,7 +113,10 @@ public class UserDocumentsFragment extends MvpAppCompatFragment implements UserD
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
         builder.setTitle(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_title))
                 .setMessage(s)
-                .setNegativeButton(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_button_cancel_title), (dialog, which) -> dialog.cancel());
+                .setNegativeButton(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_button_cancel_title), (dialog, which) -> {
+                    mPresenter.onCancelBtnDialogClicked();
+                    dialog.cancel();
+                });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }

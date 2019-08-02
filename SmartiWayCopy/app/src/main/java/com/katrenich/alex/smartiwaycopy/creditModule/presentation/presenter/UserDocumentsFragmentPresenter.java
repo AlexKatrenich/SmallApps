@@ -1,7 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter;
 
+import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,22 +10,33 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocumentsView;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
-import com.katrenich.alex.smartiwaycopy.model.User;
+import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
+
+import java.util.regex.Pattern;
+import java.util.zip.DataFormatException;
+
+import io.reactivex.disposables.Disposable;
 
 @InjectViewState
 public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsView> {
+    private static final String TAG = "UserDocumentsFragmentP";
     private String userBirthDay;
     private String userIPN;
     private String userPassport;
     public MutableLiveData<String> btnBirthDateTitle;
     private UserInfo mUserInfo;
     public MutableLiveData<Integer> visibilityBtnNext;
+    private Disposable dataLoad;
+    private boolean navigateToCreditFragment;
 
     public UserDocumentsFragmentPresenter() {
         mUserInfo = App.getUserInfo();
         visibilityBtnNext = new MutableLiveData<>();
         btnBirthDateTitle = new MutableLiveData<>();
+        navigateToCreditFragment = false;
         getViewState().updateUI();
     }
 
@@ -36,25 +47,50 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
     public void onBtnNextClicked(String ipn, String passport) {
         if (ipn != null && passport != null && userBirthDay != null){
             if(!ipn.isEmpty() && !passport.isEmpty() && !userBirthDay.isEmpty()){
-                User currentUser = mUserInfo.getCurrentUser();
-                currentUser.setBirthDate(userBirthDay);
-                currentUser.setInnCode(ipn);
-                currentUser.setPassportSN(passport);
-                int age = UserInfo.calculateAgeFromBirthDay(userBirthDay);
-                currentUser.setAge(age);
-                StringBuilder sb = new StringBuilder();
-                sb.append("first_name: " + currentUser.getFirstName());
-                sb.append("\r\n last_name: " + currentUser.getLastName());
-                sb.append("\r\n middle_name: " + currentUser.getMiddleName());
-                sb.append("\r\n inn_code: " + currentUser.getInnCode());
-                sb.append("\r\n passport_sn: " + currentUser.getPassportSN());
-                sb.append("\r\n mobile_phone: " + currentUser.getMobilePhone());
-                sb.append("\r\n credit_term: " + mUserInfo.getCreditTerm());
-                sb.append("\r\n birth_date: " + currentUser.getBirthDate());
-                sb.append("\r\n age: " + currentUser.getAge());
 
-                mUserInfo.setCurrentUser(currentUser);
-                Toast.makeText(App.getInstance(), sb.toString(), Toast.LENGTH_LONG).show();
+                mUserInfo.getCurrentUser().setBirthDate(userBirthDay);
+                mUserInfo.getCurrentUser().setInnCode(ipn);
+                mUserInfo.getCurrentUser().setPassportSN(passport);
+                int age = UserInfo.calculateAgeFromBirthDay(userBirthDay);
+                mUserInfo.getCurrentUser().setAge(age);
+
+                StringBuilder sb = new StringBuilder();
+                sb.append("first_name: " + mUserInfo.getCurrentUser().getFirstName());
+                sb.append("\r\n last_name: " + mUserInfo.getCurrentUser().getLastName());
+                sb.append("\r\n middle_name: " + mUserInfo.getCurrentUser().getMiddleName());
+                sb.append("\r\n inn_code: " + mUserInfo.getCurrentUser().getInnCode());
+                sb.append("\r\n passport_sn: " + mUserInfo.getCurrentUser().getPassportSN());
+                sb.append("\r\n mobile_phone: " + mUserInfo.getCurrentUser().getMobilePhone());
+                sb.append("\r\n credit_term: " + mUserInfo.getCreditTerm());
+                sb.append("\r\n birth_date: " + mUserInfo.getCurrentUser().getBirthDate());
+                sb.append("\r\n age: " + mUserInfo.getCurrentUser().getAge());
+
+                Log.i(TAG, "onBtnNextClicked: " + sb);
+
+                String token = ApiKeyPrefUtils.getApiKey(App.getInstance());
+
+                if(dataLoad != null && !dataLoad.isDisposed()) return;
+                try {
+                    MainActivityNavigateController.getInstance().showProgress();
+                    dataLoad = CreditController.getInstance()
+                            .setUserDataToServer(mUserInfo.getCurrentUser(), token)
+                            .subscribe(addUserDataResponseResponse -> {
+                                MainActivityNavigateController.getInstance().hideProgress();
+                                if (addUserDataResponseResponse.isSuccessful()) {
+                                    getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_success_data_set_message));
+                                    navigateToCreditFragment = true;
+                                } else {
+                                    Log.i(TAG, "onBtnNextClicked: RESPONSE_CODE= " + addUserDataResponseResponse.code());
+                                }
+                            }, throwable -> {
+                                getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_internet_connection_problem_message));
+                                MainActivityNavigateController.getInstance().hideProgress();
+                            });
+                } catch (DataFormatException e) {
+                    Log.e(TAG, "onBtnNextClicked: ", e);
+                    MainActivityNavigateController.getInstance().hideProgress();
+                }
+
                 return;
             }
         }
@@ -62,6 +98,13 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
         getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_text));
     }
 
+    @Override
+    public void onDestroy() {
+        if(dataLoad != null) dataLoad.dispose();
+        super.onDestroy();
+    }
+
+    // method check if all data was entered
     private void checkFullDataEntering(){
         boolean b = false;
         if(userIPN != null && userIPN.length() == 10){
@@ -103,8 +146,19 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
     }
 
     public void setUserPassport(String passport) {
-        this.userPassport = passport;
+        userPassport = null;
+        if(verifyPassport(passport)){
+            userPassport = passport;
+        }
         checkFullDataEntering();
+    }
 
+    private boolean verifyPassport(String passport){
+        String pattern = "[а-яА-Я]{2}\\d{6}";
+        return Pattern.compile(pattern).matcher(passport).matches();
+    }
+
+    public void onCancelBtnDialogClicked() {
+        if(navigateToCreditFragment) MainActivityNavigateController.getInstance().navigate(R.id.creditFragment);
     }
 }

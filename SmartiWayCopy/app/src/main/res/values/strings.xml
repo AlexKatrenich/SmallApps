@@ -28,6 +28,7 @@
     <string name="code_verification_fragment_edit_text_hint">введи код</string>
     <string name="code_verification_fragment_button_text">змінити номер</string>
     <string name="code_verification_fragment_code_error_text">Проблема з перевіркою коду верифікації, будь ласка перевірте наявність інтернет доступу</string>
+    <string name="code_verification_fragment_code_resent_button">Не отримав код, натисни сюди</string>
 
 
     <!--Fragment user password setting-->
@@ -78,9 +79,11 @@
     <string name="user_documents_fragment_btn_birth_date_title">Обери дату народження</string>
     <string name="user_documents_fragment_btn_next_title">Продовжити</string>
     <string name="user_documents_fragment_alert_dialog_text">Всі поля повинні бути заповнені, перевірте коректність введених даних</string>
-    <string name="user_documents_fragment_alert_dialog_title">Помилка вводу</string>
+    <string name="user_documents_fragment_alert_dialog_title">Увага</string>
     <string name="user_documents_fragment_alert_dialog_button_cancel_title">Продовжити</string>
-    <string name="code_verification_fragment_code_resent_button">Не отримав код, натисни сюди</string>
+    <string name="user_documents_fragment_internet_connection_problem_message">Помилка обміну даних з сервером. Будь ласка перевірте наявність інтернет доступу</string>
+    <string name="user_documents_fragment_success_data_set_message">Ваші дані успішно надіслані, найближчим часом з Вами зв\'яжуться</string>
+
 
     <!--DAYS_OF_WEEK name-->
     <string-array name="days_of_week">

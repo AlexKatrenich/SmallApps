@@ -7,6 +7,8 @@ import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.register
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.setPassword.PasswordPOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userAuth.PhonePassPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userData.AddUserDataResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userData.UserDataPOJO;
 
 import io.reactivex.Single;
 import retrofit2.Response;
@@ -26,9 +28,15 @@ public interface ApiService {
     @POST("phone/verification")
     Single<BaseResponse> verificateSecretCode(@Body SecretCodePOJO code);
 
+    @POST("phone/reset")
+    Single<BaseResponse> resetUserStatusBySecretCode(@Body SecretCodePOJO code);
+
     @POST("phone/save-password")
     Single<UserTokenResponse> savePassword(@Body PasswordPOJO password);
 
     @POST("phone/login")
     Single<Response<UserTokenResponse>> authUser(@Body PhonePassPOJO auth);
+
+    @POST("user")
+    Single<Response<AddUserDataResponse>> setUserData(@Body UserDataPOJO dataPOJO);
 }

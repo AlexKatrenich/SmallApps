@@ -39,7 +39,7 @@ public class AuthController {
         this.token = token;
     }
 
-    public Single<BaseResponse> resendVerificationCodeNewUser(String phone){
+    public Single<BaseResponse> resendVerificationCode(String phone){
 
         return App.getNetworkService().getNetworkClient()
                 .getNewSecretCode(phone)
@@ -80,14 +80,6 @@ public class AuthController {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Single<Boolean> sendVerificationCodePassRecover(String phoneNumber) {
-
-        // TEST
-        return Single.just(true)
-                .subscribeOn(Schedulers.io())
-                .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
-    }
-
     public Single<BaseResponse> verificateCode(String code) {
         SecretCodePOJO pojo = new SecretCodePOJO();
         pojo.setPhone(UserInfo.getInstance().getCurrentUser().getMobilePhone());
@@ -104,5 +96,16 @@ public class AuthController {
         return Single.just(true)
                 .subscribeOn(Schedulers.io())
                 .delay(TEST_TIME_DELAY, TimeUnit.SECONDS);
+    }
+
+    public Single<BaseResponse> verificateCodeResetUser(String code) {
+        SecretCodePOJO pojo = new SecretCodePOJO();
+        pojo.setPhone(UserInfo.getInstance().getCurrentUser().getMobilePhone());
+        pojo.setSecretCode(Integer.valueOf(code));
+
+        return App.getNetworkService().getNetworkClient()
+                .resetUserStatusBySecretCode(pojo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

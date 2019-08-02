@@ -17,49 +17,45 @@ import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import java.util.regex.Pattern;
 
+import io.reactivex.disposables.Disposable;
+
 @InjectViewState
 public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSettingView> {
 
     private static final String TAG = "PasswordSettingFragPres";
     private String authAction;
-    private boolean loadingData;
+    private Disposable loadData;
     private UserInfo mUserInfo;
 
     public PasswordSettingFragmentPresenter() {
-        loadingData = false;
         mUserInfo = App.getUserInfo();
     }
 
     public void onButtonConfirmClicked(String password, String passConfirm) {
         if(!password.equals(passConfirm)) return;
-        if(loadingData) return;
+        if(loadData != null && !loadData.isDisposed()) return;
 
         setUserPassword(password);
     }
 
     private void setUserPassword(String password){
         MainActivityNavigateController.getInstance().showProgress();
-        loadingData = true;
-        AuthController.getInstance()
+        loadData = AuthController.getInstance()
                 .setUserPassword(password)
                 .map(passwordSaveResponse -> passwordSaveResponse.getData())
                 .subscribe(userTokenPOJO -> {
-                            loadingData = false;
                             MainActivityNavigateController.getInstance().hideProgress();
-
                             Log.i(TAG, "setUserPassword: passwordResponsePOJO = " + userTokenPOJO);
-
                             String token = userTokenPOJO.getToken();
                             if (token != null) {
                                 ApiKeyPrefUtils.storeApiKey(App.getInstance(), token);
+                                Log.i(TAG, "setUserPassword: TOKEN = " + token);
                                 writeUserPhoneToSharedPref();
                                 MainActivityNavigateController.getInstance().navigate(R.id.action_passwordSetting_to_credit);
                             } else {
                                 Log.i(TAG, "setUserPassword: TOKEN == NULL");
                             }
-
                         }, throwable -> {
-                            loadingData = false;
                             MainActivityNavigateController.getInstance().hideProgress();
                             getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
                         }
@@ -84,5 +80,11 @@ public class PasswordSettingFragmentPresenter extends MvpPresenter<PasswordSetti
 
     public void setAuthAction(String authAction) {
         this.authAction = authAction;
+    }
+
+    @Override
+    public void onDestroy() {
+        if(loadData != null) loadData.dispose();
+        super.onDestroy();
     }
 }

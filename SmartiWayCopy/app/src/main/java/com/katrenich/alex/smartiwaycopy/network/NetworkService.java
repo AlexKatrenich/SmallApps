@@ -31,7 +31,6 @@ public class NetworkService {
             return chain.proceed(newRequest);
         });
 
-//        OkHttpClient.Builder client = new OkHttpClient.Builder().addInterceptor(interceptor);
 
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("https://credit-api.peremoga.pp.ua/api/v1/")

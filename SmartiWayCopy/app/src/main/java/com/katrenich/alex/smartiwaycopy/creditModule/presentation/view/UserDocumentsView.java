@@ -8,6 +8,8 @@ public interface UserDocumentsView extends MvpView {
 
     @StateStrategyType(SkipStrategy.class)
     void showBirthDatePickerDialog();
+
+    @StateStrategyType(SkipStrategy.class)
     void showMessageDialog(String message);
 
     void updateUI();

@@ -80,10 +80,11 @@ public class UserPhoneFragment extends MvpAppCompatFragment implements UserPhone
             public void afterTextChanged(Editable s) {
                 String phone = s.toString();
                 if (s.length() == 9) {
+                    Log.i(TAG, "afterTextChanged: " + etUserPhone.getText());
                     etUserPhone.setText("");
+                    mPresenter.phoneNumberEntered(phone);
                 }
-                Log.i(TAG, "afterTextChanged: " + etUserPhone.getText());
-                mPresenter.phoneNumberEntered(phone);
+
             }
         };
 

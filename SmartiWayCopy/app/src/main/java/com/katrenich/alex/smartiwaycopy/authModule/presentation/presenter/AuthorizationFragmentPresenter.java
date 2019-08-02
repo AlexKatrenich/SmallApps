@@ -20,14 +20,17 @@ import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserToke
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
+import java.util.regex.Pattern;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 
 @InjectViewState
 public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationView> {
 
     private static final String TAG = "AuthorizationFragmentP";
     private UserInfo mUserInfo;
-    private boolean loadData;
+    private Disposable loadData;
     public MutableLiveData<String> userPhoneNumber;
 
     public AuthorizationFragmentPresenter() {
@@ -39,7 +42,6 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
         mUserInfo = App.getUserInfo();
         userPhoneNumber = new MutableLiveData<>();
         getUserPhoneFromSharedPref();
-        loadData = false;
     }
 
     private void getUserPhoneFromSharedPref() {
@@ -51,14 +53,21 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
 
     public void onButtonAuthClicked(String phoneNumb, String pass) {
         if(phoneNumb != null && pass != null){
-            if (loadData) return;
-            MainActivityNavigateController.getInstance().showProgress();
-            loadData = true;
+            if(phoneNumb.length() != 9) {
+                getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
+                return;
+            }
+            if(!verifyPass(pass)) {
+                getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
+                return;
+            }
 
-            AuthController.getInstance()
+            if (loadData != null && !loadData.isDisposed()) return;
+            MainActivityNavigateController.getInstance().showProgress();
+
+            loadData = AuthController.getInstance()
                     .authorizeUser(phoneNumb, pass)
                     .subscribe(userTokenResponseResponse -> {
-                        loadData = false;
                         MainActivityNavigateController.getInstance().hideProgress();
                        if (userTokenResponseResponse.isSuccessful()){
                            Log.i(TAG, "onButtonAuthClicked: userTokenResponseResponse.isSuccessful");
@@ -85,8 +94,17 @@ public class AuthorizationFragmentPresenter extends MvpPresenter<AuthorizationVi
         } else {
             getViewState().showMessage(App.getInstance().getString(R.string.authorization_fragment_message_pass_and_phone_not_confirm));
         }
+    }
 
+    @Override
+    public void onDestroy() {
+        if(loadData != null) loadData.dispose();
+        super.onDestroy();
+    }
 
+    public boolean verifyPass(String s) {
+        String PASS_PATTERN = App.getInstance().getString(R.string.pass_verification_pattern_regex);
+        return Pattern.compile(PASS_PATTERN).matcher(s).matches();
     }
 
     private void writePhoneToSharPref(String phoneNumb) {

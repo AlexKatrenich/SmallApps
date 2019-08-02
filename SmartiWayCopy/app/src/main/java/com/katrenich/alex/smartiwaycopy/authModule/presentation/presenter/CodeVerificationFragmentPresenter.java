@@ -19,6 +19,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 @InjectViewState
@@ -26,11 +27,10 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
     private static final String TAG = "CodeVerFragmentP";
     public MutableLiveData<String> messageTextViewData;
     public MutableLiveData<Integer> btnResendCodeVisibility;
-    private boolean dataLoad;
     private String action;
     private int sec = 15; // seconds to show button Resend Secret Code
     private UserInfo mUserInfo;
-
+    private Disposable loadData;
 
     public CodeVerificationFragmentPresenter() {
         init();
@@ -41,10 +41,11 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
         messageTextViewData = new MutableLiveData<>();
         messageTextViewData.setValue(getMessageToUser());
         btnResendCodeVisibility = new MutableLiveData<>();
-        dataLoad = false;
 
         showResendButtonAfter(sec);
         getViewState().updateUI();
+
+
     }
 
 
@@ -81,22 +82,45 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
 
     public void verificationCodeEntered(String verificationCode) {
         int codeLength = App.getInstance().getResources().getInteger(R.integer.code_verification_length);
-        if(verificationCode != null && verificationCode.length() == codeLength && !dataLoad){
-            dataLoad = true;
+        if(verificationCode != null && verificationCode.length() == codeLength) {
+            if(loadData != null && !loadData.isDisposed()) return;
             MainActivityNavigateController.getInstance().showProgress();
 
-            AuthController.getInstance()
-                    .verificateCode(verificationCode)
-                    .subscribe(baseResponse -> {
-                        dataLoad = false;
-                        MainActivityNavigateController.getInstance().hideProgress();
-                        MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
-                    }, throwable -> {
-                        dataLoad = false;
-                        MainActivityNavigateController.getInstance().hideProgress();
-                        getViewState().showMessage(App.getInstance().getString(R.string.code_verification_fragment_code_error_text));
-                    });
+            if(action != null && action.equals(App.getInstance().getString(R.string.auth_action_state))){
+                verificateCodeOldUser(verificationCode);
+            } else {
+                verificateCodeNewUser(verificationCode);
+            }
+
         }
+    }
+
+    private void verificateCodeOldUser(String code) {
+        Log.i(TAG, "verificateCodeOldUser: ");
+        loadData = AuthController.getInstance()
+                .verificateCodeResetUser(code)
+                .subscribe(baseResponse -> {
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
+                }, throwable -> {
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    getViewState().showMessage(App.getInstance().getString(R.string.code_verification_fragment_code_error_text));
+                });
+
+    }
+
+    private void verificateCodeNewUser(String code) {
+        Log.i(TAG, "verificateCodeNewUser: ");
+        loadData = AuthController.getInstance()
+                .verificateCode(code)
+                .subscribe(baseResponse -> {
+
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    MainActivityNavigateController.getInstance().navigate(R.id.action_codeVerification_to_passwordSetting);
+                }, throwable -> {
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    getViewState().showMessage(App.getInstance().getString(R.string.code_verification_fragment_code_error_text));
+                });
     }
 
     public void onChangePhoneNumberClicked(View view) {
@@ -109,20 +133,25 @@ public class CodeVerificationFragmentPresenter extends MvpPresenter<CodeVerifica
 
     public void onButtonResendCodeClicked(View view) {
         String phone = UserInfo.getInstance().getCurrentUser().getMobilePhone();
-        if(!dataLoad && phone != null){
+        if(phone != null){
+            if(loadData != null && !loadData.isDisposed()) return;
+
             MainActivityNavigateController.getInstance().showProgress();
             showResendButtonAfter(sec);
-            dataLoad = true;
-            AuthController.getInstance()
-                    .resendVerificationCodeNewUser(phone)
+            loadData = AuthController.getInstance()
+                    .resendVerificationCode(phone)
                     .subscribe(baseResponse -> {
-                        dataLoad = false;
                         MainActivityNavigateController.getInstance().hideProgress();
                     }, throwable -> {
-                        dataLoad = false;
                         MainActivityNavigateController.getInstance().hideProgress();
                         getViewState().showMessage(App.getInstance().getString(R.string.user_phone_fragment_send_code_error_text));
                     });
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if(loadData != null) loadData.dispose();
+        super.onDestroy();
     }
 }
