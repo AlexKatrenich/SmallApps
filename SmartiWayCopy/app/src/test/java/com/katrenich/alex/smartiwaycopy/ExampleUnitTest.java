@@ -7,6 +7,7 @@ import com.katrenich.alex.smartiwaycopy.network.NetworkService;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,9 +28,11 @@ public class ExampleUnitTest {
 
     @Test
     public void phoneCheckRequest(){
-        String s = "АБВГДЄ";
+        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.DATE, 1);
 
-        System.out.println(s.substring(1));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+        System.out.println(format.format(calendar.getTime()));
     }
 }

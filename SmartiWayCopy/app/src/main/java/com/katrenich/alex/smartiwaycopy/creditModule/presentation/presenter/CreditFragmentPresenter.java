@@ -11,10 +11,13 @@ import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.CreditSelectionView;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditCalculator;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 import com.katrenich.alex.smartiwaycopy.model.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -64,6 +67,7 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         if(i < cashRange.length) {
             String s = cashRange[i];
             creditCashValue.setValue(s);
+            CreditController.getInstance().getCredit().setLoanAmount(Integer.valueOf(s));
         }
 
         Log.i(TAG, "setCreditCashValue: " + i);
@@ -74,6 +78,12 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         String s = "Термін (" + i + ")";
         termCountValue.setValue(s);
         mUserInfo.setCreditTerm(i);
+
+        /*Set credit return date*/
+        Date retDate = getDateFromNow(i);
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
+        String returnDate = sdt.format(retDate);
+        CreditController.getInstance().getCredit().setReturnDate(returnDate);
     }
 
     // method for getting cash range from resources constants
@@ -144,6 +154,14 @@ public class CreditFragmentPresenter extends MvpPresenter<CreditSelectionView> {
         }
 
         return dates;
+    }
+
+    public static Date getDateFromNow(int count){
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(Calendar.getInstance().getTime());
+        calendar.add(Calendar.DATE, count);
+
+        return calendar.getTime();
     }
 
     // method calls when TermNumberPicker scrolled

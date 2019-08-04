@@ -1,6 +1,7 @@
 package com.katrenich.alex.smartiwaycopy.network;
 
 import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.credit.CreditPOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhonePOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhoneRegisterResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.SecretCodePOJO;
@@ -39,4 +40,7 @@ public interface ApiService {
 
     @POST("user")
     Single<Response<AddUserDataResponse>> setUserData(@Body UserDataPOJO dataPOJO);
+
+    @POST("credit")
+    Single<Response<BaseResponse>> getCredit(@Body CreditPOJO credit);
 }

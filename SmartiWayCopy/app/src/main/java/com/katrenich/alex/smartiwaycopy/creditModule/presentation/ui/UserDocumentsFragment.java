@@ -1,22 +1,17 @@
 package com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.res.Resources;
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.MutableLiveData;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -25,9 +20,6 @@ import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.UserDocumentsFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocumentsView;
-import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
-
-import java.util.Calendar;
 
 public class UserDocumentsFragment extends MvpAppCompatFragment implements UserDocumentsView {
 

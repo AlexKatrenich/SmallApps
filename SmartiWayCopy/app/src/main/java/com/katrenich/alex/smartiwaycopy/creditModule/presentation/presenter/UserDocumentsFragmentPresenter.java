@@ -13,6 +13,7 @@ import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocum
 import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
 import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import java.util.regex.Pattern;
@@ -77,8 +78,7 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
                             .subscribe(addUserDataResponseResponse -> {
                                 MainActivityNavigateController.getInstance().hideProgress();
                                 if (addUserDataResponseResponse.isSuccessful()) {
-                                    getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_success_data_set_message));
-                                    navigateToCreditFragment = true;
+                                    getCredit();
                                 } else {
                                     Log.i(TAG, "onBtnNextClicked: RESPONSE_CODE= " + addUserDataResponseResponse.code());
                                 }
@@ -96,6 +96,26 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
         }
 
         getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_alert_dialog_text));
+    }
+
+    private void getCredit() {
+        MainActivityNavigateController.getInstance().showProgress();
+        String token = ApiKeyPrefUtils.getApiKey(App.getInstance());
+        dataLoad = CreditController.getInstance()
+                .sendCreditQuery(token)
+                .subscribe(baseResponseResponse -> {
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    if(baseResponseResponse.isSuccessful()){
+                        navigateToCreditFragment = true;
+                        getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_success_data_set_message));
+                    } else {
+                        getViewState().showMessageDialog(baseResponseResponse.message());
+                    }
+                }, throwable -> {
+                    MainActivityNavigateController.getInstance().hideProgress();
+                    Log.i(TAG, "getCredit: " + throwable.getMessage());
+                });
+
     }
 
     @Override
