@@ -83,6 +83,8 @@
     <string name="user_documents_fragment_alert_dialog_button_cancel_title">Продовжити</string>
     <string name="user_documents_fragment_internet_connection_problem_message">Помилка обміну даних з сервером. Будь ласка перевірте наявність інтернет доступу</string>
     <string name="user_documents_fragment_success_data_set_message">Ваші дані успішно надіслані, найближчим часом з Вами зв\'яжуться</string>
+    <string name="user_documents_fragment_inn_not_valid_message">Ваш ІПН та дата народження не співпадають, введіть коректні значення</string>
+    <string name="user_documents_fragment_credit_query_already_send_message">Ваш запит, вже було надіслано до кредитних організацій. Дочекайтесь будь ласка відповіді.</string>
 
 
     <!--DAYS_OF_WEEK name-->

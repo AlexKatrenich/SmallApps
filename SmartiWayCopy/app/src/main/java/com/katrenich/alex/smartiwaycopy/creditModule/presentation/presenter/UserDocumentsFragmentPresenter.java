@@ -80,6 +80,9 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
                                 if (addUserDataResponseResponse.isSuccessful()) {
                                     getCredit();
                                 } else {
+                                    if(addUserDataResponseResponse.code() == 422){
+                                        getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_inn_not_valid_message));
+                                    }
                                     Log.i(TAG, "onBtnNextClicked: RESPONSE_CODE= " + addUserDataResponseResponse.code());
                                 }
                             }, throwable -> {
@@ -109,6 +112,9 @@ public class UserDocumentsFragmentPresenter extends MvpPresenter<UserDocumentsVi
                         navigateToCreditFragment = true;
                         getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_success_data_set_message));
                     } else {
+                        if(baseResponseResponse.code() == 406){
+                            getViewState().showMessageDialog(App.getInstance().getString(R.string.user_documents_fragment_credit_query_already_send_message));
+                        }
                         getViewState().showMessageDialog(baseResponseResponse.message());
                     }
                 }, throwable -> {

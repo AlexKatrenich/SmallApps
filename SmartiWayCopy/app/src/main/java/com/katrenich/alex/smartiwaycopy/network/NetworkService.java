@@ -31,9 +31,8 @@ public class NetworkService {
             return chain.proceed(newRequest);
         });
 
-
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://credit-api.peremoga.pp.ua/api/v1/")
+                .baseUrl("https://creditua.best/api/v1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client.build())
