@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">SmartiWayCopy</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="app_name">Швидкий кредит</string>
+    <string name="title_activity_main">Швидкий кредит</string>
     <string name="main_activity_bnv_menu_credit_item_title">Кредит</string>
     <string name="main_activity_bnv_menu_menu_item_title">Меню</string>
 

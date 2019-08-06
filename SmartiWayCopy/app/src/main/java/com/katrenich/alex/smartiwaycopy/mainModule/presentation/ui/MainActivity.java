@@ -60,19 +60,19 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         mProgressBar = findViewById(R.id.pb_toolbar_main_activity);
 
         mBnv = findViewById(R.id.bnv_main_activity);
-        mBnv.setOnNavigationItemSelectedListener(menuItem -> {
-            if(getSelectedItemID(mBnv) == menuItem.getItemId()) return false;
-
-            if (menuItem.getItemId() == R.id.item_credit){
-                mPresenter.onCreditBottomNavigationClicked();
-                return true;
-            } else if(menuItem.getItemId() == R.id.item_menu){
-                mPresenter.onMenuBottomNavigationClicked();
-                return true;
-            }
-
-            return false;
-        });
+//        mBnv.setOnNavigationItemSelectedListener(menuItem -> {
+//            if(getSelectedItemID(mBnv) == menuItem.getItemId()) return false;
+//
+//            if (menuItem.getItemId() == R.id.item_credit){
+//                mPresenter.onCreditBottomNavigationClicked();
+//                return true;
+//            } else if(menuItem.getItemId() == R.id.item_menu){
+//                mPresenter.onMenuBottomNavigationClicked();
+//                return true;
+//            }
+//
+//            return false;
+//        });
         mNavController = Navigation.findNavController(this, R.id.nav_controller_main_activity);
     }
 
