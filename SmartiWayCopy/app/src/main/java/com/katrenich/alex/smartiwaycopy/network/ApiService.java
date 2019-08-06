@@ -2,11 +2,11 @@ package com.katrenich.alex.smartiwaycopy.network;
 
 import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.credit.CreditPOJO;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhonePOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhoneRegisterResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.SecretCodePOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.setPassword.PasswordPOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userAuth.PhonePassPOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userData.AddUserDataResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userData.UserDataPOJO;

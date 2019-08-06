@@ -11,18 +11,16 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
-import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
-import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.AuthorizationView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
+import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
+import com.katrenich.alex.smartiwaycopy.model.User;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenPOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import java.util.regex.Pattern;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
 @InjectViewState

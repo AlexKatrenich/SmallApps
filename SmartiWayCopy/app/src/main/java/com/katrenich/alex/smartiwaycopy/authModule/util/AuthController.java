@@ -3,11 +3,11 @@ package com.katrenich.alex.smartiwaycopy.authModule.util;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
+import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhonePOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhoneRegisterResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.SecretCodePOJO;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.setPassword.PasswordPOJO;
-import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.UserTokenResponse;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.userAuth.PhonePassPOJO;
 
 import java.util.concurrent.TimeUnit;

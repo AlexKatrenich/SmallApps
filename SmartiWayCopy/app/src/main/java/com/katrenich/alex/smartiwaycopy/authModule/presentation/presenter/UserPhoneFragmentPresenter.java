@@ -13,9 +13,9 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.katrenich.alex.smartiwaycopy.App;
 import com.katrenich.alex.smartiwaycopy.R;
+import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
 import com.katrenich.alex.smartiwaycopy.authModule.util.AuthController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
-import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.UserPhoneView;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
 import com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.registerPhoneNumber.PhoneRegisterResponse;
 

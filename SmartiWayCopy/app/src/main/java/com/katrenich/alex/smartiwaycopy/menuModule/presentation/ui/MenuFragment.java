@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
-import com.google.android.material.button.MaterialButton;
 import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.menuModule.presentation.presenter.MenuFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.menuModule.presentation.view.MenuView;

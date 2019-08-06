@@ -13,7 +13,6 @@ import com.katrenich.alex.smartiwaycopy.creditModule.presentation.view.UserDocum
 import com.katrenich.alex.smartiwaycopy.creditModule.util.CreditController;
 import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
 import com.katrenich.alex.smartiwaycopy.mainModule.util.MainActivityNavigateController;
-import com.katrenich.alex.smartiwaycopy.network.model.BaseResponse;
 import com.katrenich.alex.smartiwaycopy.utils.ApiKeyPrefUtils;
 
 import java.util.regex.Pattern;

@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.DialogFragment;
 
-
 import com.arellomobile.mvp.MvpView;
 
 public interface MainView extends MvpView {

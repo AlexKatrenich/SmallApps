@@ -1,19 +1,11 @@
 package com.katrenich.alex.smartiwaycopy;
 
-import com.katrenich.alex.smartiwaycopy.creditModule.presentation.presenter.CreditFragmentPresenter;
-import com.katrenich.alex.smartiwaycopy.creditModule.presentation.ui.CreditFragment;
-import com.katrenich.alex.smartiwaycopy.creditModule.util.UserInfo;
-import com.katrenich.alex.smartiwaycopy.network.NetworkService;
-
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit test, which will execute on the development machine (host).

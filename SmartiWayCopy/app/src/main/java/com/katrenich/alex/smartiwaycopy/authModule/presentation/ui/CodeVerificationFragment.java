@@ -21,9 +21,6 @@ import com.katrenich.alex.smartiwaycopy.R;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.presenter.CodeVerificationFragmentPresenter;
 import com.katrenich.alex.smartiwaycopy.authModule.presentation.view.CodeVerificationView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class CodeVerificationFragment extends MvpAppCompatFragment implements CodeVerificationView {
 
     @InjectPresenter

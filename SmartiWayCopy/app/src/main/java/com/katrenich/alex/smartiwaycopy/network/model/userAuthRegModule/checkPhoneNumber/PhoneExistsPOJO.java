@@ -1,8 +1,5 @@
 package com.katrenich.alex.smartiwaycopy.network.model.userAuthRegModule.checkPhoneNumber;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class PhoneExistsPOJO {
 
 //    @SerializedName("phone")
