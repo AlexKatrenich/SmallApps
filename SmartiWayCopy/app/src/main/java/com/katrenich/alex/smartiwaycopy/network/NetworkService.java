@@ -32,7 +32,7 @@ public class NetworkService {
         });
 
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("https://creditua.best/api/v1/")
+                .baseUrl(App.getInstance().getString(R.string.test_server_api_address))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client.build())

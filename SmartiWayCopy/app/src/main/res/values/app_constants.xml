@@ -3,7 +3,7 @@
 <resources>
     <integer name="code_verification_length">4</integer>
     <string name="main_company_phone_number">067 734 36 71</string>
-    <string name="test_server_api_address">https://credit-api.peremoga.pp.ua/api/v1/</string>
+    <string name="test_server_api_address">https://creditua.best/api/v1/</string>
     <string name="main_company_website_address">http://leadsdoit.com/</string>
     <string name="x_api_token">Y01Zr9J7542zDNVa6KPugcvH6Z67lmxi</string>
     <string name="pass_verification_pattern_regex">^.*(?=.{7,30})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$</string>
