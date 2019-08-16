@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/userPhoneFragment"
-        android:name="com.bistriycredit.online.nakartu.authModule.presentation.ui.UserPhoneFragment"
+        android:name="com.credit.ukraine.online.authModule.presentation.ui.UserPhoneFragment"
         android:label="fragment_user_phone"
         tools:layout="@layout/fragment_user_phone" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/creditFragment"
-        android:name="com.bistriycredit.online.nakartu.creditModule.presentation.ui.CreditFragment"
+        android:name="com.credit.ukraine.online.creditModule.presentation.ui.CreditFragment"
         android:label="fragment_credit"
         tools:layout="@layout/fragment_credit" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/passwordSettingFragment"
-        android:name="com.bistriycredit.online.nakartu.authModule.presentation.ui.PasswordSettingFragment"
+        android:name="com.credit.ukraine.online.authModule.presentation.ui.PasswordSettingFragment"
         android:label="fragment_password_setting"
         tools:layout="@layout/fragment_password_setting" >
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/authorizationFragment"
-        android:name="com.bistriycredit.online.nakartu.authModule.presentation.ui.AuthorizationFragment"
+        android:name="com.credit.ukraine.online.authModule.presentation.ui.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" >
         <action
@@ -95,7 +95,7 @@
     </fragment>
     <fragment
         android:id="@+id/codeVerificationFragment"
-        android:name="com.bistriycredit.online.nakartu.authModule.presentation.ui.CodeVerificationFragment"
+        android:name="com.credit.ukraine.online.authModule.presentation.ui.CodeVerificationFragment"
         android:label="fragment_code_varification"
         tools:layout="@layout/fragment_code_varification">
         <action
@@ -114,7 +114,7 @@
         android:name="action" />
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.bistriycredit.online.nakartu.menuModule.presentation.ui.MenuFragment"
+        android:name="com.credit.ukraine.online.menuModule.presentation.ui.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" >
         <action
@@ -130,7 +130,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFullNameFragment"
-        android:name="com.bistriycredit.online.nakartu.creditModule.presentation.ui.UserFullNameFragment"
+        android:name="com.credit.ukraine.online.creditModule.presentation.ui.UserFullNameFragment"
         android:label="fragment_user_full_name"
         tools:layout="@layout/fragment_user_full_name" >
         <action
@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/userDocumentsFragment"
-        android:name="com.bistriycredit.online.nakartu.creditModule.presentation.ui.UserDocumentsFragment"
+        android:name="com.credit.ukraine.online.creditModule.presentation.ui.UserDocumentsFragment"
         android:label="fragment_user_documents"
         tools:layout="@layout/fragment_user_documents" />
 </navigation>
