@@ -87,6 +87,11 @@
     <string name="user_documents_fragment_credit_query_already_send_message">Ваш запит, вже було надіслано до кредитних організацій. Дочекайтесь будь ласка відповіді.</string>
 
 
+    <!--Facebook-->
+
+    <string name="facebook_app_id">400271427293404</string>
+    <string name="fb_login_protocol_scheme">fb400271427293404</string>
+
     <!--DAYS_OF_WEEK name-->
     <string-array name="days_of_week">
         <item>нд</item>

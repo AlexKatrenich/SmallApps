@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.bistriycredit.online.nakartu.utils.PrefixAppCompatEditText
+    <com.credit.ukraine.online.utils.PrefixAppCompatEditText
         android:id="@+id/et_user_phone_authorization_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
