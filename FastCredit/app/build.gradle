@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: "androidx.navigation.safeargs"
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 
 android {
     compileSdkVersion 28
@@ -11,6 +12,10 @@ android {
         versionCode 2
         versionName "1.1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                onesignal_app_id: '363b68ed-5d62-4657-9822-a1d8d52fbade',
+                onesignal_google_project_number: 'REMOTE'
+        ]
     }
     buildTypes {
         release {
@@ -61,6 +66,6 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
 
-
+    implementation 'com.onesignal:OneSignal:[3.11.3, 3.99.99]'
 
 }

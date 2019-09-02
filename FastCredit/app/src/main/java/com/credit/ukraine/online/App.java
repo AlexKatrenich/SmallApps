@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.credit.ukraine.online.creditModule.util.UserInfo;
 import com.credit.ukraine.online.network.NetworkService;
+import com.onesignal.OneSignal;
 
 public class App extends Application {
     private static App instance;
@@ -16,6 +17,12 @@ public class App extends Application {
         instance = this;
         sUserInfo = UserInfo.getInstance();
         mNetworkService = NetworkService.getInstance();
+
+        // Init onesignal service
+        OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init();
     }
 
     public static App getInstance() {
